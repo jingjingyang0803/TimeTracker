@@ -15,19 +15,21 @@ const NavigationBar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">About</Link>
+          <Link to="/">About</Link> {/* Link to the About page */}
         </li>
         <li>
-          <Link to="/tasks">Task Management</Link>
+          <Link to="/tasks">Task Management</Link>{" "}
+          {/* Link to the Tasks page */}
         </li>
         <li>
-          <Link to="/tags">Tags</Link>
+          <Link to="/tags">Tags</Link> {/* Link to the Tags page */}
         </li>
         <li>
-          <Link to="/summary">Summary and Charts</Link>
+          <Link to="/summary">Summary and Charts</Link>{" "}
+          {/* Link to the Summary page */}
         </li>
         <li>
-          <Link to="/settings">Settings</Link>
+          <Link to="/settings">Settings</Link> {/* Link to the Settings page */}
         </li>
       </ul>
     </nav>
@@ -39,16 +41,21 @@ const App = () => {
     <BrowserRouter>
       <div className="container">
         <header>
-          <h1>Time Tracker</h1>
-          <NavigationBar />
+          <h1>Time Tracker</h1> {/* Header */}
+          <NavigationBar /> {/* Navigation bar */}
         </header>
         <main>
           <Routes>
-            <Route exact path="/" element={<About />} />
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/tags" element={<Tags />} />
-            <Route path="/summary" element={<Summary />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route exact path="/" element={<About />} />{" "}
+            {/* Route for the About page */}
+            <Route path="/tasks" element={<Tasks />} />{" "}
+            {/* Route for the Tasks page */}
+            <Route path="/tags" element={<Tags />} />{" "}
+            {/* Route for the Tags page */}
+            <Route path="/summary" element={<Summary />} />{" "}
+            {/* Route for the Summary page */}
+            <Route path="/settings" element={<Settings />} />{" "}
+            {/* Route for the Settings page */}
           </Routes>
         </main>
         <footer>
