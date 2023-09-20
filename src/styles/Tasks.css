@@ -1,0 +1,23 @@
+.task {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task-name {
+  font-weight: bold;
+}
+
+.task-tags {
+  margin-top: 5px;
+}
+
+.task-tags span {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-right: 5px;
+}

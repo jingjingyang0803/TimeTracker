@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../styles/Tasks.css";
 
 const TaskViewIntructions = () => {
   return (
@@ -31,11 +32,15 @@ const TaskViewIntructions = () => {
 
 const TaskElement = ({ name, tags }) => {
   return (
-    <li>
-      Task Name: {name} {/* Display the name of the task */}
-      <br />
-      Tags: {tags.join(", ")} {/* Display the tags of the task */}
-    </li>
+    <div className="task">
+      <div className="task-name">Task Name: {name}</div>
+      <div className="task-tags">
+        Tags:{" "}
+        {tags.map((tag, index) => (
+          <span key={index}>{tag}</span>
+        ))}
+      </div>
+    </div>
   );
 };
 
