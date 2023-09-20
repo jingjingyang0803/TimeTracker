@@ -47,28 +47,47 @@ const About = () => {
           Module A: 6h
           <ul>
             <li>
-              - Created a page with 5 views that can be switched between using
+              Created a page with 5 views that can be switched between using
               tags.
             </li>
             <li>
-              - Implemented a responsive navigation bar that adapts to different
+              Implemented a responsive navigation bar that adapts to different
               screen sizes, including small screens.
             </li>
-            <li>- Implemented unique addresses for each view.</li>
+            <li> Implemented unique addresses for each view.</li>
+            <li>npm install react-router-dom</li>
           </ul>
         </li>
         <li>
           Module B: 3h
           <ul>
             <li>
-              - Updated the "About" view, including the author's name, working
+              Updated the "About" view, including the author's name, working
               hours log, and thoughts about implementation.
             </li>
             <li>
-              - Organized features to implement based on the project
-              requirements.
+              Organized features to implement based on the project requirements.
             </li>
-            <li>- Provided instructions for using the application.</li>
+            <li> Provided instructions for using the application.</li>
+          </ul>
+        </li>
+        <li>
+          Module C: 5h
+          <ul>
+            <li>
+              Added a file 'db.json' to the root directory to serve as the
+              "database".
+            </li>
+            <li>Created tasks with related tags in the 'db.json' file.</li>
+            <li>
+              Run backend server: npx json-server -H localhost -p 3010 -w
+              ./db.json
+            </li>
+            <li>npm install json-server</li>
+            <li>
+              Initialized the application by retrieving task data from a local
+              backend json-server.
+            </li>
           </ul>
         </li>
       </ol>
