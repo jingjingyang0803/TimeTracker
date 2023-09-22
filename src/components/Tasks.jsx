@@ -30,7 +30,14 @@ const TaskViewInstructions = () => {
   );
 };
 
-const TaskElement = ({ taskId, name, tags, handleRemoveTag, handleAddTag }) => {
+const TaskElement = ({
+  taskId,
+  name,
+  tags,
+  handleRemoveTag,
+  handleAddTag,
+  handleRemoveTask,
+}) => {
   const removeTag = (index) => {
     console.log("Remove tag function called");
     console.log("Clicked Tag:", tags[index]);
@@ -53,6 +60,10 @@ const TaskElement = ({ taskId, name, tags, handleRemoveTag, handleAddTag }) => {
     }
   };
 
+  const removeTask = () => {
+    handleRemoveTask(taskId);
+  };
+
   return (
     <div className="task">
       <div className="task-name">Task Name: {name}</div>
@@ -70,6 +81,10 @@ const TaskElement = ({ taskId, name, tags, handleRemoveTag, handleAddTag }) => {
           +
         </button>
       </div>
+
+      <button onClick={removeTask} className="task-remove">
+        Remove
+      </button>
     </div>
   );
 };
@@ -122,6 +137,11 @@ const Tasks = () => {
     updateTaskTags(taskId, updatedTags); // Call the updateTaskTags function to update the task with the new tag
   };
 
+  const handleRemoveTask = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId); // Filter out the task with the specified taskId
+    setTasks(updatedTasks); // Update the tasks state variable with the filtered array
+  };
+
   return (
     <div>
       <TaskViewInstructions />
@@ -136,6 +156,7 @@ const Tasks = () => {
             tags={task.tags}
             handleRemoveTag={handleRemoveTag}
             handleAddTag={handleAddTag}
+            handleRemoveTask={handleRemoveTask}
           />
         ))}
       </ol>
