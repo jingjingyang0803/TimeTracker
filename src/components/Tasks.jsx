@@ -91,6 +91,8 @@ const TaskElement = ({
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [newName, setNewName] = useState("");
+  const [newTags, setNewTags] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3010/tasks") // Make a GET request to fetch the task data from the backend server
@@ -142,10 +144,54 @@ const Tasks = () => {
     setTasks(updatedTasks); // Update the tasks state variable with the filtered array
   };
 
+  const handleAddTask = () => {
+    if (newName.trim() !== "" && newTags.length > 0) {
+      const lastTask = tasks[tasks.length - 1]; // Get the last task in the tasks array
+      const newTaskId = lastTask ? lastTask.id + 1 : 1; // Generate a unique key for the new task
+
+      const newTask = {
+        id: newTaskId,
+        name: newName,
+        tags: newTags,
+      };
+
+      setTasks([...tasks, newTask]);
+      setNewName("");
+      setNewTags([]);
+      alert("Task added successfully!");
+    } else {
+      alert(
+        "Failed to add task. Please enter a task name and at least one tag."
+      );
+    }
+  };
+
   return (
     <div>
       <TaskViewInstructions />
       <hr />
+      <div className="add-task-container">
+        <p>Enter task details to create a new task:</p>
+        <div>
+          <input
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            placeholder="task name"
+            className="task-input"
+          />
+          <input
+            type="text"
+            value={newTags}
+            onChange={(e) => setNewTags(e.target.value.split(","))}
+            placeholder="tags(separated by commas)"
+            className="task-input"
+          />
+          <button onClick={handleAddTask} className="add-task-button">
+            Add Task
+          </button>
+        </div>
+      </div>
       <ol>
         {/* Map through the tasks and render a TaskElement component for each task */}
         {tasks.map((task) => (

@@ -17,8 +17,13 @@
   margin-right: 5px;
 }
 
-input,
-button {
+* {
   font-family: inherit;
   font-size: medium;
+}
+
+.add-task-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
