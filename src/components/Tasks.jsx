@@ -30,11 +30,27 @@ const TaskViewInstructions = () => {
   );
 };
 
-const TaskElement = ({ taskId, name, tags, handleRemoveTag }) => {
+const TaskElement = ({ taskId, name, tags, handleRemoveTag, handleAddTag }) => {
   const removeTag = (index) => {
     console.log("Remove tag function called");
     console.log("Clicked Tag:", tags[index]);
     handleRemoveTag(taskId, index);
+  };
+
+  const addTag = () => {
+    const newTag = prompt("Enter a new tag:"); // Prompt the user to enter a new tag
+
+    if (newTag !== null) {
+      const trimmedTag = newTag.trim();
+      if (trimmedTag !== "") {
+        console.log("New Tag:", trimmedTag);
+        handleAddTag(taskId, trimmedTag); // Pass the trimmedTag value to the handleAddTag function
+      } else {
+        alert("Tag cannot be empty. Please enter a valid tag.");
+      }
+    } else {
+      console.log("User clicked Cancel");
+    }
   };
 
   return (
@@ -50,6 +66,9 @@ const TaskElement = ({ taskId, name, tags, handleRemoveTag }) => {
             </button>
           </span>
         ))}
+        <button onClick={addTag} className="tag-add">
+          +
+        </button>
       </div>
     </div>
   );
@@ -71,23 +90,36 @@ const Tasks = () => {
       .catch((error) => console.log(error)); // Handle any errors during the fetch request
   }, []);
 
-  // Function to handle removing a tag from a task
+  const updateTaskTags = (taskId, updatedTags) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId); // Find the index of the task
+    const task = tasks[taskIndex]; // Get the task object
+    const updatedTask = { ...task, tags: updatedTags }; // Create an updated task object with the modified tags
+    const updatedTasks = [...tasks]; // Create a copy of the tasks array
+    updatedTasks[taskIndex] = updatedTask; // Replace the task at the specified index with the updated task
+    setTasks(updatedTasks); // Update the tasks state variable with the updated array
+  };
+
   const handleRemoveTag = (taskId, index) => {
     const taskIndex = tasks.findIndex((task) => task.id === taskId); // Find the index of the task
     const task = tasks[taskIndex]; // Get the task object
     const updatedTags = [...task.tags]; // Create a copy of the tags array
 
     if (updatedTags.length > 1) {
-      // Check if there is more than one tag
       updatedTags.splice(index, 1); // Remove the tag at the specified index
       console.log("Updated Tags:", updatedTags); // Log the updated tags to the console
-      const updatedTask = { ...task, tags: updatedTags }; // Create an updated task object with the modified tags
-      const updatedTasks = [...tasks]; // Create a copy of the tasks array
-      updatedTasks[taskIndex] = updatedTask; // Replace the task at the specified index with the updated task
-      setTasks(updatedTasks); // Update the tasks state variable with the updated array
+      updateTaskTags(taskId, updatedTags); // Call the updateTaskTags function to update the task with the modified tags
     } else {
       alert("Cannot remove tag. Task must have at least one tag."); // Alert the user if the task only has one tag
     }
+  };
+
+  const handleAddTag = (taskId, newTag) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId); // Find the index of the task
+    const task = tasks[taskIndex]; // Get the task object
+    const updatedTags = [...task.tags, newTag]; // Create a new array with the existing tags and the new tag
+
+    console.log("Updated Tags:", updatedTags); // Log the updated tags to the console
+    updateTaskTags(taskId, updatedTags); // Call the updateTaskTags function to update the task with the new tag
   };
 
   return (
@@ -103,6 +135,7 @@ const Tasks = () => {
             name={task.name}
             tags={task.tags}
             handleRemoveTag={handleRemoveTag}
+            handleAddTag={handleAddTag}
           />
         ))}
       </ol>
