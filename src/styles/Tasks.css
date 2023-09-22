@@ -6,18 +6,19 @@
   margin-bottom: 10px;
 }
 
-.task-name {
-  font-weight: bold;
-}
-
 .task-tags {
   margin-top: 5px;
 }
 
 .task-tags span {
   background-color: #e0e0e0;
-  color: #333;
   padding: 2px 5px;
   border-radius: 3px;
   margin-right: 5px;
+}
+
+input,
+button {
+  font-family: inherit;
+  font-size: medium;
 }

@@ -90,6 +90,16 @@ const About = () => {
             </li>
           </ul>
         </li>
+        <li>
+          Module D:
+          <ul>
+            <li>Implemented tag remove and tag add functionality.</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </li>
       </ol>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Tasks.css";
 
-const TaskViewIntructions = () => {
+const TaskViewInstructions = () => {
   return (
     <div>
       <ul>
@@ -30,14 +30,25 @@ const TaskViewIntructions = () => {
   );
 };
 
-const TaskElement = ({ name, tags }) => {
+const TaskElement = ({ taskId, name, tags, handleRemoveTag }) => {
+  const removeTag = (index) => {
+    console.log("Remove tag function called");
+    console.log("Clicked Tag:", tags[index]);
+    handleRemoveTag(taskId, index);
+  };
+
   return (
     <div className="task">
       <div className="task-name">Task Name: {name}</div>
       <div className="task-tags">
         Tags:{" "}
         {tags.map((tag, index) => (
-          <span key={index}>{tag}</span>
+          <span key={index}>
+            {tag}{" "}
+            <button onClick={() => removeTag(index)} className="tag-remove">
+              x
+            </button>
+          </span>
         ))}
       </div>
     </div>
@@ -60,18 +71,42 @@ const Tasks = () => {
       .catch((error) => console.log(error)); // Handle any errors during the fetch request
   }, []);
 
+  // Function to handle removing a tag from a task
+  const handleRemoveTag = (taskId, index) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId); // Find the index of the task
+    const task = tasks[taskIndex]; // Get the task object
+    const updatedTags = [...task.tags]; // Create a copy of the tags array
+
+    if (updatedTags.length > 1) {
+      // Check if there is more than one tag
+      updatedTags.splice(index, 1); // Remove the tag at the specified index
+      console.log("Updated Tags:", updatedTags); // Log the updated tags to the console
+      const updatedTask = { ...task, tags: updatedTags }; // Create an updated task object with the modified tags
+      const updatedTasks = [...tasks]; // Create a copy of the tasks array
+      updatedTasks[taskIndex] = updatedTask; // Replace the task at the specified index with the updated task
+      setTasks(updatedTasks); // Update the tasks state variable with the updated array
+    } else {
+      alert("Cannot remove tag. Task must have at least one tag."); // Alert the user if the task only has one tag
+    }
+  };
+
   return (
     <div>
-      <TaskViewIntructions />
+      <TaskViewInstructions />
       <hr />
       <ol>
         {/* Map through the tasks and render a TaskElement component for each task */}
         {tasks.map((task) => (
-          <TaskElement key={task.id} name={task.name} tags={task.tags} />
+          <TaskElement
+            key={task.id}
+            taskId={task.id}
+            name={task.name}
+            tags={task.tags}
+            handleRemoveTag={handleRemoveTag}
+          />
         ))}
       </ol>
     </div>
   );
 };
-
 export default Tasks;
