@@ -138,6 +138,24 @@ const Tasks = () => {
       .catch((error) => console.log(error)); // Handle any errors during the fetch request
   }, []);
 
+  // Function to send the changes made by the user to the server
+  const sendChangesToServer = (taskId, updatedTask) => {
+    fetch(`http://localhost:3010/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTask),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Changes saved successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Failed to save changes:", error);
+      });
+  };
+
   const updateTaskTags = (taskId, updatedTags) => {
     const taskIndex = tasks.findIndex((task) => task.id === taskId); // Find the index of the task
     const task = tasks[taskIndex]; // Get the task object
@@ -145,6 +163,9 @@ const Tasks = () => {
     const updatedTasks = [...tasks]; // Create a copy of the tasks array
     updatedTasks[taskIndex] = updatedTask; // Replace the task at the specified index with the updated task
     setTasks(updatedTasks); // Update the tasks state variable with the updated array
+
+    // Send the updated task to the server
+    sendChangesToServer(taskId, updatedTask);
   };
 
   const handleRemoveTag = (taskId, index) => {
@@ -159,6 +180,16 @@ const Tasks = () => {
     } else {
       alert("Cannot remove tag. Task must have at least one tag."); // Alert the user if the task only has one tag
     }
+
+    // Prepare the updated task object
+    const updatedTask = {
+      id: taskId,
+      name: task.name,
+      tags: updatedTags,
+    };
+
+    // Send the updated task to the server
+    sendChangesToServer(taskId, updatedTask);
   };
 
   const handleAddTag = (taskId, newTag) => {
@@ -168,11 +199,57 @@ const Tasks = () => {
 
     console.log("Updated Tags:", updatedTags); // Log the updated tags to the console
     updateTaskTags(taskId, updatedTags); // Call the updateTaskTags function to update the task with the new tag
+
+    // Prepare the updated task object
+    const updatedTask = {
+      id: taskId,
+      name: task.name,
+      tags: updatedTags,
+    };
+
+    // Send the updated task to the server
+    sendChangesToServer(taskId, updatedTask);
+  };
+
+  // Function to remove a task from the server
+  const removeTaskFromServer = (taskId) => {
+    fetch(`http://localhost:3010/tasks/${taskId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Task removed successfully:", data);
+        // Update the UI or perform any necessary actions after removing the task
+      })
+      .catch((error) => {
+        console.error("Failed to remove task:", error);
+      });
   };
 
   const handleRemoveTask = (taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId); // Filter out the task with the specified taskId
     setTasks(updatedTasks); // Update the tasks state variable with the filtered array
+
+    removeTaskFromServer(taskId);
+  };
+
+  // Function to add a new task to server
+  const addTaskToServer = (newTask) => {
+    fetch("http://localhost:3010/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("New task added successfully:", data);
+        // Update the UI or perform any necessary actions after adding the task
+      })
+      .catch((error) => {
+        console.error("Failed to add new task:", error);
+      });
   };
 
   const handleAddTask = () => {
@@ -190,6 +267,8 @@ const Tasks = () => {
       setNewName("");
       setNewTags([]);
       alert("Task added successfully!");
+
+      addTaskToServer(newTask);
     } else {
       alert(
         "Failed to add task. Please enter a task name and at least one tag."
@@ -204,6 +283,9 @@ const Tasks = () => {
     const updatedTasks = [...tasks]; // Create a copy of the tasks array
     updatedTasks[taskIndex] = updatedTask; // Replace the task at the specified index with the updated task
     setTasks(updatedTasks); // Update the tasks state variable with the updated array
+
+    // Send the updated task to the server
+    sendChangesToServer(taskId, updatedTask);
   };
 
   return (

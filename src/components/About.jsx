@@ -98,6 +98,21 @@ const About = () => {
             <li>Enabled task name edit functionality.</li>
           </ul>
         </li>
+        <li>
+          Module E: 2h
+          <ul>
+            <li>
+              Save edited task(adding/removing tags or editing task names) to
+              backend server by sending a PUT request.
+            </li>
+            <li>
+              Save removed task to backend server by sending a DELETE request.
+            </li>
+            <li>
+              Save newly added task to backend server by sending a POST request.
+            </li>
+          </ul>
+        </li>
       </ol>
     </div>
   );
