@@ -6,16 +6,28 @@ const TaskViewInstructions = () => {
     <div>
       <ul>
         <li>
-          <b>Creating Tasks: </b>Click on the "Add Task" button to create a new
-          task. Enter the task name and assign tags as needed.
+          <b>Adding a Task:</b> Enter the task details in the "Enter task
+          details to create a new task" section. Provide a task name in the
+          "task name" input field and add one or more tags in the "tags" input
+          field separated by commas. Then, click the "Add Task" button.
         </li>
         <li>
-          <b>Editing Tasks: </b>Select a task from the task list and click on
-          the "Edit" button. Modify the task name and tags as desired.
+          <b>Removing a Task:</b> Click the "Remove" button next to the task you
+          want to remove.
         </li>
         <li>
-          <b>Deleting Tasks: </b>In the task list, click on the "Delete" button
-          next to the task you want to remove.
+          <b>Editing a Task Name:</b> Click the "Edit" button next to the task
+          you want to edit. In the prompt that appears, enter the new task name
+          and click "OK". The task name will be updated.
+        </li>
+        <li>
+          <b>Adding a Tag to a Task:</b> Click the "+" button next to the task's
+          tags. In the prompt that appears, enter the new tag and click "OK".
+          The tag will be added to the task.
+        </li>
+        <li>
+          <b>Removing a Tag from a Task:</b> Click the "x" button next to the
+          tag you want to remove.
         </li>
         <li>
           <b>Tracking Time: </b>To start tracking time for a task, click on the
@@ -37,6 +49,7 @@ const TaskElement = ({
   handleRemoveTag,
   handleAddTag,
   handleRemoveTask,
+  handleEditTaskName,
 }) => {
   const removeTag = (index) => {
     console.log("Remove tag function called");
@@ -64,8 +77,26 @@ const TaskElement = ({
     handleRemoveTask(taskId);
   };
 
+  const editTaskName = () => {
+    const newTaskName = prompt("Enter a new task name:"); // Prompt the user to enter a new task name
+
+    if (newTaskName !== null) {
+      const trimmedTaskName = newTaskName.trim();
+      if (trimmedTaskName !== "") {
+        console.log("New Task Name:", trimmedTaskName);
+        handleEditTaskName(taskId, trimmedTaskName); // Pass the trimmedTaskName value to the handleEditTaskName function
+      } else {
+        alert("Task name cannot be empty. Please enter a valid task name.");
+      }
+    } else {
+      console.log("User clicked Cancel");
+    }
+  };
   return (
     <div className="task">
+      <button onClick={editTaskName} className="task-edit">
+        Edit
+      </button>
       <div className="task-name">Task Name: {name}</div>
       <div className="task-tags">
         Tags:{" "}
@@ -166,6 +197,15 @@ const Tasks = () => {
     }
   };
 
+  const handleEditTaskName = (taskId, newTaskName) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId); // Find the index of the task
+    const task = tasks[taskIndex]; // Get the task object
+    const updatedTask = { ...task, name: newTaskName }; // Create an updated task object with the modified task name
+    const updatedTasks = [...tasks]; // Create a copy of the tasks array
+    updatedTasks[taskIndex] = updatedTask; // Replace the task at the specified index with the updated task
+    setTasks(updatedTasks); // Update the tasks state variable with the updated array
+  };
+
   return (
     <div>
       <TaskViewInstructions />
@@ -203,6 +243,7 @@ const Tasks = () => {
             handleRemoveTag={handleRemoveTag}
             handleAddTag={handleAddTag}
             handleRemoveTask={handleRemoveTask}
+            handleEditTaskName={handleEditTaskName}
           />
         ))}
       </ol>

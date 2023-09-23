@@ -91,13 +91,11 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module D:
+          Module D: 20h
           <ul>
-            <li>Implemented tag remove and tag add functionality.</li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Added tag remove and tag add functionality. </li>
+            <li>Implemented task remove and task add functionality.</li>
+            <li>Enabled task name edit functionality.</li>
           </ul>
         </li>
       </ol>
