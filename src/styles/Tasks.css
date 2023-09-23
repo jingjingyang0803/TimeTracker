@@ -32,3 +32,11 @@
   margin-right: 10px;
   width: 15em;
 }
+
+.tag-remove {
+  background-color: #e0e0e0;
+  border: none;
+  font-weight: bold;
+  padding: 2px 5px;
+  cursor: pointer;
+}
