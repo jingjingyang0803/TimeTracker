@@ -2,13 +2,23 @@ import React, { useState } from "react";
 import "../styles/Filter.css";
 
 const Filter = ({ tasks, setFilteredTasks }) => {
-  const [inputTag, setInputTag] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
 
-  const handleSelectTag = () => {
-    if (inputTag.trim() !== "") {
-      setSelectedTags([...selectedTags, inputTag.trim()]);
-      setInputTag("");
+  const existingTags = [];
+  tasks.forEach((task) => {
+    task.tags.forEach((tag) => {
+      if (!existingTags.includes(tag)) {
+        existingTags.push(tag);
+      }
+    });
+  });
+  const handleSelectTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
+    } else {
+      setSelectedTags([...selectedTags, tag]);
     }
   };
 
@@ -21,23 +31,27 @@ const Filter = ({ tasks, setFilteredTasks }) => {
 
   const handleShowAllTasks = () => {
     setSelectedTags([]); // Reset the selected tags to an empty array
-    console.log(tasks);
     setFilteredTasks(tasks); // Show all tasks
   };
 
   return (
     <div className="filter-tasks-container">
-      <input
-        type="text"
-        value={inputTag}
-        onChange={(e) => setInputTag(e.target.value)}
-      />
-      <button onClick={handleSelectTag}>Add Tag</button>
-      {selectedTags.map((tag, index) => (
-        <span key={index}>{tag}, </span>
+      {existingTags.map((tag, index) => (
+        <label key={index}>
+          <input
+            type="checkbox"
+            checked={selectedTags.includes(tag)}
+            onChange={() => handleSelectTag(tag)}
+          />
+          {tag}
+        </label>
       ))}
-      <button onClick={handleFilter}>Filter</button>
-      <button onClick={handleShowAllTasks}>Show All Tasks</button>
+      <button className="filter-button" onClick={handleFilter}>
+        Filter
+      </button>
+      <button className="show-all-button" onClick={handleShowAllTasks}>
+        Show All Tasks
+      </button>
     </div>
   );
 };

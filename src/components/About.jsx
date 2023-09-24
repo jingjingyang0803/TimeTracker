@@ -138,6 +138,9 @@ const About = () => {
             <li>
               Reset the select list to an empty value after each selection.
             </li>
+            <li>
+              Upgrade the task filtering section by adding a set of checkboxes.
+            </li>
           </ul>
         </li>
       </ol>
