@@ -113,6 +113,20 @@ const About = () => {
             </li>
           </ul>
         </li>
+
+        <li>
+          Module F: 6h
+          <ul>
+            <li>Add an input field to collect selected tags from the user.</li>
+            <li>
+              Include a button that allows the user to filter tasks based on
+              tags.
+            </li>
+            <li>
+              Include a button that allows the user to check all the tasks.
+            </li>
+          </ul>
+        </li>
       </ol>
     </div>
   );

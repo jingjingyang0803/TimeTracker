@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Filter from "./Filter";
 import "../styles/Tasks.css";
 
 const TaskViewInstructions = () => {
@@ -124,6 +125,7 @@ const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [newName, setNewName] = useState("");
   const [newTags, setNewTags] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
 
   useEffect(() => {
     fetch("http://localhost:3010/tasks") // Make a GET request to fetch the task data from the backend server
@@ -137,6 +139,11 @@ const Tasks = () => {
       })
       .catch((error) => console.log(error)); // Handle any errors during the fetch request
   }, []);
+
+  // Update the filteredTasks state whenever the tasks state changes
+  useEffect(() => {
+    setFilteredTasks(tasks);
+  }, [tasks]);
 
   // Function to send the changes made by the user to the server
   const sendChangesToServer = (taskId, updatedTask) => {
@@ -292,6 +299,8 @@ const Tasks = () => {
     <div>
       <TaskViewInstructions />
       <hr />
+      <Filter tasks={tasks} setFilteredTasks={setFilteredTasks} />
+      <hr />
       <div className="add-task-container">
         <p>Enter task details to create a new task:</p>
         <div>
@@ -316,7 +325,7 @@ const Tasks = () => {
       </div>
       <ol>
         {/* Map through the tasks and render a TaskElement component for each task */}
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <TaskElement
             key={task.id}
             taskId={task.id}

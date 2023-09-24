@@ -1,0 +1,14 @@
+.filter-tasks-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-tasks-container input {
+  margin-right: 10px;
+  width: 6em;
+}
+
+.filter-tasks-container button {
+  margin: 20px 5px;
+}
