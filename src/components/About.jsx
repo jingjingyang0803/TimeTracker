@@ -113,7 +113,6 @@ const About = () => {
             </li>
           </ul>
         </li>
-
         <li>
           Module F: 6h
           <ul>
@@ -124,6 +123,20 @@ const About = () => {
             </li>
             <li>
               Include a button that allows the user to check all the tasks.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Modele G: 8h
+          <ul>
+            <li>
+              Enabled the ability to add a tag from a dropdown list containing
+              existing tags.
+            </li>
+            <li>Disabled the tag option if the current task already has it.</li>
+            <li>Kept the option for the user to create a new tag.</li>
+            <li>
+              Reset the select list to an empty value after each selection.
             </li>
           </ul>
         </li>
