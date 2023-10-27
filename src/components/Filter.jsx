@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/Filter.css";
 
 const Filter = ({ tasks, setFilteredTasks }) => {
   const [selectedTags, setSelectedTags] = useState([]);

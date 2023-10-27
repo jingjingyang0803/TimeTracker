@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 const TaskElement = ({
   taskId,
@@ -9,7 +9,11 @@ const TaskElement = ({
   handleRemoveTask,
   handleEditTaskName,
   tasks,
+  startTime,
+  stopTime,
 }) => {
+  const [isActive, setIsActive] = useState(false); // State to track the task's active status
+
   const removeTag = (index) => {
     console.log("Remove tag function called");
     console.log("Clicked Tag:", tags[index]);
@@ -92,8 +96,60 @@ const TaskElement = ({
     }
   };
 
+  const toggleTask = () => {
+    if (isActive) {
+      // Task is being deactivated
+      setIsActive(false);
+
+      const newStopTime = new Date().getTime(); // Get the current time
+      console.log(newStopTime);
+
+      // Send request to the backend to update the stop time
+      fetch(`http://localhost:3010/tasks/${taskId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          stopTime: [...stopTime, newStopTime],
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Stop times updated:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating stop times: ", error);
+        });
+    } else {
+      // Task is being activated
+      setIsActive(true);
+
+      const newStartTime = new Date().getTime(); // Get the current time
+      console.log(newStartTime);
+
+      // Send request to the backend to update the start time
+      fetch(`http://localhost:3010/tasks/${taskId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          startTime: [...startTime, newStartTime],
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Start times updated:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating start times:", error);
+        });
+    }
+  };
+
   return (
-    <div className="task">
+    <div className={`task ${isActive ? "active" : ""}`}>
       <button onClick={editTaskName} className="task-edit">
         Edit
       </button>
@@ -115,8 +171,17 @@ const TaskElement = ({
       <button onClick={removeTask} className="task-remove">
         Remove
       </button>
+
+      <button
+        onClick={toggleTask}
+        className={`task-toggle ${isActive ? "active-button" : ""}`}
+      >
+        {isActive ? "Deactivate" : "Activate"}{" "}
+        {/* Toggle button text based on the active status */}
+      </button>
+
+      {/* <div className="active-time">Total Active Time: {activeTime} seconds</div> */}
     </div>
   );
 };
-
 export default TaskElement;

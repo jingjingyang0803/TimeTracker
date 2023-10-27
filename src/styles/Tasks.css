@@ -4,6 +4,18 @@ button {
   font-size: medium;
 }
 
+.add-task-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-task-container input {
+  margin-right: 10px;
+  width: 15em;
+}
+
+/* TaskElement.css */
 .task {
   background-color: #f2f2f2;
   border: 1px solid #ccc;
@@ -23,21 +35,43 @@ button {
   margin-right: 5px;
 }
 
-.add-task-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.add-task-container input {
-  margin-right: 10px;
-  width: 15em;
-}
-
 .tag-remove {
   background-color: #e0e0e0;
   border: none;
   font-weight: bold;
   padding: 2px 5px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: antiquewhite;
+}
+
+/* Filter.css */
+.filter-tasks-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filter-tasks-container label {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+  margin-bottom: 8px;
+}
+
+.filter-tasks-container input[type="checkbox"] {
+  margin-right: 4px;
+}
+
+.filter-button,
+.show-all-button {
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: #d6cda4;
+  color: white;
   cursor: pointer;
 }

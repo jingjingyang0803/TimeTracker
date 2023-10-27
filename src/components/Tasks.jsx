@@ -239,6 +239,8 @@ const Tasks = () => {
             handleRemoveTask={handleRemoveTask}
             handleEditTaskName={handleEditTaskName}
             tasks={tasks}
+            startTime={task.startTime}
+            stopTime={task.stopTime}
           />
         ))}
       </ol>

@@ -3,62 +3,132 @@
     {
       "id": 1,
       "name": "clean the house",
-      "tags": ["chores"]
+      "tags": [
+        "chores"
+      ],
+      "startTime": [
+        1698393401353,
+        1698393414251,
+        1698393494275,
+        1698393498782,
+        1698393528113
+      ],
+      "stopTime": [
+        1698393407303,
+        1698393412218,
+        1698393494621,
+        1698393499709,
+        1698393529067
+      ]
     },
     {
       "id": 2,
       "name": "prepare dinner",
-      "tags": ["cooking", "meal preparation"]
+      "tags": [
+        "cooking",
+        "meal preparation"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 3,
       "name": "go for a run",
-      "tags": ["exercise", "fitness", "health"]
+      "tags": [
+        "exercise",
+        "fitness",
+        "health"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 4,
       "name": "read a book",
-      "tags": ["hobby"]
+      "tags": [
+        "hobby"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 5,
       "name": "do laundry",
-      "tags": ["chores"]
+      "tags": [
+        "chores"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 6,
       "name": "write a report",
-      "tags": ["work", "productivity", "deadline"]
+      "tags": [
+        "work",
+        "productivity",
+        "deadline"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 7,
       "name": "study algorithms",
-      "tags": ["coding"]
+      "tags": [
+        "coding"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 8,
       "name": "solve coding problems",
-      "tags": ["coding"]
+      "tags": [
+        "coding"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 9,
       "name": "attend coding bootcamp",
-      "tags": ["coding", "education"]
+      "tags": [
+        "coding",
+        "education"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 10,
       "name": "complete coding assignment",
-      "tags": ["coding", "homework", "deadline"]
+      "tags": [
+        "coding",
+        "homework",
+        "deadline"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 11,
       "name": "attend programming lecture",
-      "tags": ["coding", "education"]
+      "tags": [
+        "coding",
+        "education"
+      ],
+      "startTime": [],
+      "stopTime": []
     },
     {
       "id": 12,
       "name": "participate in coding workshop",
-      "tags": ["coding", "learning"]
+      "tags": [
+        "coding",
+        "learning"
+      ],
+      "startTime": [],
+      "stopTime": []
     }
   ]
 }

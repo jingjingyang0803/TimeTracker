@@ -127,7 +127,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Modele G: 8h
+          Module G: 8h
           <ul>
             <li>
               Enabled the ability to add a tag from a dropdown list containing
@@ -141,6 +141,12 @@ const About = () => {
             <li>
               Upgrade the task filtering section by adding a set of checkboxes.
             </li>
+          </ul>
+        </li>
+        <li>
+          Module H: h
+          <ul>
+            <li></li>
           </ul>
         </li>
       </ol>
