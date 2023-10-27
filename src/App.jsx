@@ -40,6 +40,8 @@ const App = () => {
   const [theme, setTheme] = useState("default");
   const themeClass = theme === "default" ? "defaultTheme" : "darkTheme";
 
+  const [singleTaskMode, setSingleTaskMode] = useState(false);
+
   return (
     <BrowserRouter>
       <div className={`container ${themeClass}`}>
@@ -51,7 +53,10 @@ const App = () => {
           <Routes>
             <Route exact path="/" element={<About />} />{" "}
             {/* Route for the About page */}
-            <Route path="/tasks" element={<Tasks />} />{" "}
+            <Route
+              path="/tasks"
+              element={<Tasks singleTaskMode={singleTaskMode} />}
+            />{" "}
             {/* Route for the Tasks page */}
             <Route path="/tags" element={<Tags />} />{" "}
             {/* Route for the Tags page */}
@@ -59,7 +64,14 @@ const App = () => {
             {/* Route for the Summary page */}
             <Route
               path="/settings"
-              element={<Settings theme={theme} setTheme={setTheme} />}
+              element={
+                <Settings
+                  theme={theme}
+                  setTheme={setTheme}
+                  singleTaskMode={singleTaskMode}
+                  setSingleTaskMode={setSingleTaskMode}
+                />
+              }
             />{" "}
             {/* Route for the Settings page */}
           </Routes>

@@ -144,9 +144,27 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module H: h
+          Module H: 6h
           <ul>
+            <li>Implement task activation and inactivation functionality.</li>
+            <li>Implement task activity tracking and time recording.</li>
+          </ul>
+        </li>
+        <li>
+          Module L: 3h
+          <ul>
+            <li>
+              Implemented feature to change application theme affecting UI
+              colors.
+            </li>
             <li></li>
+          </ul>
+        </li>
+        <li>
+          Module M: 1h
+          <ul>
+            <li>Header's layout changes from a row to a column below 720px.</li>
+            <li>Adjust font size and padding for different screen sizes.</li>
           </ul>
         </li>
       </ol>

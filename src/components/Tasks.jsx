@@ -46,11 +46,13 @@ const TaskViewInstructions = () => {
   );
 };
 
-const Tasks = () => {
+const Tasks = ({ singleTaskMode }) => {
   const [tasks, setTasks] = useState([]); // State for storing tasks
   const [newName, setNewName] = useState(""); // State for new task name
   const [newTags, setNewTags] = useState([]); // State for new task tags
   const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
+
+  console.log("in tasks: " + singleTaskMode);
 
   // Fetch tasks from the server on component mount
   useEffect(() => {
@@ -62,6 +64,12 @@ const Tasks = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    tasks.forEach((task) => {
+      console.log(`Task ${task.id} isActive changed:`, task.isActive);
+    });
+  }, [tasks]); // Listening for changes in tasks
 
   // Send changes made to a task to the server
   const sendChangesToServer = (taskId, updatedTask) => {
@@ -171,6 +179,7 @@ const Tasks = () => {
         tags: newTags,
         startTime: [],
         stopTime: [],
+        isActive: false,
       };
 
       setTasks([...tasks, newTask]);
@@ -202,9 +211,23 @@ const Tasks = () => {
   };
 
   const handleStartTime = (id, newStartTime) => {
+    if (singleTaskMode) {
+      // Deactivate all other tasks
+      tasks.forEach((task) => {
+        if (task.id != id && task.isActive == true) {
+          const currentTime = new Date().getTime();
+          handleStopTime(task.id, currentTime);
+        }
+      });
+    }
+
     const updatedTasks = tasks.map((task) =>
       task.id === id
-        ? { ...task, startTime: [...task.startTime, newStartTime] }
+        ? {
+            ...task,
+            startTime: [...task.startTime, newStartTime],
+            isActive: true,
+          }
         : task
     );
     setTasks(updatedTasks);
@@ -213,13 +236,18 @@ const Tasks = () => {
     sendChangesToServer(id, {
       ...tasks.find((task) => task.id === id),
       startTime: updatedTasks.find((task) => task.id === id).startTime,
+      isActive: true,
     });
   };
 
   const handleStopTime = (id, newStopTime) => {
     const updatedTasks = tasks.map((task) =>
       task.id === id
-        ? { ...task, stopTime: [...task.stopTime, newStopTime] }
+        ? {
+            ...task,
+            stopTime: [...task.stopTime, newStopTime],
+            isActive: false,
+          }
         : task
     );
     setTasks(updatedTasks);
@@ -228,6 +256,7 @@ const Tasks = () => {
     sendChangesToServer(id, {
       ...tasks.find((task) => task.id === id),
       stopTime: updatedTasks.find((task) => task.id === id).stopTime,
+      isActive: false,
     });
   };
 
@@ -273,6 +302,8 @@ const Tasks = () => {
             tasks={tasks}
             handleStartTime={handleStartTime}
             handleStopTime={handleStopTime}
+            isActive={task.isActive}
+            singleTaskMode={singleTaskMode}
           />
         ))}
       </ol>
