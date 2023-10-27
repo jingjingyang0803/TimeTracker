@@ -9,8 +9,8 @@ const TaskElement = ({
   handleRemoveTask,
   handleEditTaskName,
   tasks,
-  startTime,
-  stopTime,
+  handleStartTime,
+  handleStopTime,
 }) => {
   const [isActive, setIsActive] = useState(false); // State to track the task's active status
 
@@ -98,53 +98,13 @@ const TaskElement = ({
 
   const toggleTask = () => {
     if (isActive) {
-      // Task is being deactivated
       setIsActive(false);
-
-      const newStopTime = new Date().getTime(); // Get the current time
-      console.log(newStopTime);
-
-      // Send request to the backend to update the stop time
-      fetch(`http://localhost:3010/tasks/${taskId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          stopTime: [...stopTime, newStopTime],
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Stop times updated:", data);
-        })
-        .catch((error) => {
-          console.error("Error updating stop times: ", error);
-        });
+      const newStopTime = new Date().getTime();
+      handleStopTime(taskId, newStopTime);
     } else {
-      // Task is being activated
       setIsActive(true);
-
-      const newStartTime = new Date().getTime(); // Get the current time
-      console.log(newStartTime);
-
-      // Send request to the backend to update the start time
-      fetch(`http://localhost:3010/tasks/${taskId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          startTime: [...startTime, newStartTime],
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Start times updated:", data);
-        })
-        .catch((error) => {
-          console.error("Error updating start times:", error);
-        });
+      const newStartTime = new Date().getTime();
+      handleStartTime(taskId, newStartTime);
     }
   };
 

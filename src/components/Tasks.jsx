@@ -169,6 +169,8 @@ const Tasks = () => {
         id: newTaskId,
         name: newName,
         tags: newTags,
+        startTime: [],
+        stopTime: [],
       };
 
       setTasks([...tasks, newTask]);
@@ -196,6 +198,36 @@ const Tasks = () => {
     sendChangesToServer(taskId, {
       ...tasks.find((task) => task.id === taskId),
       name: newTaskName,
+    });
+  };
+
+  const handleStartTime = (id, newStartTime) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === id
+        ? { ...task, startTime: [...task.startTime, newStartTime] }
+        : task
+    );
+    setTasks(updatedTasks);
+
+    // Send the updated task to the server
+    sendChangesToServer(id, {
+      ...tasks.find((task) => task.id === id),
+      startTime: updatedTasks.find((task) => task.id === id).startTime,
+    });
+  };
+
+  const handleStopTime = (id, newStopTime) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === id
+        ? { ...task, stopTime: [...task.stopTime, newStopTime] }
+        : task
+    );
+    setTasks(updatedTasks);
+
+    // Send the updated task to the server
+    sendChangesToServer(id, {
+      ...tasks.find((task) => task.id === id),
+      stopTime: updatedTasks.find((task) => task.id === id).stopTime,
     });
   };
 
@@ -239,8 +271,8 @@ const Tasks = () => {
             handleRemoveTask={handleRemoveTask}
             handleEditTaskName={handleEditTaskName}
             tasks={tasks}
-            startTime={task.startTime}
-            stopTime={task.stopTime}
+            handleStartTime={handleStartTime}
+            handleStopTime={handleStopTime}
           />
         ))}
       </ol>
