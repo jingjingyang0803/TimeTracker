@@ -1,12 +1,38 @@
-/* Default styles */
-.container {
+/* Dark theme styles */
+.darkTheme .container {
+  background-color: #262626;
+  color: #b3b3b3;
+}
+
+.darkTheme header {
+  background-color: #191919;
+  color: #f2f2f2;
+}
+
+.darkTheme footer {
+  background-color: #191919;
+  color: #b3b3b3;
+}
+
+/* Default theme styles */
+.defaultTheme .container {
   background-color: #eef2e6;
   color: #3d8361;
 }
 
-header {
+.defaultTheme header {
   background-color: #1c6758;
   color: #d6cda4;
+}
+
+.defaultTheme footer {
+  background-color: #d6cda4;
+  color: #eef2e6;
+}
+
+/* general styles */
+
+header {
   padding: 1em;
   text-align: center;
 }
@@ -41,9 +67,7 @@ ul li {
 
 footer {
   margin-top: 20px;
-  background-color: #d6cda4;
   padding: 0.1em;
-  color: #eef2e6;
   text-align: center;
 }
 

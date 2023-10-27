@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -37,9 +37,12 @@ const NavigationBar = () => {
 };
 
 const App = () => {
+  const [theme, setTheme] = useState("default");
+  const themeClass = theme === "default" ? "defaultTheme" : "darkTheme";
+
   return (
     <BrowserRouter>
-      <div className="container">
+      <div className={`container ${themeClass}`}>
         <header>
           <h1>Time Tracker</h1> {/* Header */}
           <NavigationBar /> {/* Navigation bar */}
@@ -54,7 +57,10 @@ const App = () => {
             {/* Route for the Tags page */}
             <Route path="/summary" element={<Summary />} />{" "}
             {/* Route for the Summary page */}
-            <Route path="/settings" element={<Settings />} />{" "}
+            <Route
+              path="/settings"
+              element={<Settings theme={theme} setTheme={setTheme} />}
+            />{" "}
             {/* Route for the Settings page */}
           </Routes>
         </main>

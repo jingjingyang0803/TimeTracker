@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Settings = () => {
+const Settings = ({ theme, setTheme }) => {
+  const [singleTaskMode, setSingleTaskMode] = useState(false);
+
+  const handleThemeChange = () => {
+    setTheme(theme === "default" ? "dark" : "default");
+  };
+
+  const toggleSingleTaskMode = () => {
+    setSingleTaskMode((prevState) => !prevState);
+  };
+
   return (
     <div>
       <ul>
@@ -27,6 +37,23 @@ const Settings = () => {
           submission.
         </li>
       </ul>
+
+      <hr />
+
+      <div>
+        <button onClick={handleThemeChange}>
+          {theme === "default"
+            ? "Change to Dark Theme"
+            : "Change to Default Theme"}
+        </button>
+        <br />
+        <br />
+        <button onClick={toggleSingleTaskMode}>
+          {singleTaskMode
+            ? "Disable Single Task Mode"
+            : "Enable Single Task Mode"}
+        </button>
+      </div>
     </div>
   );
 };
