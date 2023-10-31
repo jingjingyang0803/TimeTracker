@@ -209,7 +209,7 @@ const Tasks = ({ singleTaskMode }) => {
 
   const handleStartTime = (id, newStartTime) => {
     // console.log(singleTaskMode);
-    if (!singleTaskMode) {
+    if (singleTaskMode) {
       console.log(singleTaskMode);
       // Deactivate all other tasks
       const updatedTasks = tasks.map((task) => {
