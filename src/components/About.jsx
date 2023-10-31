@@ -151,13 +151,15 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module L: 3h
+          Module L: 13h
           <ul>
             <li>
               Implemented feature to change application theme affecting UI
               colors.
             </li>
-            <li></li>
+            <li>
+              Implemented feature for single activating modes.(stuck here)
+            </li>
           </ul>
         </li>
         <li>
