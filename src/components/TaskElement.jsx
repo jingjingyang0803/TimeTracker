@@ -11,8 +11,9 @@ const TaskElement = ({
   tasks,
   handleStartTime,
   handleStopTime,
-  isActive, // track the task's active status
 }) => {
+  const [isActive, setIsActive] = useState(false);
+
   const removeTag = (index) => {
     console.log("Remove tag function called");
     console.log("Clicked Tag:", tags[index]);
@@ -99,9 +100,11 @@ const TaskElement = ({
     if (isActive) {
       const newStopTime = new Date().getTime();
       handleStopTime(taskId, newStopTime);
+      setIsActive(false);
     } else {
       const newStartTime = new Date().getTime();
       handleStartTime(taskId, newStartTime);
+      setIsActive(true);
     }
   };
 

@@ -52,24 +52,21 @@ const Tasks = ({ singleTaskMode }) => {
   const [newTags, setNewTags] = useState([]); // State for new task tags
   const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
 
-  console.log("in tasks: " + singleTaskMode);
-
   // Fetch tasks from the server on component mount
   useEffect(() => {
     fetch("http://localhost:3010/tasks")
       .then((response) => response.json())
       .then((data) => {
+        // Add isActive state to each task
+        const tasksWithActiveState = data.map((task) => ({
+          ...task,
+          isActive: task.isActive,
+        }));
         setTasks(data);
         setFilteredTasks(data);
       })
       .catch((error) => console.log(error));
   }, []);
-
-  useEffect(() => {
-    tasks.forEach((task) => {
-      console.log(`Task ${task.id} isActive changed:`, task.isActive);
-    });
-  }, [tasks]); // Listening for changes in tasks
 
   // Send changes made to a task to the server
   const sendChangesToServer = (taskId, updatedTask) => {
@@ -211,14 +208,20 @@ const Tasks = ({ singleTaskMode }) => {
   };
 
   const handleStartTime = (id, newStartTime) => {
-    if (singleTaskMode) {
+    // console.log(singleTaskMode);
+    if (!singleTaskMode) {
+      console.log(singleTaskMode);
       // Deactivate all other tasks
-      tasks.forEach((task) => {
+      const updatedTasks = tasks.map((task) => {
         if (task.id != id && task.isActive == true) {
           const currentTime = new Date().getTime();
           handleStopTime(task.id, currentTime);
+          return { ...task, isActive: false }; // Update the task's isActive state to false
         }
+        return task; // If the task is not active or is the current task, return it as is
       });
+
+      setTasks(updatedTasks); // Update the tasks state with the new array, which will trigger a re-render
     }
 
     const updatedTasks = tasks.map((task) =>
@@ -302,7 +305,6 @@ const Tasks = ({ singleTaskMode }) => {
             tasks={tasks}
             handleStartTime={handleStartTime}
             handleStopTime={handleStopTime}
-            isActive={task.isActive}
             singleTaskMode={singleTaskMode}
           />
         ))}
