@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
+import { Chart } from "chart.js";
+import { CategoryScale } from "chart.js/auto";
+Chart.register(CategoryScale);
 
 const Charts = () => {
   const [tasks, setTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [chartData, setChartData] = useState({});
 
   // Initialize `start` state to be the beginning of the current month
   const [start, setStart] = useState(
@@ -78,6 +84,38 @@ const Charts = () => {
     return dailyDurations;
   };
 
+  // Function to handle button click and set selected task and chart data
+  const handleButtonClick = (task) => {
+    setSelectedTask(task);
+    const data = calculateDailyActiveTime(task).map(({ day, duration }) => ({
+      x: day,
+      y: duration,
+    }));
+    setChartData({
+      labels: data.map((item) => item.x),
+      datasets: [
+        {
+          label: "Daily active time",
+          data: data.map((item) => item.y),
+          backgroundColor: "rgba(75,192,192,0.6)",
+          borderColor: "rgba(75,192,192,1)",
+          borderWidth: 1,
+        },
+      ],
+    });
+  };
+
+  // Render Bar Chart if a task has been selected
+  let renderChart;
+  if (selectedTask) {
+    renderChart = (
+      <div>
+        <h2>Daily Active Time for {selectedTask.name}</h2>
+        <Bar data={chartData} />
+      </div>
+    );
+  }
+
   return (
     <div>
       <label>
@@ -104,8 +142,10 @@ const Charts = () => {
               Active Time on {day}: {formatTime(duration)}
             </p>
           ))}
+          <button onClick={() => handleButtonClick(task)}>Show in Chart</button>
         </div>
       ))}
+      {renderChart}
     </div>
   );
 };
