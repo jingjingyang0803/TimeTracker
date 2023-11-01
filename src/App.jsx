@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import About from "./components/About";
 import Tasks from "./components/Tasks";
-import Tags from "./components/Tags";
+import Charts from "./components/Charts";
 import Summary from "./components/Summary";
 import Settings from "./components/Settings";
 
@@ -22,7 +22,7 @@ const NavigationBar = () => {
           {/* Link to the Tasks page */}
         </li>
         <li>
-          <Link to="/tags">Tags</Link> {/* Link to the Tags page */}
+          <Link to="/charts">Charts</Link> {/* Link to the Tags page */}
         </li>
         <li>
           <Link to="/summary">Summary and Charts</Link>{" "}
@@ -58,7 +58,7 @@ const App = () => {
               element={<Tasks singleTaskMode={singleTaskMode} />}
             />{" "}
             {/* Route for the Tasks page */}
-            <Route path="/tags" element={<Tags />} />{" "}
+            <Route path="/charts" element={<Charts />} />{" "}
             {/* Route for the Tags page */}
             <Route path="/summary" element={<Summary />} />{" "}
             {/* Route for the Summary page */}
