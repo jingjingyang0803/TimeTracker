@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 import About from "./components/About";
 import Tasks from "./components/Tasks";
-import Charts from "./components/Charts";
 import Summary from "./components/Summary";
+import Interval from "./components/Interval";
+import Charts from "./components/Charts";
 import Settings from "./components/Settings";
 
 import "./App.css";
@@ -22,11 +23,13 @@ const NavigationBar = () => {
           {/* Link to the Tasks page */}
         </li>
         <li>
-          <Link to="/charts">Charts</Link> {/* Link to the Tags page */}
+          <Link to="/summary">Summary</Link> {/* Link to the Summary page */}
         </li>
         <li>
-          <Link to="/summary">Summary and Charts</Link>{" "}
-          {/* Link to the Summary page */}
+          <Link to="/interval">Interval</Link> {/* Link to the Interval page */}
+        </li>
+        <li>
+          <Link to="/charts">Charts</Link> {/* Link to the Charts page */}
         </li>
         <li>
           <Link to="/settings">Settings</Link> {/* Link to the Settings page */}
@@ -58,10 +61,12 @@ const App = () => {
               element={<Tasks singleTaskMode={singleTaskMode} />}
             />{" "}
             {/* Route for the Tasks page */}
-            <Route path="/charts" element={<Charts />} />{" "}
-            {/* Route for the Tags page */}
             <Route path="/summary" element={<Summary />} />{" "}
             {/* Route for the Summary page */}
+            <Route path="/interval" element={<Interval />} />{" "}
+            {/* Route for the Interval page */}
+            <Route path="/charts" element={<Charts />} />{" "}
+            {/* Route for the Charts page */}
             <Route
               path="/settings"
               element={

@@ -174,6 +174,32 @@ const About = () => {
           </ul>
         </li>
         <li>
+          Module J: 7h
+          <ul>
+            <li>
+              Implement a feature that enables users to set the interval for
+              task details.
+            </li>
+            <li>
+              Add a feature that shows a list of active intervals within the
+              selected time frame.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Module K: 8h
+          <ul>
+            <li>
+              Implement a feature that allows users to set the interval for the
+              daily activity chart.
+            </li>
+            <li>
+              Add a feature to display bar charts that show daily activity times
+              for selected tasks.
+            </li>
+          </ul>
+        </li>
+        <li>
           Module L: 13h
           <ul>
             <li>

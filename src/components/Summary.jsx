@@ -94,36 +94,24 @@ const Summary = () => {
     return { tag, activeTime: activeTimeForTag }; // Use formatTime here
   });
 
-  const calculateActiveIntervals = (task) => {
-    return task.startTime
-      .map((startTime, i) => {
-        if (
-          (startTime >= start && startTime <= end) ||
-          (task.stopTime[i] >= start && task.stopTime[i] <= end)
-        ) {
-          let intervalStart = Math.max(start, startTime);
-          let intervalEnd =
-            task.isActive && i === task.startTime.length - 1
-              ? Math.min(end, Date.now())
-              : Math.min(end, task.stopTime[i]);
-          return { start: intervalStart, end: intervalEnd };
-        }
-        return null;
-      })
-      .filter((interval) => interval !== null);
-  };
-
   return (
     <div>
       <ul>
         <li>
-          <b>Viewing Summaries: </b>Navigate to the "Summary" section to see the
-          total active times for tasks and tags within a specified observation
-          interval.
+          This view allows you to monitor your tasks and their associated tags
+          within a specified observation interval. By default, this interval
+          covers the current day from its beginning to the current time. You can
+          modify this interval to any duration of your choice, starting from any
+          specific date and time, up to the minute precision.
         </li>
         <li>
-          <b>Analyzing with Charts: </b>Go to the "Charts" section to view bar
-          charts displaying daily activity times for selected tasks.
+          The view provides a summary of the total active times for each task
+          and tag that were active during the observation interval, known as
+          tasks and tags of interest. The total active time is the sum of the
+          durations of individual activity periods of each task or tag within
+          the observation interval. Please note that tasks or tags that were not
+          active during the observation interval are not shown in the summary as
+          their total active times are zero.
         </li>
       </ul>
       <hr />
@@ -144,13 +132,6 @@ const Summary = () => {
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
           <p>Tags: {task.tags.join(", ")}</p>
-          {calculateActiveIntervals(task).map((interval, i) => (
-            <p key={i}>
-              Active Interval {i + 1}:{" "}
-              {new Date(interval.start).toLocaleString()} -{" "}
-              {new Date(interval.end).toLocaleString()}
-            </p>
-          ))}
           <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
         </div>
       ))}
