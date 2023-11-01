@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 
 const Summary = () => {
   const [tasks, setTasks] = useState([]);
+
+  // Initialize `start` state to be the beginning of the current day (midnight)
   const [start, setStart] = useState(new Date().setHours(0, 0, 0, 0));
+  // Initialize `end` state to be the current date and time
   const [end, setEnd] = useState(Date.now());
+
+  const [isEndTimeSet, setIsEndTimeSet] = useState(false);
 
   // Fetch tasks from the server on component mount
   useEffect(() => {
@@ -16,12 +21,14 @@ const Summary = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setEnd(Date.now());
-    }, 1000); // update every second
+    if (!isEndTimeSet) {
+      const interval = setInterval(() => {
+        setEnd(Date.now());
+      }, 1000); // update every second
 
-    return () => clearInterval(interval); // clear interval on component unmount
-  }, []);
+      return () => clearInterval(interval); // clear interval on component unmount
+    } // Add this line
+  }, [isEndTimeSet]); // Add `isEndTimeSet` as a dependency
 
   const tasksOfInterest = tasks.filter((task) =>
     task.startTime.some((time) => time >= start && time <= end)
@@ -32,6 +39,7 @@ const Summary = () => {
   };
 
   const handleEndChange = (event) => {
+    setIsEndTimeSet(true); // Add this line
     setEnd(new Date(event.target.value).getTime());
   };
 
@@ -96,8 +104,9 @@ const Summary = () => {
       </label>
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
-          <h2>{task.name}</h2>
-          <p>Active Time: {formatTime(task)}</p>
+          <h2>Task: {task.name}</h2>
+          <p>Tags: {task.tags.join(", ")}</p>
+          <p>Total Active Time: {formatTime(task)}</p>
         </div>
       ))}
     </div>

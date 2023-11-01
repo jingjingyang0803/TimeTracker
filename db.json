@@ -7,49 +7,23 @@
     {
       "id": 1,
       "name": "clean the house",
-      "tags": [
-        "chores"
-      ],
-      "startTime": [
-        1698795992109,
-        1698795998431,
-        1698796026087,
-        1698796035778,
-        1698796188562
-      ],
-      "stopTime": [
-        1698795995172,
-        1698796000740,
-        1698796029240,
-        1698796038339,
-        1698796192455
-      ],
+      "tags": ["chores"],
+      "startTime": [],
+      "stopTime": [],
       "isActive": false
     },
     {
       "id": 2,
       "name": "prepare dinner",
-      "tags": [
-        "cooking",
-        "meal preparation"
-      ],
-      "startTime": [
-        1698796003084,
-        1698796007165
-      ],
-      "stopTime": [
-        1698796005267
-      ],
-      "isActive": true
+      "tags": ["cooking", "meal preparation"],
+      "startTime": [],
+      "stopTime": [],
+      "isActive": false
     },
     {
       "id": 3,
       "name": "go for a run",
-      "tags": [
-        "exercise",
-        "fitness",
-        "health"
-      ],
+      "tags": ["exercise", "fitness", "health"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -57,9 +31,7 @@
     {
       "id": 4,
       "name": "read a book",
-      "tags": [
-        "hobby"
-      ],
+      "tags": ["hobby"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -67,9 +39,7 @@
     {
       "id": 5,
       "name": "do laundry",
-      "tags": [
-        "chores"
-      ],
+      "tags": ["chores"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -77,11 +47,7 @@
     {
       "id": 6,
       "name": "write a report",
-      "tags": [
-        "work",
-        "productivity",
-        "deadline"
-      ],
+      "tags": ["work", "productivity", "deadline"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -89,9 +55,7 @@
     {
       "id": 7,
       "name": "study algorithms",
-      "tags": [
-        "coding"
-      ],
+      "tags": ["coding"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -99,9 +63,7 @@
     {
       "id": 8,
       "name": "solve coding problems",
-      "tags": [
-        "coding"
-      ],
+      "tags": ["coding"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -109,10 +71,7 @@
     {
       "id": 9,
       "name": "attend coding bootcamp",
-      "tags": [
-        "coding",
-        "education"
-      ],
+      "tags": ["coding", "education"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -120,11 +79,7 @@
     {
       "id": 10,
       "name": "complete coding assignment",
-      "tags": [
-        "coding",
-        "homework",
-        "deadline"
-      ],
+      "tags": ["coding", "homework", "deadline"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -132,10 +87,7 @@
     {
       "id": 11,
       "name": "attend programming lecture",
-      "tags": [
-        "coding",
-        "education"
-      ],
+      "tags": ["coding", "education"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
@@ -143,10 +95,7 @@
     {
       "id": 12,
       "name": "participate in coding workshop",
-      "tags": [
-        "coding",
-        "learning"
-      ],
+      "tags": ["coding", "learning"],
       "startTime": [],
       "stopTime": [],
       "isActive": false
