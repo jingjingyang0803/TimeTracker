@@ -30,6 +30,7 @@ const Summary = () => {
     } // Add this line
   }, [isEndTimeSet]); // Add `isEndTimeSet` as a dependency
 
+  // First, calculate tasks of interest
   const tasksOfInterest = tasks.filter((task) =>
     task.startTime.some((time) => time >= start && time <= end)
   );
@@ -44,9 +45,21 @@ const Summary = () => {
   };
 
   // Calculate the total active time of each task by summing up the durations of all activity periods within the observation interval
-  const formatTime = (task) => {
+  const formatTime = (timeInMs) => {
+    // These durations are then summed up to give the total active time of the task within the observation interval.
+    let seconds = Math.floor(timeInMs / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  const calculateActiveTime = (task) => {
     // The function calculates the total active time of each task within a specified observation interval (from `start` to `end`).
-    let timeInMs = task.startTime.reduce((total, startTime, i) => {
+    return task.startTime.reduce((total, startTime, i) => {
       // `startTime` and `i` are the elements and indices of the `task.startTime` array respectively, while `total` is the accumulator that collects the sum of all durations.
       if (
         (startTime >= start && startTime <= end) ||
@@ -63,17 +76,23 @@ const Summary = () => {
       }
       return total;
     }, 0);
-
-    // These durations are then summed up to give the total active time of the task within the observation interval.
-    let seconds = Math.floor(timeInMs / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-
-    seconds = seconds % 60;
-    minutes = minutes % 60;
-
-    return `${hours}h ${minutes}m ${seconds}s`;
   };
+
+  // Calculate tags of interest directly in the component's body
+  const allTags = tasksOfInterest.reduce((acc, task) => {
+    return [...acc, ...task.tags];
+  }, []);
+  const uniqueTags = [...new Set(allTags)];
+
+  const tagsOfInterest = uniqueTags.map((tag) => {
+    const tasksWithThisTag = tasksOfInterest.filter((task) =>
+      task.tags.includes(tag)
+    );
+    const activeTimeForTag = tasksWithThisTag.reduce((total, task) => {
+      return total + calculateActiveTime(task);
+    }, 0);
+    return { tag, activeTime: activeTimeForTag }; // Use formatTime here
+  });
 
   return (
     <div>
@@ -106,7 +125,14 @@ const Summary = () => {
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
           <p>Tags: {task.tags.join(", ")}</p>
-          <p>Total Active Time: {formatTime(task)}</p>
+          <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
+        </div>
+      ))}
+      <hr />
+      {tagsOfInterest.map((tag) => (
+        <div key={tag.tag}>
+          <h2>Tag: {tag.tag}</h2>
+          <p>Total Active Time: {formatTime(tag.activeTime)}</p>
         </div>
       ))}
     </div>

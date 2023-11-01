@@ -151,6 +151,29 @@ const About = () => {
           </ul>
         </li>
         <li>
+          Module I: 6h
+          <ul>
+            <li>
+              Set up an observation interval that, by default, covers the
+              current day from its start to the current time (dynamic). This
+              interval can be freely modified by the user.
+            </li>
+            <li>
+              Calculated tasks of interest, meaning tasks that were active at
+              some point during the observation interval.
+            </li>
+            <li>
+              Provided summary details about the total active times for each
+              task of interest within the observation interval.
+            </li>
+            <li>
+              Provided summary details about the total active times for each tag
+              of interest(tags associated with the tasks of interest) within the
+              observation interval.
+            </li>
+          </ul>
+        </li>
+        <li>
           Module L: 13h
           <ul>
             <li>
