@@ -94,6 +94,25 @@ const Summary = () => {
     return { tag, activeTime: activeTimeForTag }; // Use formatTime here
   });
 
+  const calculateActiveIntervals = (task) => {
+    return task.startTime
+      .map((startTime, i) => {
+        if (
+          (startTime >= start && startTime <= end) ||
+          (task.stopTime[i] >= start && task.stopTime[i] <= end)
+        ) {
+          let intervalStart = Math.max(start, startTime);
+          let intervalEnd =
+            task.isActive && i === task.startTime.length - 1
+              ? Math.min(end, Date.now())
+              : Math.min(end, task.stopTime[i]);
+          return { start: intervalStart, end: intervalEnd };
+        }
+        return null;
+      })
+      .filter((interval) => interval !== null);
+  };
+
   return (
     <div>
       <ul>
@@ -125,6 +144,13 @@ const Summary = () => {
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
           <p>Tags: {task.tags.join(", ")}</p>
+          {calculateActiveIntervals(task).map((interval, i) => (
+            <p key={i}>
+              Active Interval {i + 1}:{" "}
+              {new Date(interval.start).toLocaleString()} -{" "}
+              {new Date(interval.end).toLocaleString()}
+            </p>
+          ))}
           <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
         </div>
       ))}
