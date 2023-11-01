@@ -4,40 +4,40 @@ const About = () => {
   return (
     <div>
       <h2>Introduction</h2>
+      <h3>
+        Welcome to my final project of course{" "}
+        <i>&lt;5G00DM05-3004/3005 Full Stack Web Development&gt;</i>!
+      </h3>
       <p>
-        Welcome to the 5G00DM05-3004/3005 <b>Full Stack Web Development </b>
-        final project! <br />
         This project focuses on creating a React single-page application for
         recording and analyzing working hours. <br />
         The application allows you to track your tasks, manage tags, and view
         summaries and charts of your time usage. <br />
       </p>
-      <hr />
       <h3>Instructions for Using the Application: </h3>Please click the tags on
       the navigation above to check different views and follow the instructions
       provided on each view.
       <hr />
-      <h3>My answer to Module B question: </h3>
-      <h4>
+      <h3>
         What did you consider as the most difficult/tedious feature to
         implement?
-      </h4>
+      </h3>
       <p>
-        ^ The most time-consuming task was creating a page with 5 views that can
-        be switched between using tags. This involved designing the user
-        interface, implementing the necessary components, and handling the logic
-        for view switching. .
+        The single mode feature was most difficult because it required deep
+        understanding of task management logic and precise manipulation of
+        state. Furthermore, the automatic deactivation of any active task (both
+        on the server side and UI) upon activating a new one added complexity.
+      </p>
+      <p>
+        ^ The most time-consuming task was designing the user interface,
+        implementing the necessary components, and handling the logic for view
+        switching.
       </p>
       <p>
         ^ I also faced challenges in improving the writing and ensuring clarity
         in the user interface text. This required careful consideration of the
         wording, structure, and overall readability of the instructions and
         labels, such as tag/feature naming, throughout the application.
-      </p>
-      <p>
-        ^ I expect that the most difficult task will be implementing real-time
-        communication with the server-side and saving changes. This will involve
-        working with server-side technologies and effectively managing data
       </p>
       <hr />
       <h3>Author: </h3>Jingjing Yang
@@ -47,7 +47,7 @@ const About = () => {
           Module A: 6h
           <ul>
             <li>
-              Created a page with 5 views that can be switched between using
+              Created a page with some views that can be switched between using
               tags.
             </li>
             <li>

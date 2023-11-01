@@ -34,22 +34,25 @@ const Filter = ({ tasks, setFilteredTasks }) => {
   };
 
   return (
-    <div className="filter-tasks-container">
-      {existingTags.map((tag, index) => (
-        <label key={index}>
-          <input
-            type="checkbox"
-            checked={selectedTags.includes(tag)}
-            onChange={() => handleSelectTag(tag)}
-          />
-          {tag}
-        </label>
-      ))}
-      <button className="filter-button" onClick={handleFilter}>
-        Filter
-      </button>
+    <div>
       <button className="show-all-button" onClick={handleShowAllTasks}>
         Show All Tasks
+      </button>
+      <div className="filter-tasks-container">
+        <br />
+        {existingTags.map((tag, index) => (
+          <label key={index}>
+            <input
+              type="checkbox"
+              checked={selectedTags.includes(tag)}
+              onChange={() => handleSelectTag(tag)}
+            />
+            {tag}
+          </label>
+        ))}
+      </div>
+      <button className="filter-button" onClick={handleFilter}>
+        Filter tasks with selected tags
       </button>
     </div>
   );

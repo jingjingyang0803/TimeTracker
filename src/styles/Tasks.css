@@ -14,39 +14,6 @@ button {
   margin-right: 10px;
   width: 15em;
 }
-
-/* TaskElement.css */
-.task {
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.task-tags {
-  margin-top: 5px;
-}
-
-.task-tags span {
-  background-color: #e0e0e0;
-  padding: 2px 5px;
-  border-radius: 3px;
-  margin-right: 5px;
-}
-
-.tag-remove {
-  background-color: #e0e0e0;
-  border: none;
-  font-weight: bold;
-  padding: 2px 5px;
-  cursor: pointer;
-}
-
-.active {
-  background-color: antiquewhite;
-}
-
 /* Filter.css */
 .filter-tasks-container {
   display: flex;
@@ -74,4 +41,64 @@ button {
   background-color: #d6cda4;
   color: white;
   cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+}
+
+/* TaskElement.css */
+.task {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task-edit,
+.task-remove,
+.task-toggle {
+  margin-right: 10px;
+  margin-bottom: 8px;
+  background-color: #e1c78f;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.task-tags {
+  margin-top: 5px;
+}
+
+.task-tags span {
+  background-color: #e0e0e0;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.tag-remove {
+  background-color: #e0e0e0;
+  border: none;
+  font-weight: bold;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: antiquewhite;
+}
+
+/* Settings.css */
+.theme-button,
+.mode-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  background-color: #c8ae7d;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
 }

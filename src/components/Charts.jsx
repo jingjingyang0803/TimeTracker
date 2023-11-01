@@ -143,33 +143,37 @@ const Charts = () => {
         </li>
       </ul>
       <hr />
-      <br />
-
+      <h3>Set daily activity chart interval:</h3>
       <label>
-        Start Date:
+        Start Date:{" "}
         <input
           type="date"
           onChange={handleStartChange}
           value={new Date(start).toISOString().substring(0, 10)}
         />
       </label>
+      <br />
+      <br />
       <label>
-        End Date:
+        End Date:{" "}
         <input
           type="date"
           onChange={handleEndChange}
           value={new Date(end).toISOString().substring(0, 10)}
         />
       </label>
+      <hr />
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
           {calculateDailyActiveTime(task).map(({ day, duration }, index) => (
             <p key={index}>
-              Active Time on {day}: {formatTime(duration)}
+              {day}: {formatTime(duration)}
             </p>
           ))}
-          <button onClick={() => handleButtonClick(task)}>Show in Chart</button>
+          <button onClick={() => handleButtonClick(task)}>
+            Show daily active time in Bar Chart
+          </button>
         </div>
       ))}
       {renderChart}

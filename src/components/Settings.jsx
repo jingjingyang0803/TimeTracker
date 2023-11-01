@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "../styles/Settings.css";
 
 const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
   useEffect(() => {
@@ -73,17 +74,15 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
       <hr />
 
       <div>
-        <button onClick={handleThemeChange}>
+        <button onClick={handleThemeChange} className="theme-button">
           {theme === "default"
             ? "Change to Dark Theme"
             : "Change to Default Theme"}
         </button>
-        <br />
-        <br />
-        <button onClick={toggleSingleTaskMode}>
+        <button onClick={toggleSingleTaskMode} className="mode-button">
           {singleTaskMode
-            ? "Disable Single Task Mode"
-            : "Enable Single Task Mode"}
+            ? "Disable Single Task Activation Mode"
+            : "Enable Single Task Activation Mode"}
         </button>
       </div>
     </div>

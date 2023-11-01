@@ -283,11 +283,11 @@ const Tasks = ({ singleTaskMode }) => {
             type="text"
             value={newTags.join(",")}
             onChange={(e) => setNewTags(e.target.value.split(","))}
-            placeholder="tags(separated by commas)"
+            placeholder="tag/tags separated by comma"
             className="task-input"
           />
           <button onClick={handleAddTask} className="add-task-button">
-            Add Task
+            Add new Task
           </button>
         </div>
       </div>

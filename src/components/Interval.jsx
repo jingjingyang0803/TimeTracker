@@ -86,26 +86,26 @@ const Interval = () => {
         </li>
       </ul>
       <hr />
-      <br />
-      <h4>
+      <h3>
         Task details interval: {new Date(start).toLocaleString()} to{" "}
         {new Date(end).toLocaleString()}
-      </h4>
+      </h3>
       <label>
-        Start Time:
-        <input type="datetime-local" onChange={handleStartChange} />
+        Start Time: <input type="datetime-local" onChange={handleStartChange} />
       </label>
+      <br />
+      <br />
       <label>
-        End Time:
-        <input type="datetime-local" onChange={handleEndChange} />
+        End Time: <input type="datetime-local" onChange={handleEndChange} />
       </label>
+      <hr />
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
+          Active Interval List:
           {calculateActiveIntervals(task).map((interval, i) => (
             <p key={i}>
-              Active Interval {i + 1}:{" "}
-              {new Date(interval.start).toLocaleString()} -{" "}
+              {i + 1}. {new Date(interval.start).toLocaleString()} -{" "}
               {new Date(interval.end).toLocaleString()}
             </p>
           ))}

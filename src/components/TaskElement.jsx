@@ -111,11 +111,25 @@ const TaskElement = ({
   return (
     <div className={`task ${isActive ? "active" : ""}`}>
       <button onClick={editTaskName} className="task-edit">
-        Edit
+        Edit task name
       </button>
-      <div className="task-name">Task Name: {name}</div>
+      <button onClick={removeTask} className="task-remove">
+        Remove task
+      </button>
+      <button
+        onClick={toggleTask}
+        className={`task-toggle ${isActive ? "active-button" : ""}`}
+      >
+        {isActive ? "Deactivate" : "Activate"}{" "}
+        {/* Toggle button text based on the active status */}
+      </button>
+      <div className="task-name">
+        {" "}
+        <b>Task Name: </b>
+        {name}
+      </div>
       <div className="task-tags">
-        Tags:{" "}
+        <b> Tags: </b>
         {tags.map((tag, index) => (
           <span key={index}>
             {tag}{" "}
@@ -127,18 +141,6 @@ const TaskElement = ({
         {addTag()}{" "}
         {/* Render the addTag function to display the select input */}
       </div>
-
-      <button onClick={removeTask} className="task-remove">
-        Remove
-      </button>
-
-      <button
-        onClick={toggleTask}
-        className={`task-toggle ${isActive ? "active-button" : ""}`}
-      >
-        {isActive ? "Deactivate" : "Activate"}{" "}
-        {/* Toggle button text based on the active status */}
-      </button>
     </div>
   );
 };
