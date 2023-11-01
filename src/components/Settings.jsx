@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../styles/Settings.css";
 
 const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
   useEffect(() => {
@@ -45,23 +44,23 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
     <div>
       <ul>
         <li>
-          <b>Change the theme of the application: </b> You can toggle between
+          <u>Change the theme of the application: </u> You can toggle between
           the default and dark themes by clicking on the button labeled either
           "Change to Dark Theme" or "Change to Default Theme". This will affect
           the UI colors and provide a different visual experience.
         </li>
         <li>
-          <b>Change the application mode: </b> You can choose the application
+          <u>Change the application mode: </u> You can choose the application
           mode by clicking on the button labeled either "Disable Single Task
-          Mode" or "Enable Single Task Mode".
+          Activation Mode" or "Enable Single Task Activation Mode".
           <p>
             In the default mode, multiple tasks can be active at the same time.
             Activating a task does not inactivate other tasks.
           </p>
           <p>
-            When "Single Task Mode" is enabled, only one task can be active at a
-            time. Activating a task automatically inactivates any other active
-            tasks.
+            When "Single Task Activation Mode" is enabled, only one task can be
+            active at a time. Activating a task automatically inactivates any
+            other active tasks.
           </p>
         </li>
         <li>

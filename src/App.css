@@ -14,6 +14,16 @@
   color: #b3b3b3;
 }
 
+.darkTheme h2,
+.darkTheme h3,
+.darkTheme h4 {
+  color: #443f3f;
+}
+
+.darkTheme button {
+  background-color: #e0e0e0;
+}
+
 /* Default theme styles */
 .defaultTheme .container {
   background-color: #eef2e6;

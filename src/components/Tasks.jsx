@@ -8,38 +8,41 @@ const TaskViewInstructions = () => {
     <div>
       <ul>
         <li>
-          <b>Adding a Task:</b> Enter the task details in the "Enter task
+          <u>Filtering Tasks: </u>Use the tag filter menu to show only tasks
+          with specific tags. Select multiple tags to narrow down the task list.
+        </li>
+        <br />
+        <li>
+          <u>Adding a Task:</u> Enter the task details in the "Enter task
           details to create a new task" section. Provide a task name in the
           "task name" input field and add one or more tags in the "tags" input
           field separated by commas. Then, click the "Add Task" button.
         </li>
         <li>
-          <b>Removing a Task:</b> Click the "Remove" button next to the task you
-          want to remove.
+          <u>Removing a Task:</u> Click the "Remove task" button next to the
+          task you want to remove.
         </li>
         <li>
-          <b>Editing a Task Name:</b> Click the "Edit" button next to the task
-          you want to edit. In the prompt that appears, enter the new task name
-          and click "OK". The task name will be updated.
+          <u>Editing a Task Name:</u> Click the "Edit task name" button next to
+          the task you want to edit. In the prompt that appears, enter the new
+          task name and click "OK". The task name will be updated.
         </li>
+        <br />
         <li>
-          <b>Adding a Tag to a Task:</b> Click on the select element to open the
+          <u>Adding a Tag to a Task:</u> Click on the select element to open the
           dropdown list. Choose an existing tag from the list or select "Custom"
           to create a new tag. If you select "Custom", a prompt will appear
           where you can enter the new tag. Enter the new tag and click "OK" to
           add it to the task.
         </li>
         <li>
-          <b>Removing a Tag from a Task:</b> Click the "x" button next to the
+          <u>Removing a Tag from a Task:</u> Click the "x" button next to the
           tag you want to remove.
         </li>
+        <br />
         <li>
-          <b>Tracking Time: </b>To start tracking time for a task, click on the
+          <u>Tracking Time: </u>To start tracking time for a task, click on the
           "Activate" button. To stop tracking, click on the "Deactivate" button.
-        </li>
-        <li>
-          <b>Filtering Tasks: </b>Use the tag filter menu to show only tasks
-          with specific tags. Select multiple tags to narrow down the task list.
         </li>
       </ul>
     </div>
@@ -270,7 +273,7 @@ const Tasks = ({ singleTaskMode }) => {
       <Filter tasks={tasks} setFilteredTasks={setFilteredTasks} />
       <hr />
       <div className="add-task-container">
-        <p>Enter task details to create a new task:</p>
+        <h3>Enter task details to create a new task:</h3>
         <div>
           <input
             type="text"
