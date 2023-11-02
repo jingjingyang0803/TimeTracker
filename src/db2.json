@@ -8,96 +8,96 @@
       "id": 1,
       "name": "clean the house",
       "tags": ["chores"],
-      "startTime": [1688380805936, 1688467201250],
-      "stopTime": [1688391602534, 1688478005675],
+      "startTime": [1698328005936, 1698414401250],
+      "stopTime": [1698338802534, 1698425205675],
       "isActive": false
     },
     {
       "id": 2,
       "name": "prepare dinner",
       "tags": ["cooking", "meal preparation"],
-      "startTime": [1688406003289],
-      "stopTime": [1688409607896],
+      "startTime": [1698353203289],
+      "stopTime": [1698356807896],
       "isActive": false
     },
     {
       "id": 3,
       "name": "go for a run",
       "tags": ["exercise", "fitness", "health"],
-      "startTime": [1688451601234, 1688538004567, 1688624407890],
-      "stopTime": [1688455204321, 1688541608765],
+      "startTime": [1698399201234, 1698485604567, 1698572000090, 1698887858742],
+      "stopTime": [1698402804321, 1698489208765, 1698575600090],
       "isActive": true
     },
     {
       "id": 4,
       "name": "do the laundry",
       "tags": ["chores"],
-      "startTime": [1688472004567, 1688558407890],
-      "stopTime": [1688475607890, 1688562011234],
+      "startTime": [1698419204567, 1698505607890],
+      "stopTime": [1698422807890, 1698509211234],
       "isActive": false
     },
     {
       "id": 5,
       "name": "do the dishes",
       "tags": ["chores"],
-      "startTime": [1688482801234, 1688569204567, 1688655607890],
-      "stopTime": [1688486404567, 1688572807890],
-      "isActive": true
+      "startTime": [1698430001234, 1698516404567, 1698602807890],
+      "stopTime": [1698433604567, 1698519607890, 1698605607890],
+      "isActive": false
     },
     {
       "id": 6,
       "name": "go grocery shopping",
       "tags": ["errands"],
-      "startTime": [1688493607890],
-      "stopTime": [1688497211234],
+      "startTime": [1698436807890],
+      "stopTime": [1698440411234],
       "isActive": false
     },
     {
       "id": 7,
       "name": "study algorithms",
       "tags": ["coding"],
-      "startTime": [1688682404567, 1688768807890, 1688855211234],
-      "stopTime": [1688686007890, 1688772411234, 1688858814567],
-      "isActive": true
+      "startTime": [1698625604567, 1698712007890, 1698988411234],
+      "stopTime": [1698629207890, 1698715611234, 1698991811234],
+      "isActive": false
     },
     {
       "id": 8,
       "name": "solve coding problems",
       "tags": ["coding"],
-      "startTime": [1688693201234, 1688779604567, 1688866007890],
-      "stopTime": [1688696804567, 1688783207890, 1688869611234],
+      "startTime": [1698636401234, 1698722804567, 1698809207890],
+      "stopTime": [1698640004567, 1698726411234, 1698811207890],
       "isActive": false
     },
     {
       "id": 9,
       "name": "attend coding bootcamp",
       "tags": ["coding", "education"],
-      "startTime": [1688704007890, 1688790411234, 1688876814567],
-      "stopTime": [1688707611234, 1688794014567, 1688880417890],
-      "isActive": true
+      "startTime": [1698652007890, 1698738411234, 1698824814567],
+      "stopTime": [1698655611234, 1698742014567, 1698827214567],
+      "isActive": false
     },
     {
       "id": 10,
       "name": "complete coding assignment",
       "tags": ["coding", "homework", "deadline"],
-      "startTime": [1688714801234, 1688801214567, 1688887617890],
-      "stopTime": [1688718404567, 1688804811234, 1688891214567],
+      "startTime": [1698663201234, 1698749604567, 1698836007890],
+      "stopTime": [1698666804567, 1698753207890, 1698838407890],
       "isActive": false
     },
     {
       "id": 11,
       "name": "attend programming lecture",
       "tags": ["coding", "education"],
-      "startTime": [1688725607890, 1688812011234, 1688898414567],
-      "stopTime": [1688729211234, 1688815614567, 1688902017890],
-      "isActive": true
+      "startTime": [1698672007890, 1698758411234, 1698844814567],
+      "stopTime": [1698675611234, 1698762014567, 1698846814567],
+      "isActive": false
     },
     {
       "id": 12,
       "name": "participate in coding workshop",
       "tags": ["coding", "learning"],
-      "startTime": [1688736401234, 1688822814567, 1688909217890],
-      "stopTime": [1688740004567, 1688826411234, 1688912814567],
+      "startTime": [1698683201234, 1698769604567, 1698780007890],
+      "stopTime": [1698686804567, 1698773211234, 1698781207890],
       "isActive": false
     }
   ]
