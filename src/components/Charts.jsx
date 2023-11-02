@@ -99,13 +99,13 @@ const Charts = () => {
     setSelectedTask(task);
     const data = calculateDailyActiveTime(task).map(({ day, duration }) => ({
       x: day,
-      y: duration,
+      y: duration / 60000, // Convert duration to minutes,
     }));
     setChartData({
       labels: data.map((item) => item.x),
       datasets: [
         {
-          label: "Daily active time",
+          label: "Daily active time (minutes)",
           data: data.map((item) => item.y),
           backgroundColor: "rgba(75,192,192,0.6)",
           borderColor: "rgba(75,192,192,1)",
@@ -153,26 +153,6 @@ const Charts = () => {
         </li>
       </ul>
       <hr />
-      <h3>Set daily activity chart interval:</h3>
-      <label>
-        Start Date: {/* Input field for the start date of the interval */}
-        <input
-          type="date"
-          onChange={handleStartChange} // When the date is changed, handleStartChange function is called
-          value={new Date(start).toISOString().substring(0, 10)} // The value is the start date in ISO format
-        />
-      </label>
-      <br />
-      <br />
-      <label>
-        End Date: {/* Input field for the end date of the interval */}
-        <input
-          type="date"
-          onChange={handleEndChange} // When the date is changed, handleEndChange function is called
-          value={new Date(end).toISOString().substring(0, 10)} // The value is the end date in ISO format
-        />
-      </label>
-      <hr />
       <h2>Daily Active Time</h2>
       {tasksOfInterest.map((task, index) => (
         <div key={task.id}>
@@ -184,12 +164,22 @@ const Charts = () => {
             </p>
           ))}
           <button onClick={() => handleButtonClick(task)}>
-            {/* Button to display the daily active time of the task in a Bar Chart */}
             Show in Bar Chart
           </button>
+          {selectedTask && selectedTask.id === task.id && (
+            <div>
+              {/* Render the chart of the selected task below the task */}
+              <h4>Chart for "{selectedTask.name}"</h4>
+              {selectedTask && selectedTask.id === task.id && (
+                <div>
+                  <h2>Daily Active Time for "{selectedTask.name}"</h2>
+                  <Bar data={chartData} />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ))}
-      {renderChart} {/* Render the chart */}
     </div>
   );
 };
