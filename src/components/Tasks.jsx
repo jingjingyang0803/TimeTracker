@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import Filter from "./Filter";
 import TaskElement from "./TaskElement";
 import "../styles/Tasks.css";
@@ -298,6 +300,21 @@ const Tasks = ({ singleTaskMode }) => {
     });
   };
 
+  // ================================= Rearrange Task order ======================================================
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return; // Item was not dropped in a valid location
+    }
+
+    const updatedTasks = [...filteredTasks];
+    const [reorderedTask] = updatedTasks.splice(result.source.index, 1);
+    updatedTasks.splice(result.destination.index, 0, reorderedTask);
+
+    // Update state with the new task order
+    setTasks(updatedTasks);
+    // setFilteredTasks(updatedTasks);
+  };
+
   // ================================= return ====================================================================
   return (
     <div>
@@ -308,8 +325,8 @@ const Tasks = ({ singleTaskMode }) => {
       <hr />
       <div className="add-task-container">
         <h3>
-          {tasks.length} tasks displayed. Enter task details to create a new
-          task:
+          {filteredTasks.length} tasks displayed. Enter task details to create a
+          new task:
         </h3>
         <div>
           {/* This updates the task name */}
@@ -335,24 +352,44 @@ const Tasks = ({ singleTaskMode }) => {
           </button>
         </div>
       </div>
-      <ol>
-        {filteredTasks.map((task) => (
-          <TaskElement
-            key={task.id}
-            taskId={task.id}
-            name={task.name}
-            tags={task.tags}
-            handleRemoveTag={handleRemoveTag}
-            handleAddTag={handleAddTag}
-            handleRemoveTask={handleRemoveTask}
-            handleEditTaskName={handleEditTaskName}
-            tasks={tasks}
-            handleStartTime={handleStartTime}
-            handleStopTime={handleStopTime}
-            singleTaskMode={singleTaskMode}
-          />
-        ))}
-      </ol>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="taskList">
+          {(provided) => (
+            <ol {...provided.droppableProps} ref={provided.innerRef}>
+              {filteredTasks.map((task, index) => (
+                <Draggable
+                  key={task.id.toString()}
+                  draggableId={task.id.toString()}
+                  index={index}
+                >
+                  {(provided) => (
+                    <li
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <TaskElement
+                        key={task.id}
+                        taskId={task.id}
+                        name={task.name}
+                        tags={task.tags}
+                        handleRemoveTag={handleRemoveTag}
+                        handleAddTag={handleAddTag}
+                        handleRemoveTask={handleRemoveTask}
+                        handleEditTaskName={handleEditTaskName}
+                        tasks={tasks}
+                        handleStartTime={handleStartTime}
+                        handleStopTime={handleStopTime}
+                        singleTaskMode={singleTaskMode}
+                      />
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+            </ol>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };

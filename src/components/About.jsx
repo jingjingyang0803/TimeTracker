@@ -55,7 +55,9 @@ const About = () => {
               screen sizes, including small screens.
             </li>
             <li> Implemented unique addresses for each view.</li>
-            <li>npm install react-router-dom</li>
+            <li>
+              <u>npm install react-router-dom</u>
+            </li>
           </ul>
         </li>
         <li>
@@ -80,10 +82,12 @@ const About = () => {
             </li>
             <li>Created tasks with related tags in the 'db.json' file.</li>
             <li>
-              Run backend server: npx json-server -H localhost -p 3010 -w
-              ./db.json
+              Run backend server:{" "}
+              <u>npx json-server -H localhost -p 3010 -w ./db.json</u>
             </li>
-            <li>npm install json-server</li>
+            <li>
+              <u>npm install json-server</u>
+            </li>
             <li>
               Initialized the application by retrieving task data from a local
               backend json-server.
@@ -102,7 +106,7 @@ const About = () => {
           Module E: 2h
           <ul>
             <li>
-              Save edited task(adding/removing tags or editing task names) to
+              Save edited task (adding/removing tags or editing task names) to
               backend server by sending a PUT request.
             </li>
             <li>
@@ -141,6 +145,10 @@ const About = () => {
             <li>
               Upgrade the task filtering section by adding a set of checkboxes.
             </li>
+            <li>
+              <u>npm install react-beautiful-dnd</u>
+            </li>
+            <li>Allow user to rearrange task elements order.</li>
           </ul>
         </li>
         <li>
@@ -192,6 +200,9 @@ const About = () => {
             <li>
               Implement a feature that allows users to set the interval for the
               daily activity chart.
+            </li>
+            <li>
+              <u>npm install react-chartjs-2</u>; <u>npm install chart.js</u>
             </li>
             <li>
               Add a feature to display bar charts that show daily activity times

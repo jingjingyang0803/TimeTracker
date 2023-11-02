@@ -206,26 +206,6 @@
         1698781207890
       ],
       "isActive": false
-    },
-    {
-      "id": 13,
-      "name": "sf",
-      "tags": [
-        "sf"
-      ],
-      "startTime": [],
-      "stopTime": [],
-      "isActive": false
-    },
-    {
-      "id": 14,
-      "name": "sfs",
-      "tags": [
-        "sf"
-      ],
-      "startTime": [],
-      "stopTime": [],
-      "isActive": false
     }
   ]
 }
