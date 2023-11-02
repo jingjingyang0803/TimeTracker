@@ -104,7 +104,7 @@ const Summary = () => {
   });
 
   return (
-    <div>
+    <div className="summary">
       <ul>
         <li>
           This view allows you to monitor your tasks and their associated tags
@@ -141,19 +141,21 @@ const Summary = () => {
       </label>
       <hr />
       {/* Map through the tasks of interest and display their details */}
-      {tasksOfInterest.map((task) => (
+      <h2>Tasks of Interest</h2>
+      {tasksOfInterest.map((task, index) => (
         <div key={task.id}>
-          <h2>Task: {task.name}</h2>
+          <h3> {`${index + 1}. ${task.name}`}</h3>
           <p>Tags: {task.tags.join(", ")}</p>
           {/* Calculate and display the total active time for each task */}
           <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
         </div>
       ))}
       <hr />
+      <h2>Tags of Interest</h2>
       {/* Map through the tags of interest and display their details */}
-      {tagsOfInterest.map((tag) => (
+      {tagsOfInterest.map((tag, index) => (
         <div key={tag.tag}>
-          <h2>Tag: {tag.tag}</h2>
+          <h3>{`${index + 1}. ${tag.tag}`}</h3>
           {/* Calculate and display the total active time for each tag */}
           <p>Total Active Time: {formatTime(tag.activeTime)}</p>
         </div>

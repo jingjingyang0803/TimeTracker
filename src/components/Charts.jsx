@@ -120,14 +120,14 @@ const Charts = () => {
   if (selectedTask) {
     renderChart = (
       <div>
-        <h2>Daily Active Time for {selectedTask.name}</h2>
+        <h2>Daily Active Time for "{selectedTask.name}"</h2>
         <Bar data={chartData} />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="charts">
       <ul>
         <li>
           In this dynamic view, the user starts by specifying a time interval.
@@ -173,18 +173,19 @@ const Charts = () => {
         />
       </label>
       <hr />
-      {tasksOfInterest.map((task) => (
+      <h2>Daily Active Time</h2>
+      {tasksOfInterest.map((task, index) => (
         <div key={task.id}>
-          <h2>Task: {task.name}</h2>
+          <h3>{`${index + 1}. ${task.name}`}</h3>
           {/* For each task in tasksOfInterest, display its name and daily active time */}
           {calculateDailyActiveTime(task).map(({ day, duration }, index) => (
             <p key={index}>
-              {day}: {formatTime(duration)}
+              <i>{day}:</i> {formatTime(duration)}
             </p>
           ))}
           <button onClick={() => handleButtonClick(task)}>
             {/* Button to display the daily active time of the task in a Bar Chart */}
-            Show daily active time in Bar Chart
+            Show in Bar Chart
           </button>
         </div>
       ))}

@@ -102,3 +102,15 @@ button {
   padding: 10px;
   border-radius: 5px;
 }
+
+/* Summary.css */
+.summary h2 {
+  text-align: center;
+  color: #d6cda4;
+}
+
+/* Charts.css */
+.charts h2 {
+  text-align: center;
+  color: #d6cda4;
+}
