@@ -41,7 +41,7 @@ const About = () => {
       </p>
       <hr />
       <h3>Author: </h3>Jingjing Yang
-      <h3>Working Hours Logs</h3>
+      <h3> Log of Working Hours --- 91h in total</h3>
       <ol>
         <li>
           Module A: 6h

@@ -151,7 +151,7 @@ const Tasks = ({ singleTaskMode }) => {
   // Function to add a new task to the server
   const addTaskToServer = (newTask) => {
     // Use fetch to make a POST request to the server
-    fetch("<http://localhost:3010/tasks>", {
+    fetch("http://localhost:3010/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -138,13 +138,15 @@ const Summary = () => {
       </h3>
       <label>
         {/* Get the start time from the user */}
-        Start Time: <input type="datetime-local" onChange={handleStartChange} />
+        Start Time:{" "}
+        <input type="datetime-local" step="1" onChange={handleStartChange} />
       </label>
       <br />
       <br />
       <label>
         {/* Get the end time from the user */}
-        End Time: <input type="datetime-local" onChange={handleEndChange} />
+        End Time:{" "}
+        <input type="datetime-local" step="1" onChange={handleEndChange} />
       </label>
 
       <hr />
