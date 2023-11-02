@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Summary = () => {
+  // ================================= useState and useEffect =====================================================
   const [tasks, setTasks] = useState([]);
 
   // Initialize `start` state to be the beginning of the current day (midnight)
@@ -30,11 +31,7 @@ const Summary = () => {
     } // Add this line
   }, [isEndTimeSet]); // Add `isEndTimeSet` as a dependency
 
-  // First, calculate tasks of interest
-  const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some((time) => time >= start && time <= end)
-  );
-
+  // ================================= Set observation interval ==================================================
   const handleStartChange = (event) => {
     // Convert the start time to milliseconds and update the 'start' state
     setStart(new Date(event.target.value).getTime());
@@ -46,6 +43,12 @@ const Summary = () => {
     // Convert the end time to milliseconds and update the 'end' state
     setEnd(new Date(event.target.value).getTime());
   };
+
+  // ================================= Calculate total Active Time ====================================================================
+  // First, calculate tasks of interest
+  const tasksOfInterest = tasks.filter((task) =>
+    task.startTime.some((time) => time >= start && time <= end)
+  );
 
   // This function takes a time duration in milliseconds as input and returns the time formatted as hours, minutes, and seconds.
   const formatTime = (timeInMs) => {
@@ -81,6 +84,7 @@ const Summary = () => {
     }, 0);
   };
 
+  // ================================= Calculate Tag Active Time ====================================================================
   // Calculate tags of interest directly in the component's body
   const allTags = tasksOfInterest.reduce((acc, task) => {
     // Spread both accumulator and task's tags into a new array
@@ -103,6 +107,7 @@ const Summary = () => {
     return { tag, activeTime: activeTimeForTag }; // Use formatTime here
   });
 
+  // ================================= return ====================================================================
   return (
     <div className="summary">
       <ul>
@@ -123,7 +128,9 @@ const Summary = () => {
           their total active times are zero.
         </li>
       </ul>
+
       <hr />
+
       <h3>
         {/* Display the observation interval */}
         Observation interval: {new Date(start).toLocaleString()} to{" "}
@@ -139,7 +146,9 @@ const Summary = () => {
         {/* Get the end time from the user */}
         End Time: <input type="datetime-local" onChange={handleEndChange} />
       </label>
+
       <hr />
+
       {/* Map through the tasks of interest and display their details */}
       <h2>Tasks of Interest</h2>
       {tasksOfInterest.map((task, index) => (
@@ -150,7 +159,9 @@ const Summary = () => {
           <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
         </div>
       ))}
+
       <hr />
+
       <h2>Tags of Interest</h2>
       {/* Map through the tags of interest and display their details */}
       {tagsOfInterest.map((tag, index) => (

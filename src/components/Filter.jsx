@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const Filter = ({ tasks, setFilteredTasks }) => {
   const [selectedTags, setSelectedTags] = useState([]);
 
+  // ================================= Existing tags ==============================================================
   const existingTags = [];
 
   // Loop through each task
@@ -16,6 +17,7 @@ const Filter = ({ tasks, setFilteredTasks }) => {
     });
   });
 
+  // ================================= Filter Tasks ==============================================================
   const handleSelectTag = (tag) => {
     // If the selected tag is already in the array, remove it
     if (selectedTags.includes(tag)) {
@@ -37,6 +39,7 @@ const Filter = ({ tasks, setFilteredTasks }) => {
     setFilteredTasks(filteredTasks);
   };
 
+  // ================================= Show All Tasks ===========================================================
   const handleShowAllTasks = () => {
     // Reset the selected tags to an empty array
     setSelectedTags([]);
@@ -44,12 +47,14 @@ const Filter = ({ tasks, setFilteredTasks }) => {
     setFilteredTasks(tasks);
   };
 
+  // ================================= Return ===================================================================
   return (
     <div>
       {/* Button that triggers the show all tasks function */}
       <button className="show-all-button" onClick={handleShowAllTasks}>
         Show All Tasks
       </button>
+
       <div className="filter-tasks-container">
         <br />
         {/* Map through all existing tags */}
@@ -68,6 +73,7 @@ const Filter = ({ tasks, setFilteredTasks }) => {
           </label>
         ))}
       </div>
+
       {/* Button that triggers the filter function */}
       <button className="filter-button" onClick={handleFilter}>
         Filter tasks with selected tags

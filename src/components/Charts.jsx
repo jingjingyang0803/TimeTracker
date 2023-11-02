@@ -5,6 +5,7 @@ import { CategoryScale } from "chart.js/auto";
 Chart.register(CategoryScale);
 
 const Charts = () => {
+  // ================================= useState and useEffect ======================================================
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [chartData, setChartData] = useState({});
@@ -26,10 +27,7 @@ const Charts = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // Filter tasks that are active within the set interval
-  const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some((time) => time >= start && time <= end)
-  );
+  // ================================= Set daily activity chart interval =========================================
 
   // Handle change of start date
   const handleStartChange = (event) => {
@@ -41,7 +39,13 @@ const Charts = () => {
     setEnd(new Date(event.target.value).getTime());
   };
 
+  // ================================= Calculate Daily Active Time ===============================================
   // This function takes a time duration in milliseconds as input and returns the time formatted as hours, minutes, and seconds.
+  // Filter tasks that are active within the set interval
+  const tasksOfInterest = tasks.filter((task) =>
+    task.startTime.some((time) => time >= start && time <= end)
+  );
+
   const formatTime = (timeInMs) => {
     let seconds = Math.floor(timeInMs / 1000);
     let minutes = Math.floor(seconds / 60);
@@ -97,6 +101,8 @@ const Charts = () => {
     return dailyDurations;
   };
 
+  // ================================= Render Bar Chart ==========================================================
+
   // Function to handle button click and set selected task and chart data
   const handleButtonClick = (task) => {
     setSelectedTask(task);
@@ -129,6 +135,7 @@ const Charts = () => {
     );
   }
 
+  // ================================= Return ====================================================================
   return (
     <div className="charts">
       <ul>
@@ -155,7 +162,9 @@ const Charts = () => {
           day.
         </li>
       </ul>
+
       <hr />
+
       <h3>Set daily activity chart interval:</h3>
       <label>
         Start Date: {/* Input field for the start date of the interval */}
@@ -175,6 +184,7 @@ const Charts = () => {
           value={new Date(end).toISOString().substring(0, 10)} // The value is the end date in ISO format
         />
       </label>
+
       <hr />
 
       <h2>Daily Active Time</h2>
@@ -187,6 +197,7 @@ const Charts = () => {
               <i>{day}:</i> {formatTime(duration)}
             </p>
           ))}
+
           <button onClick={() => handleButtonClick(task)}>
             Show in Bar Chart
           </button>

@@ -50,6 +50,7 @@ const TaskViewInstructions = () => {
 };
 
 const Tasks = ({ singleTaskMode }) => {
+  // ================================= useState and useEffect======================================================
   const [tasks, setTasks] = useState([]); // State for storing tasks
   const [newName, setNewName] = useState(""); // State for new task name
   const [newTags, setNewTags] = useState([]); // State for new task tags
@@ -71,6 +72,7 @@ const Tasks = ({ singleTaskMode }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  // ================================= Save Changes To Server ====================================================
   // Send changes made to a task to the server
   const sendChangesToServer = (taskId, updatedTask) => {
     fetch(`http://localhost:3010/tasks/${taskId}`, {
@@ -89,6 +91,7 @@ const Tasks = ({ singleTaskMode }) => {
       });
   };
 
+  // =================================  Add/Remove tag ===========================================================
   // Update task tags and send changes to the server
   const updateTaskTags = (taskId, updatedTags) => {
     const updatedTasks = tasks.map((task) =>
@@ -100,6 +103,15 @@ const Tasks = ({ singleTaskMode }) => {
       ...tasks.find((task) => task.id === taskId),
       tags: updatedTags,
     });
+  };
+
+  // Handle addition of a tag to a task
+  const handleAddTag = (taskId, newTag) => {
+    const task = tasks.find((task) => task.id === taskId); // Find the task with the given taskId
+    const updatedTags = [...task.tags, newTag]; // Add the new tag to the tags of the task
+
+    updateTaskTags(taskId, updatedTags); // Update the tags of the task
+    sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
   };
 
   // Handle removal of a tag from a task
@@ -118,39 +130,24 @@ const Tasks = ({ singleTaskMode }) => {
     sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
   };
 
-  // Handle addition of a tag to a task
-  const handleAddTag = (taskId, newTag) => {
-    const task = tasks.find((task) => task.id === taskId); // Find the task with the given taskId
-    const updatedTags = [...task.tags, newTag]; // Add the new tag to the tags of the task
-
-    updateTaskTags(taskId, updatedTags); // Update the tags of the task
-    sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
+  // ================================= Edit Task Name ==============================================================
+  // Function to handle the editing of a task name
+  const handleEditTaskName = (taskId, newTaskName) => {
+    // Map through the tasks and update the name of the task with the provided taskId
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, name: newTaskName } : task
+    );
+    // Update the tasks state
+    setTasks(updatedTasks);
+    setFilteredTasks(updatedTasks);
+    // Send the changes to the server
+    sendChangesToServer(taskId, {
+      ...tasks.find((task) => task.id === taskId),
+      name: newTaskName,
+    });
   };
 
-  // Remove a task from the server
-  const removeTaskFromServer = (taskId) => {
-    fetch(`http://localhost:3010/tasks/${taskId}`, {
-      // Send a DELETE request to the server with the taskId
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Task removed successfully:", data); // Log the response from the server
-      })
-      .catch((error) => {
-        console.error("Failed to remove task:", error); // Log any error that occurs
-      });
-  };
-
-  // Handle removal of a task
-  const handleRemoveTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId); // Remove the task with the given taskId from the tasks
-    setTasks(updatedTasks); // Update the tasks
-    setFilteredTasks(updatedTasks); // Update the filtered tasks
-
-    removeTaskFromServer(taskId); // Remove the task from the server
-  };
-
+  // =================================  Add Task ===================================================================
   // Function to add a new task to the server
   const addTaskToServer = (newTask) => {
     // Use fetch to make a POST request to the server
@@ -207,22 +204,32 @@ const Tasks = ({ singleTaskMode }) => {
     }
   };
 
-  // Function to handle the editing of a task name
-  const handleEditTaskName = (taskId, newTaskName) => {
-    // Map through the tasks and update the name of the task with the provided taskId
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, name: newTaskName } : task
-    );
-    // Update the tasks state
-    setTasks(updatedTasks);
-    setFilteredTasks(updatedTasks);
-    // Send the changes to the server
-    sendChangesToServer(taskId, {
-      ...tasks.find((task) => task.id === taskId),
-      name: newTaskName,
-    });
+  // =================================  Remove Task ==============================================================
+  // Remove a task from the server
+  const removeTaskFromServer = (taskId) => {
+    fetch(`http://localhost:3010/tasks/${taskId}`, {
+      // Send a DELETE request to the server with the taskId
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Task removed successfully:", data); // Log the response from the server
+      })
+      .catch((error) => {
+        console.error("Failed to remove task:", error); // Log any error that occurs
+      });
   };
 
+  // Handle removal of a task
+  const handleRemoveTask = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId); // Remove the task with the given taskId from the tasks
+    setTasks(updatedTasks); // Update the tasks
+    setFilteredTasks(updatedTasks); // Update the filtered tasks
+
+    removeTaskFromServer(taskId); // Remove the task from the server
+  };
+
+  // ================================= Activate/Deactive Task ====================================================
   const handleStartTime = (id, newStartTime) => {
     // If only one task can be active at a time
     if (singleTaskMode) {
@@ -291,6 +298,7 @@ const Tasks = ({ singleTaskMode }) => {
     });
   };
 
+  // ================================= return ====================================================================
   return (
     <div>
       <TaskViewInstructions /> {/* This component displays the instructions */}

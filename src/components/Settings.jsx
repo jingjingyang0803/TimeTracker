@@ -11,6 +11,7 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
       });
   }, []); // empty dependency array means this effect runs once when the component mounts
 
+  // ================================= toggle theme/mode =========================================================
   const handleThemeChange = () => {
     const newTheme = theme === "default" ? "dark" : "default"; // toggle theme
     setTheme(newTheme); // update theme state
@@ -23,6 +24,7 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
     saveSettingsToServer({ theme: theme, singleMode: newMode }); // save new settings to the server
   };
 
+  // ================================= Save Settings To Server ===================================================
   const saveSettingsToServer = (settings) => {
     fetch("http://localhost:3010/settings", {
       method: "POST",
@@ -40,6 +42,7 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
       });
   };
 
+  // ================================= return ====================================================================
   return (
     <div>
       <ul>
@@ -69,7 +72,9 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
           submission.
         </li>
       </ul>
+
       <hr />
+
       <div>
         {/* Button to switch themes */}
         <button onClick={handleThemeChange} className="theme-button">
@@ -78,6 +83,7 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
             ? "Change to Dark Theme"
             : "Change to Default Theme"}{" "}
         </button>
+
         {/* Button to toggle single task activation mode */}
         <button onClick={toggleSingleTaskMode} className="mode-button">
           {/* Text displayed when single task activation mode is disabled/enabled */}

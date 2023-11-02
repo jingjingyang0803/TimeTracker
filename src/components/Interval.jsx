@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Interval = () => {
+  // ================================= useState and useEffect ====================================================
   const [tasks, setTasks] = useState([]);
 
   // Initialize `start` state to be the beginning of the current day (midnight)
@@ -30,11 +31,7 @@ const Interval = () => {
     } // Add this line
   }, [isEndTimeSet]); // Add `isEndTimeSet` as a dependency
 
-  // Filter the tasks that are of interest, i.e., those that have at least one start time within the observation interval
-  const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some((time) => time >= start && time <= end)
-  );
-
+  // ================================= Set Task details interval ==================================================
   // Handle the change in the start time of the observation interval
   const handleStartChange = (event) => {
     // Convert the date from the input field to a timestamp and update the start state
@@ -49,6 +46,11 @@ const Interval = () => {
     setEnd(new Date(event.target.value).getTime());
   };
 
+  // ================================= calculate Active Intervals ================================================
+  // Filter the tasks that are of interest, i.e., those that have at least one start time within the observation interval
+  const tasksOfInterest = tasks.filter((task) =>
+    task.startTime.some((time) => time >= start && time <= end)
+  );
   // Calculate the active intervals of a task within the observation interval
   const calculateActiveIntervals = (task) => {
     // Map over each start time of the task
@@ -79,6 +81,7 @@ const Interval = () => {
     );
   };
 
+  // ================================= return ====================================================================
   return (
     <div>
       <ul>
@@ -101,7 +104,9 @@ const Interval = () => {
           task list current and precise.
         </li>
       </ul>
+
       <hr />
+
       <h3>
         {/* Displaying the task details interval with start and end dates */}
         Task details interval: {new Date(start).toLocaleString()} to{" "}
@@ -117,7 +122,9 @@ const Interval = () => {
         {/* Input field for setting the End Time */}
         End Time: <input type="datetime-local" onChange={handleEndChange} />
       </label>
+
       <hr />
+
       {/* Loop through tasks of interest and display each task with its details */}
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
