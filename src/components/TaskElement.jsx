@@ -15,38 +15,47 @@ const TaskElement = ({
   const [isActive, setIsActive] = useState(false);
 
   const removeTag = (index) => {
-    console.log("Remove tag function called");
-    console.log("Clicked Tag:", tags[index]);
-    handleRemoveTag(taskId, index);
+    console.log("Remove tag function called"); // Logs the function call
+    console.log("Clicked Tag:", tags[index]); // Logs the clicked tag
+    handleRemoveTag(taskId, index); // Calls the function to remove the tag
   };
 
   // Function to add a new tag
   const addTag = () => {
     const existingTags = [];
+    // For each task
     tasks.forEach((task) => {
+      // For each tag in the task
       task.tags.forEach((tag) => {
+        // If tag not already in the list
         if (!existingTags.includes(tag)) {
-          existingTags.push(tag);
+          existingTags.push(tag); // Add the tag to the list
         }
       });
     });
 
     // Create a reference to the select element
-    const selectRef = useRef(null); // Ref to store the reference to the select element
+    const selectRef = useRef(null); // Reference to store the select element
 
     const handleTagSelection = (selectedTag) => {
+      // If selected tag is not 'Custom'
       if (selectedTag !== "Custom") {
         console.log("Selected Tag:", selectedTag);
-        handleAddTag(taskId, selectedTag); // Pass the selectedTag value to the handleAddTag function
+        // Pass the selectedTag value to the handleAddTag function
+        handleAddTag(taskId, selectedTag);
       } else {
-        const newTag = prompt("Enter a new tag:"); // Prompt the user to enter a new tag
+        // Prompt the user to enter a new tag
+        const newTag = prompt("Enter a new tag:");
 
         if (newTag !== null) {
           const trimmedTag = newTag.trim();
+          // If trimmed tag is not empty
           if (trimmedTag !== "") {
             console.log("New Tag:", trimmedTag);
-            handleAddTag(taskId, trimmedTag); // Pass the trimmedTag value to the handleAddTag function
+            // Pass the trimmedTag value to the handleAddTag function
+            handleAddTag(taskId, trimmedTag);
           } else {
+            // Alert if tag is empty
             alert("Tag cannot be empty. Please enter a valid tag.");
           }
         } else {
@@ -54,9 +63,11 @@ const TaskElement = ({
         }
       }
 
-      selectRef.current.value = ""; // Reset the select list to an empty value
+      // Reset the select list to an empty value
+      selectRef.current.value = "";
     };
 
+    // Return select element with existing tags and option to add custom tag
     return (
       <select
         defaultValue=""
@@ -67,6 +78,7 @@ const TaskElement = ({
           Add a new tag...
         </option>
         {existingTags.map((tag, index) => (
+          // Disable tag if it's already included
           <option key={index} value={tag} disabled={tags.includes(tag)}>
             {tag}
           </option>
@@ -77,69 +89,84 @@ const TaskElement = ({
   };
 
   const removeTask = () => {
-    handleRemoveTask(taskId);
+    handleRemoveTask(taskId); // Calls the handleRemoveTask function with taskId as argument
   };
 
   const editTaskName = () => {
-    const newTaskName = prompt("Enter a new task name:"); // Prompt the user to enter a new task name
+    const newTaskName = prompt("Enter a new task name:"); // Prompts the user to enter a new task name
 
     if (newTaskName !== null) {
-      const trimmedTaskName = newTaskName.trim();
+      // Checks if user input is not null
+      const trimmedTaskName = newTaskName.trim(); // Removes extra spaces from the user input
       if (trimmedTaskName !== "") {
-        console.log("New Task Name:", trimmedTaskName);
-        handleEditTaskName(taskId, trimmedTaskName); // Pass the trimmedTaskName value to the handleEditTaskName function
+        // Checks if trimmed task name is not empty
+        console.log("New Task Name:", trimmedTaskName); // Logs the new task name
+        handleEditTaskName(taskId, trimmedTaskName); // Calls the handleEditTaskName function with taskId and trimmedTaskName as arguments
       } else {
-        alert("Task name cannot be empty. Please enter a valid task name.");
+        alert("Task name cannot be empty. Please enter a valid task name."); // Alerts the user if task name is empty
       }
     } else {
-      console.log("User clicked Cancel");
+      console.log("User clicked Cancel"); // Logs when user cancels the prompt
     }
   };
 
   const toggleTask = () => {
     if (isActive) {
-      const newStopTime = new Date().getTime();
-      handleStopTime(taskId, newStopTime);
-      setIsActive(false);
+      // Checks if task is active
+      const newStopTime = new Date().getTime(); // Gets the current time in milliseconds
+      handleStopTime(taskId, newStopTime); // Calls the handleStopTime function with taskId and newStopTime as arguments
+      setIsActive(false); // Sets the task to inactive
     } else {
-      const newStartTime = new Date().getTime();
-      handleStartTime(taskId, newStartTime);
-      setIsActive(true);
+      const newStartTime = new Date().getTime(); // Gets the current time in milliseconds
+      handleStartTime(taskId, newStartTime); // Calls the handleStartTime function with taskId and newStartTime as arguments
+      setIsActive(true); // Sets the task to active
     }
   };
 
   return (
     <div className={`task ${isActive ? "active" : ""}`}>
+      {" "}
+      {/* Apply 'active' class if task is active */}
       <button onClick={editTaskName} className="task-edit">
+        {" "}
+        {/* Button to trigger task name editing */}
         Edit task name
       </button>
       <button onClick={removeTask} className="task-remove">
+        {" "}
+        {/* Button to remove task */}
         Remove task
       </button>
+      {/* Toggle between active and inactive task */}
       <button
         onClick={toggleTask}
         className={`task-toggle ${isActive ? "active-button" : ""}`}
       >
+        {/* Apply 'active-button' class if task is active */}
         {isActive ? "Deactivate" : "Activate"}{" "}
-        {/* Toggle button text based on the active status */}
+        {/* Change button text based on task's active status */}
       </button>
       <div className="task-name">
         {" "}
+        {/* Display task name */}
         <b>Task Name: </b>
         {name}
       </div>
       <div className="task-tags">
+        {" "}
+        {/* Display task tags */}
         <b> Tags: </b>
         {tags.map((tag, index) => (
           <span key={index}>
             {tag}{" "}
             <button onClick={() => removeTag(index)} className="tag-remove">
-              x
+              {" "}
+              {/* Button to remove a tag */}x
             </button>
           </span>
         ))}
         {addTag()}{" "}
-        {/* Render the addTag function to display the select input */}
+        {/* Render the addTag function to display the select input for adding a new tag */}
       </div>
     </div>
   );

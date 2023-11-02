@@ -104,75 +104,82 @@ const Tasks = ({ singleTaskMode }) => {
 
   // Handle removal of a tag from a task
   const handleRemoveTag = (taskId, index) => {
-    const task = tasks.find((task) => task.id === taskId);
-    const updatedTags = [...task.tags];
+    const task = tasks.find((task) => task.id === taskId); // Find the task with the given taskId
+    const updatedTags = [...task.tags]; // Copy the tags of the task
 
     if (updatedTags.length > 1) {
-      updatedTags.splice(index, 1);
-      updateTaskTags(taskId, updatedTags);
+      // Check if the task has more than one tag
+      updatedTags.splice(index, 1); // Remove the tag at the given index
+      updateTaskTags(taskId, updatedTags); // Update the tags of the task
     } else {
-      alert("Cannot remove tag. Task must have at least one tag.");
+      alert("Cannot remove tag. Task must have at least one tag."); // Show an alert if the task has only one tag
     }
 
-    sendChangesToServer(taskId, { ...task, tags: updatedTags });
+    sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
   };
 
   // Handle addition of a tag to a task
   const handleAddTag = (taskId, newTag) => {
-    const task = tasks.find((task) => task.id === taskId);
-    const updatedTags = [...task.tags, newTag];
+    const task = tasks.find((task) => task.id === taskId); // Find the task with the given taskId
+    const updatedTags = [...task.tags, newTag]; // Add the new tag to the tags of the task
 
-    updateTaskTags(taskId, updatedTags);
-    sendChangesToServer(taskId, { ...task, tags: updatedTags });
+    updateTaskTags(taskId, updatedTags); // Update the tags of the task
+    sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
   };
 
   // Remove a task from the server
   const removeTaskFromServer = (taskId) => {
     fetch(`http://localhost:3010/tasks/${taskId}`, {
+      // Send a DELETE request to the server with the taskId
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Task removed successfully:", data);
+        console.log("Task removed successfully:", data); // Log the response from the server
       })
       .catch((error) => {
-        console.error("Failed to remove task:", error);
+        console.error("Failed to remove task:", error); // Log any error that occurs
       });
   };
 
   // Handle removal of a task
   const handleRemoveTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
-    setFilteredTasks(updatedTasks);
+    const updatedTasks = tasks.filter((task) => task.id !== taskId); // Remove the task with the given taskId from the tasks
+    setTasks(updatedTasks); // Update the tasks
+    setFilteredTasks(updatedTasks); // Update the filtered tasks
 
-    removeTaskFromServer(taskId);
+    removeTaskFromServer(taskId); // Remove the task from the server
   };
 
-  // Add a new task to the server
+  // Function to add a new task to the server
   const addTaskToServer = (newTask) => {
-    fetch("http://localhost:3010/tasks", {
+    // Use fetch to make a POST request to the server
+    fetch("<http://localhost:3010/tasks>", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newTask),
+      body: JSON.stringify(newTask), // Convert the newTask object to a JSON string
     })
-      .then((response) => response.json())
+      .then((response) => response.json()) // Parse the response data as JSON
       .then((data) => {
-        console.log("New task added successfully:", data);
+        console.log("New task added successfully:", data); // Log the data received from the server
       })
       .catch((error) => {
-        console.error("Failed to add new task:", error);
+        console.error("Failed to add new task:", error); // Log any errors
       });
   };
 
-  // Handle addition of a task
+  // Function to handle the addition of a task
   const handleAddTask = () => {
+    // Checks if the new task name is not empty and there is at least one tag
     if (newName.trim() !== "" && newTags.length > 0) {
+      // Get the last task in the list
       const lastTask = tasks[tasks.length - 1];
+      // If there is a last task, the new task ID will be the last task's ID + 1, otherwise it will be 1
       const newTaskId = lastTask ? lastTask.id + 1 : 1;
 
+      // Create a new task object
       const newTask = {
         id: newTaskId,
         name: newName,
@@ -182,12 +189,15 @@ const Tasks = ({ singleTaskMode }) => {
         isActive: false,
       };
 
+      // Add the new task to the task list
       setTasks([...tasks, newTask]);
       setFilteredTasks([...tasks, newTask]);
+      // Clear the input fields
       setNewName("");
       setNewTags([]);
       alert("Task added successfully!");
 
+      // Add the new task to the server
       addTaskToServer(newTask);
     } else {
       // Alert to notify the user if the task addition fails
@@ -197,13 +207,16 @@ const Tasks = ({ singleTaskMode }) => {
     }
   };
 
-  // Handle editing of a task name
+  // Function to handle the editing of a task name
   const handleEditTaskName = (taskId, newTaskName) => {
+    // Map through the tasks and update the name of the task with the provided taskId
     const updatedTasks = tasks.map((task) =>
       task.id === taskId ? { ...task, name: newTaskName } : task
     );
+    // Update the tasks state
     setTasks(updatedTasks);
     setFilteredTasks(updatedTasks);
+    // Send the changes to the server
     sendChangesToServer(taskId, {
       ...tasks.find((task) => task.id === taskId),
       name: newTaskName,
@@ -211,37 +224,44 @@ const Tasks = ({ singleTaskMode }) => {
   };
 
   const handleStartTime = (id, newStartTime) => {
-    // console.log(singleTaskMode);
+    // If only one task can be active at a time
     if (singleTaskMode) {
       console.log(singleTaskMode);
       // Deactivate all other tasks
       const updatedTasks = tasks.map((task) => {
         if (task.id != id && task.isActive == true) {
           const currentTime = new Date().getTime();
+          // Stop the current active task
           handleStopTime(task.id, currentTime);
           return { ...task, isActive: false }; // Update the task's isActive state to false
         }
         return task; // If the task is not active or is the current task, return it as is
       });
 
-      setTasks(updatedTasks); // Update the tasks state with the new array, which will trigger a re-render
+      // Update the tasks state with the new array, which will trigger a re-render
+      setTasks(updatedTasks);
     }
 
     const updatedTasks = tasks.map((task) =>
       task.id === id
         ? {
             ...task,
+            // Add the new start time to the existing start times
             startTime: [...task.startTime, newStartTime],
+            // Set the task to active
             isActive: true,
           }
         : task
     );
+    // Update the tasks state
     setTasks(updatedTasks);
 
     // Send the updated task to the server
     sendChangesToServer(id, {
       ...tasks.find((task) => task.id === id),
+      // Update the start time with the new start time
       startTime: updatedTasks.find((task) => task.id === id).startTime,
+      // Set the task to active
       isActive: true,
     });
   };
@@ -251,30 +271,37 @@ const Tasks = ({ singleTaskMode }) => {
       task.id === id
         ? {
             ...task,
+            // Add the new stop time to the existing stop times
             stopTime: [...task.stopTime, newStopTime],
+            // Set the task to inactive
             isActive: false,
           }
         : task
     );
+    // Update the tasks state
     setTasks(updatedTasks);
 
     // Send the updated task to the server
     sendChangesToServer(id, {
       ...tasks.find((task) => task.id === id),
+      // Update the stop time with the new stop time
       stopTime: updatedTasks.find((task) => task.id === id).stopTime,
+      // Set the task to inactive
       isActive: false,
     });
   };
 
   return (
     <div>
-      <TaskViewInstructions />
+      <TaskViewInstructions /> {/* This component displays the instructions */}
       <hr />
-      <Filter tasks={tasks} setFilteredTasks={setFilteredTasks} />
+      <Filter tasks={tasks} setFilteredTasks={setFilteredTasks} />{" "}
+      {/* This component filters tasks */}
       <hr />
       <div className="add-task-container">
         <h3>Enter task details to create a new task:</h3>
         <div>
+          {/* This updates the task name */}
           <input
             type="text"
             value={newName}
@@ -282,6 +309,7 @@ const Tasks = ({ singleTaskMode }) => {
             placeholder="task name"
             className="task-input"
           />
+          {/* This updates the task tags */}
           <input
             type="text"
             value={newTags.join(",")}
@@ -290,6 +318,8 @@ const Tasks = ({ singleTaskMode }) => {
             className="task-input"
           />
           <button onClick={handleAddTask} className="add-task-button">
+            {" "}
+            {/* This button adds a new task */}
             Add new Task
           </button>
         </div>

@@ -5,33 +5,21 @@
   },
   "tasks": [
     {
-      "id": 1,
-      "name": "clean the house",
-      "tags": [
-        "chores"
-      ],
-      "startTime": [
-        1688380800000,
-        1688467200000
-      ],
-      "stopTime": [
-        1688391600000,
-        1688478000000
-      ],
-      "isActive": false
-    },
-    {
       "id": 2,
       "name": "prepare dinner",
       "tags": [
-        "cooking",
-        "meal preparation"
+        "meal preparation",
+        "fitness",
+        "exercise",
+        "productivity"
       ],
       "startTime": [
-        1688406000000
+        1688406000000,
+        1698883750984
       ],
       "stopTime": [
-        1688409600000
+        1688409600000,
+        1698883751643
       ],
       "isActive": false
     },

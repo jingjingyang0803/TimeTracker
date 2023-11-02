@@ -41,6 +41,7 @@ const Charts = () => {
     setEnd(new Date(event.target.value).getTime());
   };
 
+  // This function takes a time duration in milliseconds as input and returns the time formatted as hours, minutes, and seconds.
   const formatTime = (timeInMs) => {
     let seconds = Math.floor(timeInMs / 1000);
     let minutes = Math.floor(seconds / 60);
@@ -53,34 +54,43 @@ const Charts = () => {
   };
 
   const calculateDailyActiveTime = (task) => {
+    // Mapping each startTime to a day and its duration
     const dailyDurations = task.startTime
       .map((startTime, i) => {
+        // Defining the start and end of a day for each startTime
         let startOfDay = new Date(startTime).setHours(0, 0, 0, 0);
         let endOfDay = new Date(startTime).setHours(23, 59, 59, 999);
+        // Defining the stopTime, if the task is currently active and is the last startTime, then it's now, else it's the corresponding stopTime
         let stopTime =
           task.isActive && i === task.startTime.length - 1
             ? Date.now()
             : task.stopTime[i];
 
+        // Checking if the startTime or stopTime falls within the start and end of the day
         if (
           (startTime >= startOfDay && startTime <= endOfDay) ||
           (stopTime >= startOfDay && stopTime <= endOfDay)
         ) {
+          // Calculating duration as the difference between the min of stopTime and endOfDay and the max of startTime and startOfDay
           let duration =
             Math.min(stopTime, endOfDay) - Math.max(startTime, startOfDay);
+          // Returning an object containing the day and its duration
           return { day: new Date(startOfDay).toLocaleDateString(), duration };
         }
+        // Returning null if startTime or stopTime does not fall within the start and end of the day
         return null;
       })
+      // Filtering out null values
       .filter((day) => day !== null);
 
-    // If the task is active, increase the duration of the last interval
+    // If task is active, increase the duration of the last interval by the difference between now and the start of the last interval day
     if (task.isActive) {
       let lastInterval = dailyDurations[dailyDurations.length - 1];
       lastInterval.duration +=
         Date.now() - new Date(lastInterval.day).getTime();
     }
 
+    // Returning the daily durations
     return dailyDurations;
   };
 
@@ -145,38 +155,40 @@ const Charts = () => {
       <hr />
       <h3>Set daily activity chart interval:</h3>
       <label>
-        Start Date:{" "}
+        Start Date: {/* Input field for the start date of the interval */}
         <input
           type="date"
-          onChange={handleStartChange}
-          value={new Date(start).toISOString().substring(0, 10)}
+          onChange={handleStartChange} // When the date is changed, handleStartChange function is called
+          value={new Date(start).toISOString().substring(0, 10)} // The value is the start date in ISO format
         />
       </label>
       <br />
       <br />
       <label>
-        End Date:{" "}
+        End Date: {/* Input field for the end date of the interval */}
         <input
           type="date"
-          onChange={handleEndChange}
-          value={new Date(end).toISOString().substring(0, 10)}
+          onChange={handleEndChange} // When the date is changed, handleEndChange function is called
+          value={new Date(end).toISOString().substring(0, 10)} // The value is the end date in ISO format
         />
       </label>
       <hr />
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
+          {/* For each task in tasksOfInterest, display its name and daily active time */}
           {calculateDailyActiveTime(task).map(({ day, duration }, index) => (
             <p key={index}>
               {day}: {formatTime(duration)}
             </p>
           ))}
           <button onClick={() => handleButtonClick(task)}>
+            {/* Button to display the daily active time of the task in a Bar Chart */}
             Show daily active time in Bar Chart
           </button>
         </div>
       ))}
-      {renderChart}
+      {renderChart} {/* Render the chart */}
     </div>
   );
 };

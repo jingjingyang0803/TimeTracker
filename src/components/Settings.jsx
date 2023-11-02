@@ -6,21 +6,21 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
     fetch("http://localhost:3010/settings")
       .then((response) => response.json())
       .then((data) => {
-        setTheme(data.theme);
-        setSingleTaskMode(data.singleMode);
+        setTheme(data.theme); // update theme state with fetched data
+        setSingleTaskMode(data.singleMode); // update singleTaskMode state with fetched data
       });
   }, []); // empty dependency array means this effect runs once when the component mounts
 
   const handleThemeChange = () => {
-    const newTheme = theme === "default" ? "dark" : "default";
-    setTheme(newTheme);
-    saveSettingsToServer({ theme: newTheme, singleMode: singleTaskMode });
+    const newTheme = theme === "default" ? "dark" : "default"; // toggle theme
+    setTheme(newTheme); // update theme state
+    saveSettingsToServer({ theme: newTheme, singleMode: singleTaskMode }); // save new settings to the server
   };
 
   const toggleSingleTaskMode = () => {
-    const newMode = !singleTaskMode;
-    setSingleTaskMode(newMode);
-    saveSettingsToServer({ theme: theme, singleMode: newMode });
+    const newMode = !singleTaskMode; // toggle mode
+    setSingleTaskMode(newMode); // update singleTaskMode state
+    saveSettingsToServer({ theme: theme, singleMode: newMode }); // save new settings to the server
   };
 
   const saveSettingsToServer = (settings) => {
@@ -29,14 +29,14 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(settings),
+      body: JSON.stringify(settings), // convert JavaScript object into a JSON string
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Settings saved successfully:", data);
+        console.log("Settings saved successfully:", data); // log success message
       })
       .catch((error) => {
-        console.error("Failed to save settings:", error);
+        console.error("Failed to save settings:", error); // log error message
       });
   };
 
@@ -69,19 +69,21 @@ const Settings = ({ theme, setTheme, singleTaskMode, setSingleTaskMode }) => {
           submission.
         </li>
       </ul>
-
       <hr />
-
       <div>
+        {/* Button to switch themes */}
         <button onClick={handleThemeChange} className="theme-button">
+          {/* Text displayed when the current theme is/is not "default" */}
           {theme === "default"
             ? "Change to Dark Theme"
-            : "Change to Default Theme"}
+            : "Change to Default Theme"}{" "}
         </button>
+        {/* Button to toggle single task activation mode */}
         <button onClick={toggleSingleTaskMode} className="mode-button">
+          {/* Text displayed when single task activation mode is disabled/enabled */}
           {singleTaskMode
             ? "Disable Single Task Activation Mode"
-            : "Enable Single Task Activation Mode"}
+            : "Enable Single Task Activation Mode"}{" "}
         </button>
       </div>
     </div>

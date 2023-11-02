@@ -36,17 +36,19 @@ const Summary = () => {
   );
 
   const handleStartChange = (event) => {
+    // Convert the start time to milliseconds and update the 'start' state
     setStart(new Date(event.target.value).getTime());
   };
 
   const handleEndChange = (event) => {
-    setIsEndTimeSet(true); // Add this line
+    // Set 'isEndTimeSet' state to true when end time is selected
+    setIsEndTimeSet(true);
+    // Convert the end time to milliseconds and update the 'end' state
     setEnd(new Date(event.target.value).getTime());
   };
 
-  // Calculate the total active time of each task by summing up the durations of all activity periods within the observation interval
+  // This function takes a time duration in milliseconds as input and returns the time formatted as hours, minutes, and seconds.
   const formatTime = (timeInMs) => {
-    // These durations are then summed up to give the total active time of the task within the observation interval.
     let seconds = Math.floor(timeInMs / 1000);
     let minutes = Math.floor(seconds / 60);
     let hours = Math.floor(minutes / 60);
@@ -57,6 +59,7 @@ const Summary = () => {
     return `${hours}h ${minutes}m ${seconds}s`;
   };
 
+  // Calculate the total active time of each task by summing up the durations of all activity periods within the observation interval
   const calculateActiveTime = (task) => {
     // The function calculates the total active time of each task within a specified observation interval (from `start` to `end`).
     return task.startTime.reduce((total, startTime, i) => {
@@ -80,17 +83,23 @@ const Summary = () => {
 
   // Calculate tags of interest directly in the component's body
   const allTags = tasksOfInterest.reduce((acc, task) => {
+    // Spread both accumulator and task's tags into a new array
     return [...acc, ...task.tags];
   }, []);
+  // Create a new Set from allTags to remove duplicates, then spread into an array
   const uniqueTags = [...new Set(allTags)];
 
   const tagsOfInterest = uniqueTags.map((tag) => {
+    // Filter tasks that include the current tag
     const tasksWithThisTag = tasksOfInterest.filter((task) =>
       task.tags.includes(tag)
     );
+    // Reduce tasksWithThisTag to a total active time for the current tag
     const activeTimeForTag = tasksWithThisTag.reduce((total, task) => {
+      // Add the active time of the current task to the total
       return total + calculateActiveTime(task);
     }, 0);
+    // Return an object with the tag and its total active time
     return { tag, activeTime: activeTimeForTag }; // Use formatTime here
   });
 
@@ -116,29 +125,36 @@ const Summary = () => {
       </ul>
       <hr />
       <h3>
+        {/* Display the observation interval */}
         Observation interval: {new Date(start).toLocaleString()} to{" "}
         {new Date(end).toLocaleString()}
       </h3>
       <label>
+        {/* Get the start time from the user */}
         Start Time: <input type="datetime-local" onChange={handleStartChange} />
       </label>
       <br />
       <br />
       <label>
+        {/* Get the end time from the user */}
         End Time: <input type="datetime-local" onChange={handleEndChange} />
       </label>
       <hr />
+      {/* Map through the tasks of interest and display their details */}
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
           <h2>Task: {task.name}</h2>
           <p>Tags: {task.tags.join(", ")}</p>
+          {/* Calculate and display the total active time for each task */}
           <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
         </div>
       ))}
       <hr />
+      {/* Map through the tags of interest and display their details */}
       {tagsOfInterest.map((tag) => (
         <div key={tag.tag}>
           <h2>Tag: {tag.tag}</h2>
+          {/* Calculate and display the total active time for each tag */}
           <p>Total Active Time: {formatTime(tag.activeTime)}</p>
         </div>
       ))}
