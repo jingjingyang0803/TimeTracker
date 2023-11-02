@@ -86,8 +86,11 @@ const Charts = () => {
     // If task is active, increase the duration of the last interval by the difference between now and the start of the last interval day
     if (task.isActive) {
       let lastInterval = dailyDurations[dailyDurations.length - 1];
+      console.log(typeof lastInterval.duration);
+      console.log(typeof (Date.now() - new Date(lastInterval.day).getTime()));
       lastInterval.duration +=
         Date.now() - new Date(lastInterval.day).getTime();
+      console.log(lastInterval.duration);
     }
 
     // Returning the daily durations
@@ -105,7 +108,7 @@ const Charts = () => {
       labels: data.map((item) => item.x),
       datasets: [
         {
-          label: "Daily active time (minutes)",
+          label: "Daily active time (in minutes)",
           data: data.map((item) => item.y),
           backgroundColor: "rgba(75,192,192,0.6)",
           borderColor: "rgba(75,192,192,1)",
@@ -153,6 +156,27 @@ const Charts = () => {
         </li>
       </ul>
       <hr />
+      <h3>Set daily activity chart interval:</h3>
+      <label>
+        Start Date: {/* Input field for the start date of the interval */}
+        <input
+          type="date"
+          onChange={handleStartChange} // When the date is changed, handleStartChange function is called
+          value={new Date(start).toISOString().substring(0, 10)} // The value is the start date in ISO format
+        />
+      </label>
+      <br />
+      <br />
+      <label>
+        End Date: {/* Input field for the end date of the interval */}
+        <input
+          type="date"
+          onChange={handleEndChange} // When the date is changed, handleEndChange function is called
+          value={new Date(end).toISOString().substring(0, 10)} // The value is the end date in ISO format
+        />
+      </label>
+      <hr />
+
       <h2>Daily Active Time</h2>
       {tasksOfInterest.map((task, index) => (
         <div key={task.id}>

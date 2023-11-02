@@ -195,7 +195,7 @@ const Tasks = ({ singleTaskMode }) => {
       // Clear the input fields
       setNewName("");
       setNewTags([]);
-      alert("Task added successfully!");
+      // alert("Task added successfully!");
 
       // Add the new task to the server
       addTaskToServer(newTask);
@@ -299,7 +299,10 @@ const Tasks = ({ singleTaskMode }) => {
       {/* This component filters tasks */}
       <hr />
       <div className="add-task-container">
-        <h3>Enter task details to create a new task:</h3>
+        <h3>
+          {tasks.length} tasks displayed. Enter task details to create a new
+          task:
+        </h3>
         <div>
           {/* This updates the task name */}
           <input
