@@ -303,6 +303,29 @@ const Tasks = ({ singleTaskMode }) => {
   };
 
   // ================================= Rearrange Task order ======================================================
+  //save the reordered tasks on the server
+  const sendNewOrderToServer = (reorderedTasks) => {
+    for (var i = 0; i < reorderedTasks.length; i++) {
+      console.log(JSON.stringify(reorderedTasks[i]));
+      let id = i + 1;
+
+      fetch(`http://localhost:3010/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reorderedTasks[i]),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Changes saved successfully:", data);
+        })
+        .catch((error) => {
+          console.error("Failed to save changes:", error);
+        });
+    }
+  };
+
   // Functions for drag-and-drop logic
   const handleDragStart = (e, taskId) => {
     e.dataTransfer.setData("text/plain", taskId);
@@ -313,28 +336,22 @@ const Tasks = ({ singleTaskMode }) => {
   };
 
   const handleDrop = (e, targetTaskId) => {
-    console.log("Target Task ID:", targetTaskId);
     // Prevent the default behavior of the browser during the drop event
     e.preventDefault();
 
     // Retrieve the task ID of the dragged task from the dataTransfer object
     const draggedTaskId = e.dataTransfer.getData("text/plain");
-    console.log("Dragged Task ID:", draggedTaskId);
 
     // Create a copy of the existing tasks to work with without mutating the original state
     const updatedTasks = [...tasks];
-    console.log("Updated Tasks:", updatedTasks);
 
     // Find the indices of the dragged and target tasks within the updatedTasks array
     const draggedIndex = updatedTasks.findIndex(
       (task) => task.id == draggedTaskId
     );
-    console.log("draggedIndex: " + draggedIndex);
-
     const targetIndex = updatedTasks.findIndex(
       (task) => task.id == targetTaskId
     );
-    console.log("targetTaskId: " + targetIndex);
 
     // If both dragged and target tasks are found in the array, proceed to reorder tasks
     if (draggedIndex !== -1 && targetIndex !== -1) {
@@ -347,10 +364,33 @@ const Tasks = ({ singleTaskMode }) => {
       // Update the 'tasks' state with the new order of tasks using the setTasks function
       setTasks(updatedTasks);
 
-      console.log("Updated Tasks:", updatedTasks);
+      // If you're using filtered tasks, update the 'filteredTasks' state with the same order
+      if (filteredTasks) {
+        const updatedFilteredTasks = [...filteredTasks];
+        const draggedFilteredIndex = updatedFilteredTasks.findIndex(
+          (task) => task.id == draggedTaskId
+        );
+        const targetFilteredIndex = updatedFilteredTasks.findIndex(
+          (task) => task.id == targetTaskId
+        );
 
-      // update the 'filteredTasks' state with the same order
-      setFilteredTasks(updatedTasks);
+        if (draggedFilteredIndex !== -1 && targetFilteredIndex !== -1) {
+          const [draggedFilteredTask] = updatedFilteredTasks.splice(
+            draggedFilteredIndex,
+            1
+          );
+          updatedFilteredTasks.splice(
+            targetFilteredIndex,
+            0,
+            draggedFilteredTask
+          );
+          setFilteredTasks(updatedFilteredTasks);
+        }
+      }
+
+      const reorderedTasksArray = Object.values(updatedTasks);
+      console.log(reorderedTasksArray);
+      // sendNewOrderToServer(reorderedTasksArray);
     }
   };
 
