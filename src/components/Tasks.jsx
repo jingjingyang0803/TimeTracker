@@ -235,7 +235,6 @@ const Tasks = ({ singleTaskMode }) => {
   const handleStartTime = (id, newStartTime) => {
     // If only one task can be active at a time
     if (singleTaskMode) {
-      console.log(singleTaskMode);
       // Deactivate all other tasks
       const updatedTasks = tasks.map((task) => {
         if (task.id != id && task.isActive == true) {
@@ -249,6 +248,7 @@ const Tasks = ({ singleTaskMode }) => {
 
       // Update the tasks state with the new array, which will trigger a re-render
       setTasks(updatedTasks);
+      // setFilteredTasks(updatedTasks);
     }
 
     const updatedTasks = tasks.map((task) =>

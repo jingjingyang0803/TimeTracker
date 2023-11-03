@@ -88,7 +88,6 @@ const TaskElement = ({
     const handleTagSelection = (selectedTag) => {
       // If selected tag is not 'Custom'
       if (selectedTag !== "Custom") {
-        console.log("Selected Tag:", selectedTag);
         // Pass the selectedTag value to the handleAddTag function
         handleAddTag(taskId, selectedTag);
       } else {
@@ -99,7 +98,6 @@ const TaskElement = ({
           const trimmedTag = newTag.trim();
           // If trimmed tag is not empty
           if (trimmedTag !== "") {
-            console.log("New Tag:", trimmedTag);
             // Pass the trimmedTag value to the handleAddTag function
             handleAddTag(taskId, trimmedTag);
           } else {
@@ -137,8 +135,6 @@ const TaskElement = ({
   };
 
   const removeTag = (index) => {
-    console.log("Remove tag function called"); // Logs the function call
-    console.log("Clicked Tag:", tags[index]); // Logs the clicked tag
     handleRemoveTag(taskId, index); // Calls the function to remove the tag
   };
 

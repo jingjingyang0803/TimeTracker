@@ -119,7 +119,6 @@ const Charts = () => {
     for (const dayKey in dailyDurations) {
       if (dailyDurations.hasOwnProperty(dayKey)) {
         const day = dailyDurations[dayKey];
-        console.log(`${day.day}: ${formatTime(day.duration)}`);
       }
     }
 
