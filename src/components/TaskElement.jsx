@@ -14,6 +14,10 @@ const TaskElement = ({
   tasks,
   handleStartTime,
   handleStopTime,
+  draggable,
+  onDragStart,
+  onDragOver,
+  onDrop,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -154,7 +158,13 @@ const TaskElement = ({
 
   // ================================= return ====================================================================
   return (
-    <div className={`task ${isActive ? "active" : ""}`}>
+    <div
+      className={`task ${isActive ? "active" : ""}`}
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+    >
       {/*" =========================== Buttons =============================================================== */}
       {/* Apply 'active' class if task is active */}
       <button onClick={editTaskName} className="task-edit">

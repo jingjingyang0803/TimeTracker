@@ -4,7 +4,6 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Filter from "./Filter";
 import TaskElement from "./TaskElement";
 import "../styles/Tasks.css";
-
 const TaskViewInstructions = () => {
   return (
     <div>
@@ -57,6 +56,7 @@ const Tasks = ({ singleTaskMode }) => {
   const [newName, setNewName] = useState(""); // State for new task name
   const [newTags, setNewTags] = useState([]); // State for new task tags
   const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
+  const [taskOrder, setTaskOrder] = useState([]); // State for task order
 
   // Fetch tasks from the server on component mount
   useEffect(() => {
@@ -70,6 +70,8 @@ const Tasks = ({ singleTaskMode }) => {
         }));
         setTasks(data);
         setFilteredTasks(data);
+        // Initialize the task order
+        setTaskOrder(data.map((task) => task.id));
       })
       .catch((error) => console.log(error));
   }, []);
@@ -301,18 +303,55 @@ const Tasks = ({ singleTaskMode }) => {
   };
 
   // ================================= Rearrange Task order ======================================================
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return; // Item was not dropped in a valid location
+  // Functions for drag-and-drop logic
+  const handleDragStart = (e, taskId) => {
+    e.dataTransfer.setData("text/plain", taskId);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, targetTaskId) => {
+    console.log("Target Task ID:", targetTaskId);
+    // Prevent the default behavior of the browser during the drop event
+    e.preventDefault();
+
+    // Retrieve the task ID of the dragged task from the dataTransfer object
+    const draggedTaskId = e.dataTransfer.getData("text/plain");
+    console.log("Dragged Task ID:", draggedTaskId);
+
+    // Create a copy of the existing tasks to work with without mutating the original state
+    const updatedTasks = [...tasks];
+    console.log("Updated Tasks:", updatedTasks);
+
+    // Find the indices of the dragged and target tasks within the updatedTasks array
+    const draggedIndex = updatedTasks.findIndex(
+      (task) => task.id == draggedTaskId
+    );
+    console.log("draggedIndex: " + draggedIndex);
+
+    const targetIndex = updatedTasks.findIndex(
+      (task) => task.id == targetTaskId
+    );
+    console.log("targetTaskId: " + targetIndex);
+
+    // If both dragged and target tasks are found in the array, proceed to reorder tasks
+    if (draggedIndex !== -1 && targetIndex !== -1) {
+      // Remove the dragged task from its original position
+      const [draggedTask] = updatedTasks.splice(draggedIndex, 1);
+
+      // Insert the dragged task at the target position, effectively reordering the tasks
+      updatedTasks.splice(targetIndex, 0, draggedTask);
+
+      // Update the 'tasks' state with the new order of tasks using the setTasks function
+      setTasks(updatedTasks);
+
+      console.log("Updated Tasks:", updatedTasks);
+
+      // update the 'filteredTasks' state with the same order
+      setFilteredTasks(updatedTasks);
     }
-
-    const updatedTasks = [...filteredTasks];
-    const [reorderedTask] = updatedTasks.splice(result.source.index, 1);
-    updatedTasks.splice(result.destination.index, 0, reorderedTask);
-
-    // Update state with the new task order
-    setTasks(updatedTasks);
-    // setFilteredTasks(updatedTasks);
   };
 
   // ================================= return ====================================================================
@@ -352,44 +391,29 @@ const Tasks = ({ singleTaskMode }) => {
           </button>
         </div>
       </div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="taskList">
-          {(provided) => (
-            <ol {...provided.droppableProps} ref={provided.innerRef}>
-              {filteredTasks.map((task, index) => (
-                <Draggable
-                  key={task.id.toString()}
-                  draggableId={task.id.toString()}
-                  index={index}
-                >
-                  {(provided) => (
-                    <li
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <TaskElement
-                        key={task.id}
-                        taskId={task.id}
-                        name={task.name}
-                        tags={task.tags}
-                        handleRemoveTag={handleRemoveTag}
-                        handleAddTag={handleAddTag}
-                        handleRemoveTask={handleRemoveTask}
-                        handleEditTaskName={handleEditTaskName}
-                        tasks={tasks}
-                        handleStartTime={handleStartTime}
-                        handleStopTime={handleStopTime}
-                        singleTaskMode={singleTaskMode}
-                      />
-                    </li>
-                  )}
-                </Draggable>
-              ))}
-            </ol>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <ol>
+        {filteredTasks.map((task) => (
+          <TaskElement
+            key={task.id}
+            taskId={task.id}
+            name={task.name}
+            tags={task.tags}
+            handleRemoveTag={handleRemoveTag}
+            handleAddTag={handleAddTag}
+            handleRemoveTask={handleRemoveTask}
+            handleEditTaskName={handleEditTaskName}
+            tasks={tasks}
+            handleStartTime={handleStartTime}
+            handleStopTime={handleStopTime}
+            singleTaskMode={singleTaskMode}
+            draggable="true" // Set as draggable
+            onDragStart={(e) => handleDragStart(e, task.id)} // Handle drag start event
+            onDragOver={handleDragOver} // Handle drag over event
+            onDrop={(e) => handleDrop(e, task.id)} // Handle drop event
+            setTasks={setTasks}
+          />
+        ))}
+      </ol>
     </div>
   );
 };

@@ -1,55 +1,55 @@
 {
   "settings": {
     "theme": "default",
-    "singleMode": false
+    "singleMode": true
   },
   "tasks": [
     {
       "id": 1,
       "name": "clean the house",
       "tags": ["chores"],
-      "startTime": [1698328005936, 1698414401250],
-      "stopTime": [1698338802534, 1698425205675],
+      "startTime": [1698328005936, 1698414401250, 1698988198443],
+      "stopTime": [1698338802534, 1698425205675, 1698988377612],
       "isActive": false
     },
     {
       "id": 2,
       "name": "prepare dinner",
       "tags": ["cooking", "meal preparation"],
-      "startTime": [1698353203289],
+      "startTime": [1698353203289, 1698988377612],
       "stopTime": [1698356807896],
-      "isActive": false
+      "isActive": true
     },
     {
       "id": 3,
       "name": "go for a run",
       "tags": ["exercise", "fitness", "health"],
       "startTime": [1698399201234, 1698485604567, 1698572000090, 1698787858742],
-      "stopTime": [1698402804321, 1698489208765, 1698575600090],
-      "isActive": true
+      "stopTime": [1698402804321, 1698489208765, 1698575600090, 1698988377613],
+      "isActive": false
     },
     {
       "id": 4,
       "name": "do the laundry",
       "tags": ["chores"],
-      "startTime": [1698419204567, 1698505607890],
+      "startTime": [1698419204567, 1698505607890, 1698988438510],
       "stopTime": [1698422807890, 1698509211234],
-      "isActive": false
+      "isActive": true
     },
     {
       "id": 5,
       "name": "do the dishes",
       "tags": ["chores"],
-      "startTime": [1698430001234, 1698516404567, 1698602807890],
-      "stopTime": [1698433604567, 1698519607890, 1698605607890],
+      "startTime": [1698430001234, 1698516404567, 1698602807890, 1698988203587],
+      "stopTime": [1698433604567, 1698519607890, 1698605607890, 1698988377613],
       "isActive": false
     },
     {
       "id": 6,
       "name": "go grocery shopping",
       "tags": ["errands"],
-      "startTime": [1698436807890],
-      "stopTime": [1698440411234],
+      "startTime": [1698436807890, 1698988204316],
+      "stopTime": [1698440411234, 1698988208242],
       "isActive": false
     },
     {
