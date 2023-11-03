@@ -43,7 +43,10 @@ const Charts = () => {
   // This function takes a time duration in milliseconds as input and returns the time formatted as hours, minutes, and seconds.
   // Filter tasks that are active within the set interval
   const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some((time) => time >= start && time <= end)
+    task.startTime.some(
+      (time) =>
+        new Date(time).getTime() >= start && new Date(time).getTime() <= end
+    )
   );
 
   const formatTime = (timeInMs) => {
@@ -58,11 +61,11 @@ const Charts = () => {
   };
 
   const calculateDailyActiveTime = (task, startDate, endDate) => {
-    const dailyDurations = [];
+    const dailyDurations = {};
 
     for (let i = 0; i < task.startTime.length; i++) {
-      const startTime = new Date(task.startTime[i]);
-      let stopTime = new Date(task.stopTime[i]);
+      const startTime = new Date(task.startTime[i]).getTime();
+      let stopTime = new Date(task.stopTime[i]).getTime();
 
       // If the task is currently active and it's the last activation, set stopTime to now
       if (task.isActive && i === task.startTime.length - 1) {
@@ -78,21 +81,20 @@ const Charts = () => {
 
       // Check if the startTime falls within the specified date range
       if (startTime >= startDate && startTime <= endDate) {
-        const dayKey = startTime.toDateString();
+        const dayKey = startOfDay.toDateString();
         const duration = stopTime - startTime;
 
-        dailyDurations.push({
-          day: startTime.toLocaleDateString(),
-          duration: dailyDurations[dayKey]
-            ? dailyDurations[dayKey].duration
-            : 0,
-        });
+        if (!dailyDurations[dayKey]) {
+          dailyDurations[dayKey] = {
+            day: startOfDay.toLocaleDateString(),
+            duration: 0,
+          };
+        }
 
         if (stopTime >= endOfDay) {
-          dailyDurations[dailyDurations.length - 1].duration +=
-            endOfDay - startTime;
+          dailyDurations[dayKey].duration += endOfDay - startTime;
         } else {
-          dailyDurations[dailyDurations.length - 1].duration += duration;
+          dailyDurations[dayKey].duration += duration;
         }
       }
     }
@@ -119,6 +121,7 @@ const Charts = () => {
     for (const dayKey in dailyDurations) {
       if (dailyDurations.hasOwnProperty(dayKey)) {
         const day = dailyDurations[dayKey];
+        console.log(`Day: ${day.day}, Duration: ${day.duration} ms`);
       }
     }
 
@@ -130,7 +133,7 @@ const Charts = () => {
   // Function to handle button click and set selected task and chart data
   const handleButtonClick = (task) => {
     setSelectedTask(task);
-    const data = calculateDailyActiveTime(task, start, end).map(
+    const data = Object.values(calculateDailyActiveTime(task, start, end)).map(
       ({ day, duration }) => ({
         x: day,
         y: duration / 60000, // Convert duration to minutes,
@@ -218,7 +221,7 @@ const Charts = () => {
         <div key={task.id}>
           <h3>{`${index + 1}. ${task.name}`}</h3>
           {/* For each task in tasksOfInterest, display its name and daily active time */}
-          {calculateDailyActiveTime(task, start, end).map(
+          {Object.values(calculateDailyActiveTime(task, start, end)).map(
             ({ day, duration }, index) => (
               <p key={index}>
                 <i>{day}:</i> {formatTime(duration)}

@@ -49,8 +49,12 @@ const Interval = () => {
   // ================================= calculate Active Intervals ================================================
   // Filter the tasks that are of interest, i.e., those that have at least one start time within the observation interval
   const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some((time) => time >= start && time <= end)
+    task.startTime.some(
+      (time) =>
+        new Date(time).getTime() >= start && new Date(time).getTime() <= end
+    )
   );
+
   // Calculate the active intervals of a task within the observation interval
   const calculateActiveIntervals = (task) => {
     // Map over each start time of the task
@@ -59,17 +63,19 @@ const Interval = () => {
         .map((startTime, i) => {
           // Check if the start time or the corresponding stop time is within the observation interval
           if (
-            (startTime >= start && startTime <= end) ||
-            (task.stopTime[i] >= start && task.stopTime[i] <= end)
+            (new Date(startTime).getTime() >= start &&
+              new Date(startTime).getTime() <= end) ||
+            (new Date(task.stopTime[i]).getTime() >= start &&
+              new Date(task.stopTime[i]).getTime() <= end)
           ) {
             // If so, calculate the start and end of the active interval within the observation interval
-            let intervalStart = Math.max(start, startTime);
+            let intervalStart = Math.max(start, new Date(startTime).getTime());
             let intervalEnd =
               task.isActive && i === task.startTime.length - 1
                 ? // If the task is currently active and this is the last start time, the end of the interval is either the current time or the end of the observation interval, whichever is smaller
                   Math.min(end, Date.now())
                 : // Otherwise, the end of the interval is either the corresponding stop time or the end of the observation interval, whichever is smaller
-                  Math.min(end, task.stopTime[i]);
+                  Math.min(end, new Date(task.stopTime[i]).getTime());
             // Return the active interval
             return { start: intervalStart, end: intervalEnd };
           }

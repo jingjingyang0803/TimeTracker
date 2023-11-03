@@ -47,7 +47,10 @@ const Summary = () => {
   // ================================= Calculate total Active Time ====================================================================
   // First, calculate tasks of interest
   const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some((time) => time >= start && time <= end)
+    task.startTime.some(
+      (time) =>
+        new Date(time).getTime() >= start && new Date(time).getTime() <= end
+    )
   );
 
   // This function takes a time duration in milliseconds as input and returns the time formatted as hours, minutes, and seconds.
@@ -68,9 +71,10 @@ const Summary = () => {
     return task.startTime.reduce((total, startTime, i) => {
       // `startTime` and `i` are the elements and indices of the `task.startTime` array respectively, while `total` is the accumulator that collects the sum of all durations.
       if (
-        (new Date(startTime) >= start && new Date(startTime) <= end) ||
-        (new Date(task.stopTime[i]) >= start &&
-          new Date(task.stopTime[i]) <= end)
+        (new Date(startTime).getTime() >= start &&
+          new Date(startTime).getTime() <= end) ||
+        (new Date(task.stopTime[i]).getTime() >= start &&
+          new Date(task.stopTime[i].getTime()) <= end)
       ) {
         // The `if` condition checks whether the start time or stop time of any activity period falls within the observation interval.
         let duration =
@@ -78,8 +82,8 @@ const Summary = () => {
             ? // If the task is currently active (i.e., `task.isActive` is `true`) and the current start time is the last one in the `task.startTime` array (`i === task.startTime.length - 1`), the duration is calculated as the difference between the current time (`Date.now()`) and the largest of the start time and the start of the observation interval (`Math.max(startTime, start)`).
               Date.now() - Math.max(new Date(startTime), start)
             : // For all other activity periods, the duration is calculated as the difference between the smallest of the stop time and the end of the observation interval (`Math.min(task.stopTime[i], end)`) and the largest of the start time and the start of the observation interval (`Math.max(startTime, start)`).
-              Math.min(new Date(task.stopTime[i]), end) -
-              Math.max(new Date(startTime), start);
+              Math.min(new Date(task.stopTime[i]).getTime(), end) -
+              Math.max(new Date(startTime).getTime(), start);
         return total + duration;
       }
       return total;
