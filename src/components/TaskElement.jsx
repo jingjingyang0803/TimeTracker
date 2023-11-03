@@ -1,12 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
-
-// Create a WebSocket connection to the server
-const socket = new WebSocket("ws://localhost:3010");
+import React, { useRef } from "react";
 
 const TaskElement = ({
   taskId,
   name,
   tags,
+  isActive,
   handleRemoveTag,
   handleAddTag,
   handleRemoveTask,
@@ -19,35 +17,6 @@ const TaskElement = ({
   onDragOver,
   onDrop,
 }) => {
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    // Function to handle incoming messages
-    const handleData = (message) => {
-      const data = JSON.parse(message.data);
-      if (data.id === taskId) {
-        setIsActive(data.isActive);
-      }
-    };
-
-    // Add the function as an event listener to the 'message' event
-    socket.addEventListener("message", handleData);
-
-    // Fetch initial data
-    fetch("http://localhost:3010/tasks")
-      .then((response) => response.json())
-      .then((data) => {
-        const task = data.find((item) => item.id === taskId);
-        setIsActive(task.isActive);
-      })
-      .catch((error) => console.log(error));
-
-    // Remove event listener on cleanup
-    return () => {
-      socket.removeEventListener("message", handleData);
-    };
-  }, [taskId]);
-
   // ================================= Edit Task Name/Remove Task ==========================================================
   const editTaskName = () => {
     const newTaskName = prompt("Enter a new task name:"); // Prompts the user to enter a new task name
@@ -148,11 +117,9 @@ const TaskElement = ({
       // Checks if task is active
       const newStopTime = new Date().getTime(); // Gets the current time in milliseconds
       handleStopTime(taskId, newStopTime); // Calls the handleStopTime function with taskId and newStopTime as arguments
-      setIsActive(false); // Sets the task to inactive
     } else {
       const newStartTime = new Date().getTime(); // Gets the current time in milliseconds
       handleStartTime(taskId, newStartTime); // Calls the handleStartTime function with taskId and newStartTime as arguments
-      setIsActive(true); // Sets the task to active
     }
   };
 

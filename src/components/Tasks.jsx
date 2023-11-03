@@ -12,7 +12,7 @@ const TaskViewInstructions = () => {
           <u>Filtering Tasks: </u>Use the tag filter menu to show only tasks
           with specific tags. Select multiple tags to narrow down the task list.
         </li>
-        <br />
+        <hr className="dashed-line" />
         <li>
           <u>Adding a Task:</u> Enter the task details in the "Enter task
           details to create a new task" section. Provide a task name in the
@@ -28,7 +28,7 @@ const TaskViewInstructions = () => {
           the task you want to edit. In the prompt that appears, enter the new
           task name and click "OK". The task name will be updated.
         </li>
-        <br />
+        <hr className="dashed-line" />
         <li>
           <u>Adding a Tag to a Task:</u> Click on the select element to open the
           dropdown list. Choose an existing tag from the list or select "Custom"
@@ -40,10 +40,17 @@ const TaskViewInstructions = () => {
           <u>Removing a Tag from a Task:</u> Click the "x" button next to the
           tag you want to remove.
         </li>
-        <br />
+        <hr className="dashed-line" />
         <li>
           <u>Tracking Time: </u>To start tracking time for a task, click on the
           "Activate" button. To stop tracking, click on the "Deactivate" button.
+        </li>
+        <hr className="dashed-line" />
+        <li>
+          <u>Drag and drop: </u>
+          To move a task, click and hold on it, drag it to a new location, then
+          release the mouse button. Changes will be automatically saved and
+          updated in the task list.
         </li>
       </ul>
     </div>
@@ -429,6 +436,7 @@ const Tasks = ({ singleTaskMode }) => {
             taskId={task.id}
             name={task.name}
             tags={task.tags}
+            isActive={task.isActive}
             handleRemoveTag={handleRemoveTag}
             handleAddTag={handleAddTag}
             handleRemoveTask={handleRemoveTask}

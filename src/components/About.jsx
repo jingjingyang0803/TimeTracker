@@ -217,9 +217,7 @@ const About = () => {
               Implemented feature to change application theme affecting UI
               colors.
             </li>
-            <li>
-              Implemented feature for single activating modes.(stuck here)
-            </li>
+            <li>Implemented feature for single activating modes.</li>
           </ul>
         </li>
         <li>

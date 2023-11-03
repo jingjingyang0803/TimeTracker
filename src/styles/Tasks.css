@@ -14,6 +14,13 @@ button {
   margin-right: 10px;
   width: 15em;
 }
+
+.dashed-line {
+  border: none;
+  border-top: 1px dashed #000; /* You can change the color (#000) to your preferred color */
+  margin: 10px 0; /* Adjust the margin as needed */
+}
+
 /* Filter.css */
 .filter-tasks-container {
   display: flex;
