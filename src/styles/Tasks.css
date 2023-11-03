@@ -21,6 +21,11 @@ button {
   margin: 10px 0; /* Adjust the margin as needed */
 }
 
+.message {
+  color: red;
+  text-align: center;
+}
+
 /* Filter.css */
 .filter-tasks-container {
   display: flex;

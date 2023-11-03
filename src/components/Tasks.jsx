@@ -63,6 +63,7 @@ const Tasks = ({ singleTaskMode }) => {
   const [newName, setNewName] = useState(""); // State for new task name
   const [newTags, setNewTags] = useState([]); // State for new task tags
   const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
+  const [message, setMessage] = useState("");
 
   // Fetch tasks from the server on component mount
   useEffect(() => {
@@ -149,7 +150,7 @@ const Tasks = ({ singleTaskMode }) => {
       updatedTags.splice(index, 1); // Remove the tag at the given index
       updateTaskTags(taskId, updatedTags); // Update the tags of the task
     } else {
-      alert("Cannot remove tag. Task must have at least one tag."); // Show an alert if the task has only one tag
+      setMessage("Cannot remove tag. Task must have at least one tag."); // Set an error message
     }
 
     sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
@@ -223,7 +224,7 @@ const Tasks = ({ singleTaskMode }) => {
       addTaskToServer(newTask);
     } else {
       // Alert to notify the user if the task addition fails
-      alert(
+      setMessage(
         "Failed to add task. Please enter a task name and at least one tag."
       );
     }
@@ -435,6 +436,8 @@ const Tasks = ({ singleTaskMode }) => {
           </button>
         </div>
       </div>
+      {/* Display the message to the user */}
+      {message && <div className="message">{message}</div>}
       <ol>
         {filteredTasks.map((task) => (
           <TaskElement
