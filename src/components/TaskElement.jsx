@@ -1,4 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+
+// Create a WebSocket connection to the server
+const socket = new WebSocket("ws://localhost:3010");
 
 const TaskElement = ({
   taskId,
@@ -13,6 +16,33 @@ const TaskElement = ({
   handleStopTime,
 }) => {
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    // Function to handle incoming messages
+    const handleData = (message) => {
+      const data = JSON.parse(message.data);
+      if (data.id === taskId) {
+        setIsActive(data.isActive);
+      }
+    };
+
+    // Add the function as an event listener to the 'message' event
+    socket.addEventListener("message", handleData);
+
+    // Fetch initial data
+    fetch("http://localhost:3010/tasks")
+      .then((response) => response.json())
+      .then((data) => {
+        const task = data.find((item) => item.id === taskId);
+        setIsActive(task.isActive);
+      })
+      .catch((error) => console.log(error));
+
+    // Remove event listener on cleanup
+    return () => {
+      socket.removeEventListener("message", handleData);
+    };
+  }, [taskId]);
 
   // ================================= Edit Task Name/Remove Task ==========================================================
   const editTaskName = () => {
@@ -155,7 +185,7 @@ const TaskElement = ({
         {" "}
         {/* Display task name */}
         <b>Task Name: </b>
-        {name}
+        <i>{name}</i>
       </div>
       <div className="task-tags">
         {" "}

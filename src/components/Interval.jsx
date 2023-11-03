@@ -114,13 +114,15 @@ const Interval = () => {
       </h3>
       <label>
         {/* Input field for setting the Start Time */}
-        Start Time: <input type="datetime-local" onChange={handleStartChange} />
+        Start Time:{" "}
+        <input type="datetime-local" step="1" onChange={handleStartChange} />
       </label>
       <br />
       <br />
       <label>
         {/* Input field for setting the End Time */}
-        End Time: <input type="datetime-local" onChange={handleEndChange} />
+        End Time:{" "}
+        <input type="datetime-local" step="1" onChange={handleEndChange} />
       </label>
 
       <hr />

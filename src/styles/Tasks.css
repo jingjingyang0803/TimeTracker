@@ -56,6 +56,10 @@ button {
   margin-bottom: 10px;
 }
 
+.task-name {
+  color: #1c6758;
+}
+
 .task-edit,
 .task-remove,
 .task-toggle {

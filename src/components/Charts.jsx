@@ -57,47 +57,72 @@ const Charts = () => {
     return `${hours}h ${minutes}m ${seconds}s`;
   };
 
-  const calculateDailyActiveTime = (task) => {
-    // Mapping each startTime to a day and its duration
-    const dailyDurations = task.startTime
-      .map((startTime, i) => {
-        // Defining the start and end of a day for each startTime
-        let startOfDay = new Date(startTime).setHours(0, 0, 0, 0);
-        let endOfDay = new Date(startTime).setHours(23, 59, 59, 999);
-        // Defining the stopTime, if the task is currently active and is the last startTime, then it's now, else it's the corresponding stopTime
-        let stopTime =
-          task.isActive && i === task.startTime.length - 1
-            ? Date.now()
-            : task.stopTime[i];
+  const calculateDailyActiveTime = (task, startDate, endDate) => {
+    const dailyDurations = [];
 
-        // Checking if the startTime or stopTime falls within the start and end of the day
-        if (
-          (startTime >= startOfDay && startTime <= endOfDay) ||
-          (stopTime >= startOfDay && stopTime <= endOfDay)
-        ) {
-          // Calculating duration as the difference between the min of stopTime and endOfDay and the max of startTime and startOfDay
-          let duration =
-            Math.min(stopTime, endOfDay) - Math.max(startTime, startOfDay);
-          // Returning an object containing the day and its duration
-          return { day: new Date(startOfDay).toLocaleDateString(), duration };
+    for (let i = 0; i < task.startTime.length; i++) {
+      const startTime = new Date(task.startTime[i]);
+      let stopTime = new Date(task.stopTime[i]);
+
+      // If the task is currently active and it's the last activation, set stopTime to now
+      if (task.isActive && i === task.startTime.length - 1) {
+        stopTime = new Date();
+      }
+
+      // Create start and end of the day for the startTime
+      const startOfDay = new Date(startTime);
+      startOfDay.setHours(0, 0, 0, 0);
+
+      const endOfDay = new Date(startTime);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      // Check if the startTime falls within the specified date range
+      if (startTime >= startDate && startTime <= endDate) {
+        const dayKey = startTime.toDateString();
+        const duration = stopTime - startTime;
+
+        dailyDurations.push({
+          day: startTime.toLocaleDateString(),
+          duration: dailyDurations[dayKey]
+            ? dailyDurations[dayKey].duration
+            : 0,
+        });
+
+        if (stopTime >= endOfDay) {
+          dailyDurations[dailyDurations.length - 1].duration +=
+            endOfDay - startTime;
+        } else {
+          dailyDurations[dailyDurations.length - 1].duration += duration;
         }
-        // Returning null if startTime or stopTime does not fall within the start and end of the day
-        return null;
-      })
-      // Filtering out null values
-      .filter((day) => day !== null);
-
-    // If task is active, increase the duration of the last interval by the difference between now and the start of the last interval day
-    if (task.isActive) {
-      let lastInterval = dailyDurations[dailyDurations.length - 1];
-      console.log(typeof lastInterval.duration);
-      console.log(typeof (Date.now() - new Date(lastInterval.day).getTime()));
-      lastInterval.duration +=
-        Date.now() - new Date(lastInterval.day).getTime();
-      console.log(lastInterval.duration);
+      }
     }
 
-    // Returning the daily durations
+    const today = new Date();
+    const todayKey = today.toDateString();
+
+    // Check if today is within the specified date range and if the task is currently active
+    if (task.isActive && today >= startDate && today <= endDate) {
+      if (!dailyDurations[todayKey]) {
+        // Create a new entry for today if it doesn't exist
+        dailyDurations[todayKey] = {
+          day: today.toLocaleDateString(),
+          duration: 0,
+        };
+      }
+
+      // Add the duration from the start of the day until now
+      dailyDurations[todayKey].duration +=
+        today - new Date(today.toDateString());
+    }
+
+    // Log the daily durations within the specified date range
+    for (const dayKey in dailyDurations) {
+      if (dailyDurations.hasOwnProperty(dayKey)) {
+        const day = dailyDurations[dayKey];
+        console.log(`${day.day}: ${formatTime(day.duration)}`);
+      }
+    }
+
     return dailyDurations;
   };
 
@@ -106,10 +131,12 @@ const Charts = () => {
   // Function to handle button click and set selected task and chart data
   const handleButtonClick = (task) => {
     setSelectedTask(task);
-    const data = calculateDailyActiveTime(task).map(({ day, duration }) => ({
-      x: day,
-      y: duration / 60000, // Convert duration to minutes,
-    }));
+    const data = calculateDailyActiveTime(task, start, end).map(
+      ({ day, duration }) => ({
+        x: day,
+        y: duration / 60000, // Convert duration to minutes,
+      })
+    );
     setChartData({
       labels: data.map((item) => item.x),
       datasets: [
@@ -192,11 +219,13 @@ const Charts = () => {
         <div key={task.id}>
           <h3>{`${index + 1}. ${task.name}`}</h3>
           {/* For each task in tasksOfInterest, display its name and daily active time */}
-          {calculateDailyActiveTime(task).map(({ day, duration }, index) => (
-            <p key={index}>
-              <i>{day}:</i> {formatTime(duration)}
-            </p>
-          ))}
+          {calculateDailyActiveTime(task, start, end).map(
+            ({ day, duration }, index) => (
+              <p key={index}>
+                <i>{day}:</i> {formatTime(duration)}
+              </p>
+            )
+          )}
 
           <button onClick={() => handleButtonClick(task)}>
             Show in Bar Chart
@@ -204,7 +233,6 @@ const Charts = () => {
           {selectedTask && selectedTask.id === task.id && (
             <div>
               {/* Render the chart of the selected task below the task */}
-              <h4>Chart for "{selectedTask.name}"</h4>
               {selectedTask && selectedTask.id === task.id && (
                 <div>
                   <h2>Daily Active Time for "{selectedTask.name}"</h2>
