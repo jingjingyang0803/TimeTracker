@@ -1,7 +1,7 @@
 {
   "settings": {
     "theme": "default",
-    "singleMode": true
+    "singleMode": false
   },
   "tasks": [
     {

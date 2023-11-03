@@ -41,7 +41,7 @@ const About = () => {
       </p>
       <hr />
       <h3>Author: </h3>Jingjing Yang
-      <h3> Log of Working Hours --- 91h in total</h3>
+      <h3> Log of Working Hours --- 93h in total</h3>
       <ol>
         <li>
           Module A: 6h
@@ -131,7 +131,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module G: 8h
+          Module G: 10h
           <ul>
             <li>
               Enabled the ability to add a tag from a dropdown list containing
