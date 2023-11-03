@@ -5,11 +5,11 @@ const TaskElement = ({
   name,
   tags,
   isActive,
+  tasks,
   handleRemoveTag,
   handleAddTag,
   handleRemoveTask,
   handleEditTaskName,
-  tasks,
   handleStartTime,
   handleStopTime,
   draggable,
@@ -112,14 +112,15 @@ const TaskElement = ({
   };
 
   // ================================= Activate/Deactivate Task ==================================================
+
   const toggleTask = () => {
+    const currentTime = new Date().toISOString(); // Get the current time in ISO 8601 format
+
     if (isActive) {
       // Checks if task is active
-      const newStopTime = new Date().getTime(); // Gets the current time in milliseconds
-      handleStopTime(taskId, newStopTime); // Calls the handleStopTime function with taskId and newStopTime as arguments
+      handleStopTime(taskId, currentTime); // Calls the handleStopTime function with taskId and newStopTime as arguments
     } else {
-      const newStartTime = new Date().getTime(); // Gets the current time in milliseconds
-      handleStartTime(taskId, newStartTime); // Calls the handleStartTime function with taskId and newStartTime as arguments
+      handleStartTime(taskId, currentTime); // Calls the handleStartTime function with taskId and newStartTime as arguments
     }
   };
 

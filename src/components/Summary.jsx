@@ -68,16 +68,18 @@ const Summary = () => {
     return task.startTime.reduce((total, startTime, i) => {
       // `startTime` and `i` are the elements and indices of the `task.startTime` array respectively, while `total` is the accumulator that collects the sum of all durations.
       if (
-        (startTime >= start && startTime <= end) ||
-        (task.stopTime[i] >= start && task.stopTime[i] <= end)
+        (new Date(startTime) >= start && new Date(startTime) <= end) ||
+        (new Date(task.stopTime[i]) >= start &&
+          new Date(task.stopTime[i]) <= end)
       ) {
         // The `if` condition checks whether the start time or stop time of any activity period falls within the observation interval.
         let duration =
           task.isActive && i === task.startTime.length - 1
             ? // If the task is currently active (i.e., `task.isActive` is `true`) and the current start time is the last one in the `task.startTime` array (`i === task.startTime.length - 1`), the duration is calculated as the difference between the current time (`Date.now()`) and the largest of the start time and the start of the observation interval (`Math.max(startTime, start)`).
-              Date.now() - Math.max(startTime, start)
+              Date.now() - Math.max(new Date(startTime), start)
             : // For all other activity periods, the duration is calculated as the difference between the smallest of the stop time and the end of the observation interval (`Math.min(task.stopTime[i], end)`) and the largest of the start time and the start of the observation interval (`Math.max(startTime, start)`).
-              Math.min(task.stopTime[i], end) - Math.max(startTime, start);
+              Math.min(new Date(task.stopTime[i]), end) -
+              Math.max(new Date(startTime), start);
         return total + duration;
       }
       return total;

@@ -69,27 +69,22 @@ const Tasks = ({ singleTaskMode }) => {
     fetch("http://localhost:3010/tasks")
       .then((response) => response.json())
       .then((data) => {
-        // Add isActive state to each task
-        // const tasksWithActiveState = data.map((task) => ({
-        //   ...task,
-        //   isActive: task.isActive,
-        // }));
         setTasks(data);
         setFilteredTasks(data);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  // Use the useEffect hook to trigger a re-render whenever tasks or filteredTasks change
+  // Use the useEffect hook to trigger a re-render whenever tasks change
   useEffect(() => {
     fetch("http://localhost:3010/tasks")
       .then((response) => response.json())
       .then((data) => {
-        setTasks(data);
+        setTasks(data); // Update tasks state
         setFilteredTasks(data);
       })
       .catch((error) => console.log(error));
-  }, [tasks, filteredTasks]);
+  }, [tasks, filteredTasks]); // Only trigger this effect when tasks change
 
   // ================================= Save Changes To Server ====================================================
   // Send changes made to a task to the server
@@ -108,6 +103,17 @@ const Tasks = ({ singleTaskMode }) => {
       .catch((error) => {
         console.error("Failed to save changes:", error);
       });
+  };
+
+  // ================================= Filter Tasks ==============================================================
+  const handleFilter = () => {
+    // Filter tasks to only include those that have every selected tag
+    const filteredTasks = tasks.filter((task) => {
+      return selectedTags.every((tag) => task.tags.includes(tag));
+    });
+
+    // Update the state to display the filtered tasks
+    setFilteredTasks(filteredTasks);
   };
 
   // =================================  Add/Remove tag ===========================================================
@@ -255,7 +261,7 @@ const Tasks = ({ singleTaskMode }) => {
       // Deactivate all other tasks
       const updatedTasks = tasks.map((task) => {
         if (task.id != id && task.isActive == true) {
-          const currentTime = new Date().getTime();
+          const currentTime = new Date().toISOString();
           // Stop the current active task
           handleStopTime(task.id, currentTime);
           return { ...task, isActive: false }; // Update the task's isActive state to false
@@ -437,11 +443,11 @@ const Tasks = ({ singleTaskMode }) => {
             name={task.name}
             tags={task.tags}
             isActive={task.isActive}
+            tasks={tasks}
             handleRemoveTag={handleRemoveTag}
             handleAddTag={handleAddTag}
             handleRemoveTask={handleRemoveTask}
             handleEditTaskName={handleEditTaskName}
-            tasks={tasks}
             handleStartTime={handleStartTime}
             handleStopTime={handleStopTime}
             singleTaskMode={singleTaskMode}

@@ -35,6 +35,7 @@ const Filter = ({ tasks, setFilteredTasks }) => {
     const filteredTasks = tasks.filter((task) => {
       return selectedTags.every((tag) => task.tags.includes(tag));
     });
+
     // Update the state to display the filtered tasks
     setFilteredTasks(filteredTasks);
   };
