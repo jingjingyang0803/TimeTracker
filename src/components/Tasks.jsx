@@ -56,7 +56,6 @@ const Tasks = ({ singleTaskMode }) => {
   const [newName, setNewName] = useState(""); // State for new task name
   const [newTags, setNewTags] = useState([]); // State for new task tags
   const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
-  const [taskOrder, setTaskOrder] = useState([]); // State for task order
 
   // Fetch tasks from the server on component mount
   useEffect(() => {
@@ -64,17 +63,26 @@ const Tasks = ({ singleTaskMode }) => {
       .then((response) => response.json())
       .then((data) => {
         // Add isActive state to each task
-        const tasksWithActiveState = data.map((task) => ({
-          ...task,
-          isActive: task.isActive,
-        }));
+        // const tasksWithActiveState = data.map((task) => ({
+        //   ...task,
+        //   isActive: task.isActive,
+        // }));
         setTasks(data);
         setFilteredTasks(data);
-        // Initialize the task order
-        setTaskOrder(data.map((task) => task.id));
       })
       .catch((error) => console.log(error));
   }, []);
+
+  // Use the useEffect hook to trigger a re-render whenever tasks or filteredTasks change
+  useEffect(() => {
+    fetch("http://localhost:3010/tasks")
+      .then((response) => response.json())
+      .then((data) => {
+        setTasks(data);
+        setFilteredTasks(data);
+      })
+      .catch((error) => console.log(error));
+  }, [tasks, filteredTasks]);
 
   // ================================= Save Changes To Server ====================================================
   // Send changes made to a task to the server
@@ -302,27 +310,11 @@ const Tasks = ({ singleTaskMode }) => {
     });
   };
 
-  // ================================= Rearrange Task order ======================================================
-  //save the reordered tasks on the server
-  const sendNewOrderToServer = (reorderedTasks) => {
+  // ================================= Drag and Drop =============================================================
+  // Save reordered tasks to server
+  const sendNewOrderToServer = (unorderedTasks, reorderedTasks) => {
     for (var i = 0; i < reorderedTasks.length; i++) {
-      console.log(JSON.stringify(reorderedTasks[i]));
-      let id = i + 1;
-
-      fetch(`http://localhost:3010/tasks/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reorderedTasks[i]),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Changes saved successfully:", data);
-        })
-        .catch((error) => {
-          console.error("Failed to save changes:", error);
-        });
+      sendChangesToServer(unorderedTasks[i].id, reorderedTasks[i]);
     }
   };
 
@@ -343,6 +335,7 @@ const Tasks = ({ singleTaskMode }) => {
     const draggedTaskId = e.dataTransfer.getData("text/plain");
 
     // Create a copy of the existing tasks to work with without mutating the original state
+    const originalTasks = [...tasks];
     const updatedTasks = [...tasks];
 
     // Find the indices of the dragged and target tasks within the updatedTasks array
@@ -388,9 +381,7 @@ const Tasks = ({ singleTaskMode }) => {
         }
       }
 
-      const reorderedTasksArray = Object.values(updatedTasks);
-      console.log(reorderedTasksArray);
-      // sendNewOrderToServer(reorderedTasksArray);
+      sendNewOrderToServer(originalTasks, updatedTasks);
     }
   };
 

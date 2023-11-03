@@ -6,98 +6,210 @@
   "tasks": [
     {
       "id": 1,
-      "name": "clean the house",
-      "tags": ["chores"],
-      "startTime": [1698328005936, 1698414401250, 1698988198443],
-      "stopTime": [1698338802534, 1698425205675, 1698988377612],
-      "isActive": false
+      "name": "go for a run",
+      "tags": [
+        "exercise",
+        "fitness",
+        "health"
+      ],
+      "startTime": [
+        1698399201234,
+        1698485604567,
+        1698572000090,
+        1698787858742,
+        1699031841078
+      ],
+      "stopTime": [
+        1698402804321,
+        1698489208765,
+        1698575600090,
+        1698988377613
+      ],
+      "isActive": true
     },
     {
       "id": 2,
       "name": "prepare dinner",
-      "tags": ["cooking", "meal preparation"],
-      "startTime": [1698353203289, 1698988377612],
-      "stopTime": [1698356807896],
-      "isActive": true
+      "tags": [
+        "cooking",
+        "meal preparation"
+      ],
+      "startTime": [
+        1698353203289,
+        1698988377612
+      ],
+      "stopTime": [
+        1698356807896,
+        1699031841078
+      ],
+      "isActive": false
     },
     {
       "id": 3,
-      "name": "go for a run",
-      "tags": ["exercise", "fitness", "health"],
-      "startTime": [1698399201234, 1698485604567, 1698572000090, 1698787858742],
-      "stopTime": [1698402804321, 1698489208765, 1698575600090, 1698988377613],
-      "isActive": false
+      "name": "do the dishes",
+      "tags": [
+        "chores"
+      ],
+      "startTime": [
+        1698430001234,
+        1698516404567,
+        1698602807890,
+        1698988203587,
+        1699031849066
+      ],
+      "stopTime": [
+        1698433604567,
+        1698519607890,
+        1698605607890,
+        1698988377613
+      ],
+      "isActive": true
     },
     {
       "id": 4,
       "name": "do the laundry",
-      "tags": ["chores"],
-      "startTime": [1698419204567, 1698505607890, 1698988438510],
-      "stopTime": [1698422807890, 1698509211234],
+      "tags": [
+        "chores"
+      ],
+      "startTime": [
+        1698419204567,
+        1698505607890,
+        1698988438510,
+        1699031853462
+      ],
+      "stopTime": [
+        1698422807890,
+        1698509211234,
+        1699031841078
+      ],
       "isActive": true
     },
     {
       "id": 5,
-      "name": "do the dishes",
-      "tags": ["chores"],
-      "startTime": [1698430001234, 1698516404567, 1698602807890, 1698988203587],
-      "stopTime": [1698433604567, 1698519607890, 1698605607890, 1698988377613],
+      "name": "clean the house",
+      "tags": [
+        "chores"
+      ],
+      "startTime": [
+        1698328005936,
+        1698414401250,
+        1698988198443
+      ],
+      "stopTime": [
+        1698338802534,
+        1698425205675,
+        1698988377612
+      ],
       "isActive": false
     },
     {
       "id": 6,
       "name": "go grocery shopping",
-      "tags": ["errands"],
-      "startTime": [1698436807890, 1698988204316],
-      "stopTime": [1698440411234, 1698988208242],
+      "tags": [
+        "errands"
+      ],
+      "startTime": [
+        1698436807890,
+        1698988204316
+      ],
+      "stopTime": [
+        1698440411234,
+        1698988208242
+      ],
       "isActive": false
     },
     {
       "id": 7,
       "name": "study algorithms",
-      "tags": ["coding"],
-      "startTime": [1698625604567, 1698712007890, 1698988411234],
-      "stopTime": [1698629207890, 1698715611234, 1698991811234],
+      "tags": [
+        "coding"
+      ],
+      "startTime": [
+        1698625604567,
+        1698712007890,
+        1698988411234
+      ],
+      "stopTime": [
+        1698629207890,
+        1698715611234,
+        1698991811234
+      ],
       "isActive": false
     },
     {
       "id": 8,
       "name": "solve coding problems",
-      "tags": ["coding"],
-      "startTime": [1698636401234, 1698722804567, 1698809207890],
-      "stopTime": [1698640004567, 1698726411234, 1698811207890],
+      "tags": [
+        "coding"
+      ],
+      "startTime": [
+        1698636401234,
+        1698722804567,
+        1698809207890
+      ],
+      "stopTime": [
+        1698640004567,
+        1698726411234,
+        1698811207890
+      ],
       "isActive": false
     },
     {
       "id": 9,
       "name": "attend coding bootcamp",
-      "tags": ["coding", "education"],
-      "startTime": [1698652007890, 1698738411234, 1698824814567],
-      "stopTime": [1698655611234, 1698742014567, 1698827214567],
+      "tags": [
+        "coding",
+        "education"
+      ],
+      "startTime": [
+        1698652007890,
+        1698738411234,
+        1698824814567
+      ],
+      "stopTime": [
+        1698655611234,
+        1698742014567,
+        1698827214567
+      ],
       "isActive": false
     },
     {
       "id": 10,
       "name": "complete coding assignment",
-      "tags": ["coding", "homework", "deadline"],
-      "startTime": [1698663201234, 1698749604567, 1698836007890],
-      "stopTime": [1698666804567, 1698753207890, 1698838407890],
-      "isActive": false
-    },
-    {
-      "id": 11,
-      "name": "attend programming lecture",
-      "tags": ["coding", "education"],
-      "startTime": [1698672007890, 1698758411234, 1698844814567],
-      "stopTime": [1698675611234, 1698762014567, 1698846814567],
+      "tags": [
+        "coding",
+        "homework",
+        "deadline"
+      ],
+      "startTime": [
+        1698663201234,
+        1698749604567,
+        1698836007890
+      ],
+      "stopTime": [
+        1698666804567,
+        1698753207890,
+        1698838407890
+      ],
       "isActive": false
     },
     {
       "id": 12,
       "name": "participate in coding workshop",
-      "tags": ["coding", "learning"],
-      "startTime": [1698683201234, 1698769604567, 1698780007890],
-      "stopTime": [1698686804567, 1698773211234, 1698781207890],
+      "tags": [
+        "coding",
+        "learning"
+      ],
+      "startTime": [
+        1698683201234,
+        1698769604567,
+        1698780007890
+      ],
+      "stopTime": [
+        1698686804567,
+        1698773211234,
+        1698781207890
+      ],
       "isActive": false
     }
   ]
