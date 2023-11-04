@@ -8,6 +8,12 @@
       "id": 1,
       "name": "clean the housesjkj",
       "tags": [
+        "exercise",
+        "af",
+        "homework",
+        "fitness",
+        "afs",
+        "s",
         "meal preparation"
       ],
       "startTime": [
@@ -29,7 +35,10 @@
       "id": 2,
       "name": "prepare dinner",
       "tags": [
-        "meal preparation"
+        "meal preparation",
+        "exercise",
+        "fitness",
+        "homework"
       ],
       "startTime": [
         "2023-10-28T10:33:23.289Z"
@@ -104,7 +113,8 @@
       "id": 7,
       "name": "study algorithms",
       "tags": [
-        "coding"
+        "coding",
+        "study algorithms"
       ],
       "startTime": [
         "2023-10-30T20:53:24.567Z",
@@ -120,7 +130,9 @@
       "id": 8,
       "name": "solve coding problems",
       "tags": [
-        "coding"
+        "coding",
+        "fitness",
+        "Custom"
       ],
       "startTime": [
         "2023-10-30T23:26:41.234Z"
@@ -181,7 +193,8 @@
       "name": "participate in coding workshop",
       "tags": [
         "coding",
-        "learning"
+        "learning",
+        "Customx"
       ],
       "startTime": [
         "2023-11-01T08:13:21.234Z"
