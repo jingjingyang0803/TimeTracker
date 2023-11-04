@@ -20,18 +20,28 @@ const Interval = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:3010/tasks")
+      .then((response) => response.json())
+      .then((data) => {
+        setTasks(data);
+      })
+      .catch((error) => console.log(error));
+  }, [tasks]);
+
   // ================================= Select a Task =============================================================
   // Function to handle task selection
   const handleTaskSelect = (event) => {
     const selectedTaskId = event.target.value;
 
     // Retrieve the selected task's data
-    setSelectedTask(tasks.find((task) => task.id == selectedTaskId));
+    const newSelectedTask = tasks.find((task) => task.id == selectedTaskId);
+    setSelectedTask(newSelectedTask);
 
-    if (selectedTask) {
+    if (newSelectedTask) {
       // Set the start and end times based on the selected task's data
-      setStart(new Date(selectedTask.startInterval).getTime());
-      setEnd(new Date(selectedTask.endInterval).getTime());
+      setStart(new Date(newSelectedTask.startInterval).getTime());
+      setEnd(new Date(newSelectedTask.endInterval).getTime());
     }
   };
 
@@ -99,7 +109,7 @@ const Interval = () => {
 
     sendChangesToServer(selectedTask.id, {
       ...tasks.find((task) => task.id === selectedTask.id),
-      startInterval: new Date(newEnd).toISOString(),
+      stopInterval: new Date(newEnd).toISOString(),
     });
   };
 
