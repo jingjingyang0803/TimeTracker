@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 const TaskElement = ({
   taskId,
@@ -17,25 +17,40 @@ const TaskElement = ({
   onDragOver,
   onDrop,
 }) => {
-  // ================================= Edit Task Name/Remove Task ==========================================================
-  const editTaskName = () => {
-    const newTaskName = prompt("Enter a new task name:"); // Prompts the user to enter a new task name
+  // ================================= Edit Task Name ============================================================
+  const [editingTask, setEditingTask] = useState(false);
+  const [newTaskName, setNewTaskName] = useState(name); // Initialize newTaskName with the existing task name
+  const [nameError, setNameError] = useState(""); // State to store the name error message
+  const [tagError, setTagError] = useState("");
 
-    if (newTaskName !== null) {
-      // Checks if user input is not null
-      const trimmedTaskName = newTaskName.trim(); // Removes extra spaces from the user input
-      if (trimmedTaskName !== "") {
-        // Checks if trimmed task name is not empty
-        console.log("New Task Name:", trimmedTaskName); // Logs the new task name
-        handleEditTaskName(taskId, trimmedTaskName); // Calls the handleEditTaskName function with taskId and trimmedTaskName as arguments
-      } else {
-        alert("Task name cannot be empty. Please enter a valid task name."); // Alerts the user if task name is empty
-      }
+  // Function to start editing the task name
+  const startEditingTaskName = () => {
+    setEditingTask(true);
+
+    setTagError(""); // Clear the error message
+  };
+
+  // Function to save the edited task name
+  const saveTaskName = () => {
+    if (newTaskName.trim() === "") {
+      setNameError(
+        "Task name cannot be empty. Please enter a valid task name."
+      );
     } else {
-      console.log("User clicked Cancel"); // Logs when user cancels the prompt
+      handleEditTaskName(taskId, newTaskName);
+      setEditingTask(false);
+      setNameError(""); // Clear the error message
     }
   };
 
+  // Function to cancel editing the task name
+  const cancelEditingTaskName = () => {
+    setEditingTask(false);
+    setNewTaskName(name); // Reset the input field to the existing task name
+    setNameError(""); // Clear the error message
+  };
+
+  // ================================= Remove Task ===============================================================
   const removeTask = () => {
     handleRemoveTask(taskId); // Calls the handleRemoveTask function with taskId as argument
   };
@@ -84,6 +99,8 @@ const TaskElement = ({
 
       // Reset the select list to an empty value
       selectRef.current.value = "";
+
+      setTagError(""); // Clear the error message
     };
 
     // Return select element with existing tags and option to add custom tag
@@ -108,7 +125,14 @@ const TaskElement = ({
   };
 
   const removeTag = (index) => {
-    handleRemoveTag(taskId, index); // Calls the function to remove the tag
+    if (tags.length === 1) {
+      setTagError(
+        "Cannot remove the last tag. Task must have at least one tag."
+      );
+    } else {
+      handleRemoveTag(taskId, index); // Calls the function to remove the tag
+      setTagError(""); // Clear the error message
+    }
   };
 
   // ================================= Activate/Deactivate Task ==================================================
@@ -122,6 +146,7 @@ const TaskElement = ({
     } else {
       handleStartTime(taskId, currentTime); // Calls the handleStartTime function with taskId and newStartTime as arguments
     }
+    setTagError(""); // Clear the error message
   };
 
   // ================================= return ====================================================================
@@ -133,18 +158,36 @@ const TaskElement = ({
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      {/*" =========================== Buttons =============================================================== */}
       {/* Apply 'active' class if task is active */}
-      <button onClick={editTaskName} className="task-edit">
-        {" "}
-        {/* Button to trigger task name editing */}
-        Edit task name
-      </button>
+
+      {/*" =========================== Buttons =============================================================== */}
+      {editingTask ? (
+        <div>
+          <input
+            type="text"
+            value={newTaskName}
+            onChange={(e) => {
+              setNewTaskName(e.target.value);
+              setNameError(""); // Clear the error message when the user starts typing
+            }}
+          />
+          <button onClick={saveTaskName}>Save</button>
+          <button onClick={cancelEditingTaskName}>Cancel</button>
+        </div>
+      ) : (
+        <button onClick={startEditingTaskName} className="task-edit">
+          {/* Button to trigger task name editing */}
+          Edit task name
+        </button>
+      )}
+      {nameError && <div className="error-message">{nameError}</div>}
+
       <button onClick={removeTask} className="task-remove">
         {" "}
         {/* Button to remove task */}
         Remove task
       </button>
+
       {/* Toggle between active and inactive task */}
       <button
         onClick={toggleTask}
@@ -154,6 +197,7 @@ const TaskElement = ({
         {isActive ? "Deactivate" : "Activate"}{" "}
         {/* Change button text based on task's active status */}
       </button>
+
       {/*" =========================== Task Details ========================================================== */}
       <div className="task-name">
         {" "}
@@ -176,6 +220,7 @@ const TaskElement = ({
         ))}
         {addTag()}{" "}
         {/* Render the addTag function to display the select input for adding a new tag */}
+        {tagError && <div className="error-message">{tagError}</div>}
       </div>
     </div>
   );

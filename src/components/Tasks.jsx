@@ -150,7 +150,7 @@ const Tasks = ({ singleTaskMode }) => {
       updatedTags.splice(index, 1); // Remove the tag at the given index
       updateTaskTags(taskId, updatedTags); // Update the tags of the task
     } else {
-      setMessage("Cannot remove tag. Task must have at least one tag."); // Set an error message
+      console.log("Cannot remove tag. Task must have at least one tag."); // Set an error message
     }
 
     sendChangesToServer(taskId, { ...task, tags: updatedTags }); // Send the changes to the server
