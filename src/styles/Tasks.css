@@ -148,6 +148,12 @@ select {
   color: #d6cda4;
 }
 
+/* Interval.css */
+.interval h2 {
+  text-align: center;
+  color: #d6cda4;
+}
+
 /* Charts.css */
 .charts h2 {
   text-align: center;

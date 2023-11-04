@@ -74,13 +74,13 @@ const Summary = () => {
         (new Date(startTime).getTime() >= start &&
           new Date(startTime).getTime() <= end) ||
         (new Date(task.stopTime[i]).getTime() >= start &&
-          new Date(task.stopTime[i].getTime()) <= end)
+          new Date(task.stopTime[i]).getTime() <= end)
       ) {
         // The `if` condition checks whether the start time or stop time of any activity period falls within the observation interval.
         let duration =
           task.isActive && i === task.startTime.length - 1
             ? // If the task is currently active (i.e., `task.isActive` is `true`) and the current start time is the last one in the `task.startTime` array (`i === task.startTime.length - 1`), the duration is calculated as the difference between the current time (`Date.now()`) and the largest of the start time and the start of the observation interval (`Math.max(startTime, start)`).
-              Date.now() - Math.max(new Date(startTime), start)
+              Date.now() - Math.max(new Date(startTime).getTime(), start)
             : // For all other activity periods, the duration is calculated as the difference between the smallest of the stop time and the end of the observation interval (`Math.min(task.stopTime[i], end)`) and the largest of the start time and the start of the observation interval (`Math.max(startTime, start)`).
               Math.min(new Date(task.stopTime[i]).getTime(), end) -
               Math.max(new Date(startTime).getTime(), start);
@@ -119,35 +119,39 @@ const Summary = () => {
       <ul>
         <li>
           This view allows you to monitor your tasks and their associated tags
-          within a specified observation interval. By default, this interval
-          covers the current day from its beginning to the current time. You can
+          within <u>a specified observation interval</u>. By default, this
+          interval covers{" "}
+          <u>the current day from its beginning to the current time</u>. You can
           modify this interval to any duration of your choice, starting from any
-          specific date and time, up to the minute precision.
+          specific date and time, up to the <u>second precision</u>.
         </li>
         <li>
-          The view provides a summary of the total active times for each task
-          and tag that were active during the observation interval, known as
-          tasks and tags of interest. The total active time is the sum of the
-          durations of individual activity periods of each task or tag within
-          the observation interval. Please note that tasks or tags that were not
-          active during the observation interval are not shown in the summary as
-          their total active times are zero.
+          The view provides a summary of the total active times for each task(
+          <u>sort by total active time</u>) and tag(<u>sort by tag name</u>)
+          that were active during the observation interval, known as{" "}
+          <u>tasks of interest</u> and <u>tags of interest</u>. The total active
+          time is the sum of the durations of individual activity periods of
+          each task or tag within the observation interval. Please note that
+          tasks or tags that were not active during the observation interval are
+          not shown in the summary as their total active times are zero.
         </li>
       </ul>
 
       <hr />
 
+      <h2>Observation Interval</h2>
       <h3>
         {/* Display the observation interval */}
-        Observation interval: {new Date(start).toLocaleString()} to{" "}
-        {new Date(end).toLocaleString()}
+        {new Date(start).toLocaleString()} - {new Date(end).toLocaleString()}
       </h3>
+
       <label>
         {/* Get the start time from the user */}
         Start Time:{" "}
         <input type="datetime-local" step="1" onChange={handleStartChange} />
       </label>
       <br />
+
       <br />
       <label>
         {/* Get the end time from the user */}
@@ -159,26 +163,35 @@ const Summary = () => {
 
       {/* Map through the tasks of interest and display their details */}
       <h2>Tasks of Interest</h2>
-      {tasksOfInterest.map((task, index) => (
-        <div key={task.id}>
-          <h3> {`${index + 1}. ${task.name}`}</h3>
-          <p>Tags: {task.tags.join(", ")}</p>
-          {/* Calculate and display the total active time for each task */}
-          <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
-        </div>
-      ))}
+      {tasksOfInterest
+        .slice() // Create a copy of the array to avoid modifying the original
+        .sort((a, b) => calculateActiveTime(a) - calculateActiveTime(b)) // Sort the tasksOfInterest array based on the total active time
+        .map((task, index) => (
+          <div key={task.id}>
+            <i>
+              <h3> {`${index + 1}. ${task.name}`}</h3>
+            </i>
+            <p>Tags: {task.tags.join(", ")}</p>
+            {/* Calculate and display the total active time for each task */}
+            <p>Total Active Time: {formatTime(calculateActiveTime(task))}</p>
+          </div>
+        ))}
 
       <hr />
 
       <h2>Tags of Interest</h2>
       {/* Map through the tags of interest and display their details */}
-      {tagsOfInterest.map((tag, index) => (
-        <div key={tag.tag}>
-          <h3>{`${index + 1}. ${tag.tag}`}</h3>
-          {/* Calculate and display the total active time for each tag */}
-          <p>Total Active Time: {formatTime(tag.activeTime)}</p>
-        </div>
-      ))}
+      {tagsOfInterest
+        .sort((a, b) => a.tag.localeCompare(b.tag)) // Sort by tag name
+        .map((tag, index) => (
+          <div key={tag.tag}>
+            <i>
+              <h3>{`${index + 1}. ${tag.tag}`}</h3>
+            </i>
+            {/* Calculate and display the total active time for each tag */}
+            <p>Total Active Time: {formatTime(tag.activeTime)}</p>
+          </div>
+        ))}
     </div>
   );
 };

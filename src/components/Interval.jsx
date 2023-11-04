@@ -89,20 +89,20 @@ const Interval = () => {
 
   // ================================= return ====================================================================
   return (
-    <div>
+    <div className="interval">
       <ul>
         <li>
           This view is designed to display tasks within a specified time
-          interval. At the top, you'll find options to manually set the start
-          and end times for this interval. Once you adjust these times, the view
-          will update to show only the tasks that were active during this
-          period.
+          interval. At the top, you'll find options to{" "}
+          <u>manually set the start and end times for this interval</u>. Once
+          you adjust these times, the view will update to show only the tasks
+          that were active during this period.
         </li>
         <li>
           Each listed task includes its active intervals within the chosen time
-          frame. An active interval is a period when the task was ongoing. The
-          start and end times of these active intervals are adjusted according
-          to the overall interval you set.
+          frame. An <u>active interval</u> is a period when the task was
+          ongoing. The start and end times of these active intervals are
+          adjusted according to the overall interval you set.
         </li>
         <li>
           This view is dynamic. It fetches tasks from the server when it loads
@@ -113,10 +113,10 @@ const Interval = () => {
 
       <hr />
 
+      <h2>Task details interval</h2>
       <h3>
         {/* Displaying the task details interval with start and end dates */}
-        Task details interval: {new Date(start).toLocaleString()} to{" "}
-        {new Date(end).toLocaleString()}
+        {new Date(start).toLocaleString()} - {new Date(end).toLocaleString()}
       </h3>
       <label>
         {/* Input field for setting the Start Time */}
@@ -132,12 +132,11 @@ const Interval = () => {
       </label>
 
       <hr />
-
+      <h2>Active Interval List</h2>
       {/* Loop through tasks of interest and display each task with its details */}
       {tasksOfInterest.map((task) => (
         <div key={task.id}>
-          <h2>Task: {task.name}</h2>
-          Active Interval List:
+          <h3>Task: {task.name}</h3>
           {/* Calculate and display active intervals for each task */}
           {calculateActiveIntervals(task).map((interval, i) => (
             <p key={i}>

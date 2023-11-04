@@ -194,7 +194,11 @@ const Charts = () => {
 
       <hr />
 
-      <h3>Set daily activity chart interval:</h3>
+      <h2>Daily activity chart interval</h2>
+      <h3>
+        {/* Displaying the task details interval with start and end dates */}
+        {new Date(start).toLocaleString()} - {new Date(end).toLocaleString()}
+      </h3>
       <label>
         Start Date: {/* Input field for the start date of the interval */}
         <input
