@@ -17,7 +17,7 @@ const TaskViewInstructions = () => {
           <u>Adding a Task:</u> Enter the task details in the "Enter task
           details to create a new task" section. Provide a task name in the
           "task name" input field and add one or more tags in the "tags" input
-          field separated by commas. Then, click the "Add Task" button.
+          field separated by commas. Then, click the "Add new Task" button.
         </li>
         <li>
           <u>Removing a Task:</u> Click the "Remove task" button next to the
@@ -25,15 +25,15 @@ const TaskViewInstructions = () => {
         </li>
         <li>
           <u>Editing a Task Name:</u> Click the "Edit task name" button next to
-          the task you want to edit. In the prompt that appears, enter the new
-          task name and click "OK". The task name will be updated.
+          the task you want to edit. In the input that appears, enter the new
+          task name and click "Save". The task name will be updated.
         </li>
         <hr className="dashed-line" />
         <li>
           <u>Adding a Tag to a Task:</u> Click on the select element to open the
           dropdown list. Choose an existing tag from the list or select "Custom"
-          to create a new tag. If you select "Custom", a prompt will appear
-          where you can enter the new tag. Enter the new tag and click "OK" to
+          to create a new tag. If you select "Custom", an input will appear
+          where you can enter the new tag. Enter the new tag and click "Save" to
           add it to the task.
         </li>
         <li>

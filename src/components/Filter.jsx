@@ -74,7 +74,6 @@ const Filter = ({ tasks, setFilteredTasks }) => {
       <button className="filter-button" onClick={handleFilter}>
         Filter tasks with selected tags
       </button>
-      <br />
 
       {/* Button that triggers the show all tasks function */}
       <button className="show-all-button" onClick={handleShowAllTasks}>
