@@ -171,24 +171,25 @@ const Charts = () => {
         <li>
           In this dynamic view, the user starts by specifying a time interval.
           After setting the desired interval, the tasks that have been active
-          within this interval are displayed. For each task, the daily active
-          time is computed and displayed in hours, minutes, and seconds.
+          within this interval are displayed. For each task, the{" "}
+          <u>daily active time</u> is computed and displayed in hours, minutes,
+          and seconds.
         </li>
         <li>
           If the user wishes to see this information in a more visual format,
           they can click the "Show in Chart" button next to each task. This
-          action generates a bar chart that visualizes the daily active time of
-          the selected task. Each bar in the chart represents a single day. The
-          lengths of the bars depict the daily sums of durations of time
-          intervals when the task has been active. If the task is currently
-          active, the duration of the ongoing interval is also included in the
-          chart.
+          action generates <u>a bar chart</u> that visualizes the daily active
+          time of the selected task. Each bar in the chart represents a single
+          day. The lengths of the bars depict the daily sums of durations of
+          time intervals when the task has been active. If the task is currently
+          active, the duration of the <u>ongoing interval</u> is also included
+          in the chart.
         </li>
         <li>
           The start and end of the interval can be adjusted using the provided
-          date input fields. By default, the start date is set to the beginning
-          of the current month and the end date is set to the end of the current
-          day.
+          date input fields. By default, the start date is set to{" "}
+          <u>the beginning of the current month</u> and the end date is set to
+          <u>the end of the current day</u>.
         </li>
       </ul>
 
@@ -196,15 +197,14 @@ const Charts = () => {
 
       <h2>Daily activity chart interval</h2>
       <h3>
-        {/* Displaying the task details interval with start and end dates */}
+        {/* Display the Daily activity chart interval */}
         {new Date(start).toLocaleString()} - {new Date(end).toLocaleString()}
       </h3>
       <label>
         Start Date: {/* Input field for the start date of the interval */}
         <input
-          type="date"
+          type="datetime-local"
           onChange={handleStartChange} // When the date is changed, handleStartChange function is called
-          value={new Date(start).toISOString().substring(0, 10)} // The value is the start date in ISO format
         />
       </label>
       <br />

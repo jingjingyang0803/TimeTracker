@@ -120,15 +120,6 @@ button {
   margin-top: 3px;
 }
 
-/* Style the select element */
-select {
-  margin-top: 5px;
-  padding: 2px; /* Add padding to make the select element taller */
-  border: 1px solid #ccc; /* Add a border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Change cursor style to pointer on hover */
-}
-
 /* Settings.css */
 .theme-button,
 .mode-button {
@@ -152,6 +143,13 @@ select {
 .interval h2 {
   text-align: center;
   color: #d6cda4;
+}
+
+.interval select {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  font-size: 18px;
 }
 
 /* Charts.css */

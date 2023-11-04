@@ -6,6 +6,7 @@ import About from "./components/About";
 import Tasks from "./components/Tasks";
 import Summary from "./components/Summary";
 import Interval from "./components/Interval";
+import Intervals from "./components/Intervals";
 import Charts from "./components/Charts";
 import Settings from "./components/Settings";
 
@@ -27,6 +28,10 @@ const NavigationBar = () => {
         </li>
         <li>
           <Link to="/interval">Interval</Link> {/* Link to the Interval page */}
+        </li>
+        <li>
+          <Link to="/intervals">Intervals</Link>{" "}
+          {/* Link to the Interval page */}
         </li>
         <li>
           <Link to="/charts">Charts</Link> {/* Link to the Charts page */}
@@ -65,6 +70,8 @@ const App = () => {
             {/* Route for the Summary page */}
             <Route path="/interval" element={<Interval />} />{" "}
             {/* Route for the Interval page */}
+            <Route path="/intervals" element={<Intervals />} />{" "}
+            {/* Route for the Intervals page */}
             <Route path="/charts" element={<Charts />} />{" "}
             {/* Route for the Charts page */}
             <Route

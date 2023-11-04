@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 const Interval = () => {
   // ================================= useState and useEffect ====================================================
   const [tasks, setTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState();
 
-  // Initialize `start` state to be the beginning of the current day (midnight)
-  const [start, setStart] = useState(new Date().setHours(0, 0, 0, 0));
-  // Initialize `end` state to be the current date and time
-  const [end, setEnd] = useState(Date.now());
-
-  const [isEndTimeSet, setIsEndTimeSet] = useState(false);
+  // Initialize `start` state
+  const [start, setStart] = useState("");
+  // Initialize `end` state
+  const [end, setEnd] = useState("");
 
   // Fetch tasks from the server on component mount
   useEffect(() => {
@@ -21,40 +20,90 @@ const Interval = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    if (!isEndTimeSet) {
-      const interval = setInterval(() => {
-        setEnd(Date.now());
-      }, 1000); // update every second
+  // ================================= Select a Task =============================================================
+  // Function to handle task selection
+  const handleTaskSelect = (event) => {
+    const selectedTaskId = event.target.value;
 
-      return () => clearInterval(interval); // clear interval on component unmount
-    } // Add this line
-  }, [isEndTimeSet]); // Add `isEndTimeSet` as a dependency
+    // Retrieve the selected task's data
+    setSelectedTask(tasks.find((task) => task.id == selectedTaskId));
+
+    if (selectedTask) {
+      // Set the start and end times based on the selected task's data
+      setStart(new Date(selectedTask.startInterval).getTime());
+      setEnd(new Date(selectedTask.endInterval).getTime());
+    }
+  };
+
+  // ================================= Save Changes To Server ====================================================
+  // Send changes made to a task to the server
+  const sendChangesToServer = (taskId, updatedTask) => {
+    fetch(`http://localhost:3010/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTask),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Changes saved successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Failed to save changes:", error);
+      });
+  };
 
   // ================================= Set Task details interval ==================================================
   // Handle the change in the start time of the observation interval
   const handleStartChange = (event) => {
     // Convert the date from the input field to a timestamp and update the start state
-    setStart(new Date(event.target.value).getTime());
+    const newStart = new Date(event.target.value).getTime();
+    setStart(newStart);
+
+    // Update the selected task's startInterval in the tasks data
+    if (selectedTask) {
+      const updatedTasks = tasks.map((task) => {
+        if (task.id === selectedTask.id) {
+          task.startInterval = new Date(event.target.value).toISOString();
+        }
+        return task;
+      });
+
+      setTasks(updatedTasks);
+    }
+
+    sendChangesToServer(selectedTask.id, {
+      ...tasks.find((task) => task.id === selectedTask.id),
+      startInterval: new Date(newStart).toISOString(),
+    });
   };
 
   // Handle the change in the end time of the observation interval
   const handleEndChange = (event) => {
-    // Set the flag that indicates that the end time has been set by the user
-    setIsEndTimeSet(true); // Add this line
     // Convert the date from the input field to a timestamp and update the end state
-    setEnd(new Date(event.target.value).getTime());
+    const newEnd = new Date(event.target.value).getTime();
+    setEnd(newEnd);
+
+    // Update the selected task's endInterval in the tasks data
+    if (selectedTask) {
+      const updatedTasks = tasks.map((task) => {
+        if (task.id === selectedTask.id) {
+          task.endInterval = new Date(event.target.value).toISOString();
+        }
+        return task;
+      });
+
+      setTasks(updatedTasks);
+    }
+
+    sendChangesToServer(selectedTask.id, {
+      ...tasks.find((task) => task.id === selectedTask.id),
+      startInterval: new Date(newEnd).toISOString(),
+    });
   };
 
   // ================================= calculate Active Intervals ================================================
-  // Filter the tasks that are of interest, i.e., those that have at least one start time within the observation interval
-  const tasksOfInterest = tasks.filter((task) =>
-    task.startTime.some(
-      (time) =>
-        new Date(time).getTime() >= start && new Date(time).getTime() <= end
-    )
-  );
-
   // Calculate the active intervals of a task within the observation interval
   const calculateActiveIntervals = (task) => {
     // Map over each start time of the task
@@ -113,39 +162,60 @@ const Interval = () => {
 
       <hr />
 
-      <h2>Task details interval</h2>
-      <h3>
-        {/* Displaying the task details interval with start and end dates */}
-        {new Date(start).toLocaleString()} - {new Date(end).toLocaleString()}
-      </h3>
       <label>
-        {/* Input field for setting the Start Time */}
-        Start Time:{" "}
-        <input type="datetime-local" step="1" onChange={handleStartChange} />
-      </label>
-      <br />
-      <br />
-      <label>
-        {/* Input field for setting the End Time */}
-        End Time:{" "}
-        <input type="datetime-local" step="1" onChange={handleEndChange} />
+        <select defaultValue="" onChange={handleTaskSelect}>
+          <option value="" disabled>
+            Select a Task
+          </option>
+          {tasks.map((task) => (
+            <option key={task.id} value={task.id}>
+              {task.name}
+            </option>
+          ))}
+        </select>
       </label>
 
-      <hr />
-      <h2>Active Interval List</h2>
-      {/* Loop through tasks of interest and display each task with its details */}
-      {tasksOfInterest.map((task) => (
-        <div key={task.id}>
-          <h3>Task: {task.name}</h3>
-          {/* Calculate and display active intervals for each task */}
-          {calculateActiveIntervals(task).map((interval, i) => (
+      {selectedTask && (
+        <div key={selectedTask.id}>
+          <h3>
+            {/* Displaying the task details interval with start and end dates */}
+            Task details interval:{" "}
+            {selectedTask.startInterval &&
+              selectedTask.endInterval &&
+              `${new Date(start).toLocaleString()} - ${new Date(
+                end
+              ).toLocaleString()}`}
+          </h3>
+          <label>
+            {/* Input field for setting the Start Time */}
+            Reset Start Time:{" "}
+            <input
+              type="datetime-local"
+              step="1"
+              onChange={handleStartChange}
+            />
+          </label>
+          <br />
+          <br />
+          <label>
+            {/* Input field for setting the End Time */}
+            Reset End Time:{" "}
+            <input type="datetime-local" step="1" onChange={handleEndChange} />
+          </label>
+          {/* Calculate and display active intervals for the selected task */}
+          <h2>{selectedTask.name}</h2>
+          {calculateActiveIntervals(selectedTask).map((interval, i) => (
             <p key={i}>
-              {i + 1}. {new Date(interval.start).toLocaleString()} -{" "}
-              {new Date(interval.end).toLocaleString()}
+              {i + 1}.{" "}
+              {interval.start &&
+                interval.end &&
+                `${new Date(interval.start).toLocaleString()} - ${new Date(
+                  interval.end
+                ).toLocaleString()}`}
             </p>
           ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };
