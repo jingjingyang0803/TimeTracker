@@ -6,204 +6,102 @@
   "tasks": [
     {
       "id": 1,
-      "name": "clean the housesjkj",
-      "tags": [
-        "exercise",
-        "af",
-        "homework",
-        "fitness",
-        "afs",
-        "s",
-        "meal preparation",
-        "coding",
-        "chores"
-      ],
+      "name": "clean the house",
+      "tags": ["chores"],
       "startTime": [
         "2023-10-28T06:00:05.936Z",
         "2023-10-28T08:13:22.534Z",
-        "2023-10-29T08:23:22.534Z",
-        "2023-11-04T07:15:24.380Z",
-        "2023-11-04T07:29:51.878Z"
+        "2023-10-29T08:23:22.534Z"
       ],
-      "stopTime": [
-        "2023-10-28T06:20:02.534Z",
-        "2023-10-28T08:23:22.534Z",
-        "2023-11-04T07:15:22.234Z",
-        "2023-11-04T07:15:24.968Z"
-      ],
+      "stopTime": ["2023-10-28T06:20:02.534Z", "2023-10-28T08:23:22.534Z"],
       "isActive": true
     },
     {
       "id": 2,
       "name": "prepare dinner",
-      "tags": [
-        "meal preparation",
-        "exercise",
-        "fitness",
-        "homework"
-      ],
-      "startTime": [
-        "2023-10-28T10:33:23.289Z"
-      ],
-      "stopTime": [
-        "2023-10-28T11:26:47.896Z"
-      ],
+      "tags": ["cooking", "meal preparation"],
+      "startTime": ["2023-10-28T10:33:23.289Z"],
+      "stopTime": ["2023-10-28T11:26:47.896Z"],
       "isActive": false
     },
     {
       "id": 3,
       "name": "go for a run",
-      "tags": [
-        "exercise",
-        "fitness"
-      ],
-      "startTime": [
-        "2023-10-28T22:53:21.234Z",
-        "2023-10-30T00:56:17.613Z"
-      ],
-      "stopTime": [
-        "2023-10-28T23:13:24.321Z",
-        "2023-10-30T01:16:17.613Z"
-      ],
+      "tags": ["exercise", "fitness", "health"],
+      "startTime": ["2023-10-28T22:53:21.234Z", "2023-10-30T00:56:17.613Z"],
+      "stopTime": ["2023-10-28T23:13:24.321Z", "2023-10-30T01:16:17.613Z"],
       "isActive": false
     },
     {
       "id": 4,
       "name": "do the laundry",
-      "tags": [
-        "chores"
-      ],
-      "startTime": [
-        "2023-10-30T02:53:24.567Z"
-      ],
-      "stopTime": [
-        "2023-10-30T04:00:07.890Z"
-      ],
+      "tags": ["chores"],
+      "startTime": ["2023-10-30T02:53:24.567Z"],
+      "stopTime": ["2023-10-30T04:00:07.890Z"],
       "isActive": false
     },
     {
       "id": 5,
       "name": "do the dishes",
-      "tags": [
-        "chores"
-      ],
-      "startTime": [
-        "2023-10-30T05:13:21.234Z",
-        "2023-10-30T06:16:47.613Z"
-      ],
-      "stopTime": [
-        "2023-10-30T05:33:24.567Z",
-        "2023-10-30T06:26:47.613Z"
-      ],
+      "tags": ["chores"],
+      "startTime": ["2023-10-30T05:13:21.234Z", "2023-10-30T06:16:47.613Z"],
+      "stopTime": ["2023-10-30T05:33:24.567Z", "2023-10-30T06:26:47.613Z"],
       "isActive": false
     },
     {
       "id": 6,
       "name": "go grocery shopping",
-      "tags": [
-        "errands"
-      ],
-      "startTime": [
-        "2023-10-30T07:33:27.890Z"
-      ],
-      "stopTime": [
-        "2023-10-30T08:20:11.234Z"
-      ],
+      "tags": ["errands"],
+      "startTime": ["2023-10-30T07:33:27.890Z"],
+      "stopTime": ["2023-10-30T08:20:11.234Z"],
       "isActive": false
     },
     {
       "id": 7,
       "name": "study algorithms",
-      "tags": [
-        "coding",
-        "study algorithms"
-      ],
-      "startTime": [
-        "2023-10-30T20:53:24.567Z",
-        "2023-10-30T21:53:27.890Z"
-      ],
-      "stopTime": [
-        "2023-10-30T21:13:27.890Z",
-        "2023-10-30T22:13:27.890Z"
-      ],
+      "tags": ["coding"],
+      "startTime": ["2023-10-30T20:53:24.567Z", "2023-10-30T21:53:27.890Z"],
+      "stopTime": ["2023-10-30T21:13:27.890Z", "2023-10-30T22:13:27.890Z"],
       "isActive": false
     },
     {
       "id": 8,
       "name": "solve coding problems",
-      "tags": [
-        "coding",
-        "fitness",
-        "Custom"
-      ],
-      "startTime": [
-        "2023-10-30T23:26:41.234Z"
-      ],
-      "stopTime": [
-        "2023-11-01T00:26:47.890Z"
-      ],
+      "tags": ["coding"],
+      "startTime": ["2023-10-30T23:26:41.234Z"],
+      "stopTime": ["2023-11-01T00:26:47.890Z"],
       "isActive": false
     },
     {
       "id": 9,
       "name": "attend coding bootcamp",
-      "tags": [
-        "coding",
-        "education"
-      ],
-      "startTime": [
-        "2023-11-01T02:00:07.890Z"
-      ],
-      "stopTime": [
-        "2023-11-01T02:46:54.567Z"
-      ],
+      "tags": ["coding", "education"],
+      "startTime": ["2023-11-01T02:00:07.890Z"],
+      "stopTime": ["2023-11-01T02:46:54.567Z"],
       "isActive": false
     },
     {
       "id": 10,
       "name": "complete coding assignment",
-      "tags": [
-        "coding",
-        "homework",
-        "deadline"
-      ],
-      "startTime": [
-        "2023-11-01T04:20:01.234Z"
-      ],
-      "stopTime": [
-        "2023-11-01T05:13:27.890Z"
-      ],
+      "tags": ["coding", "homework", "deadline"],
+      "startTime": ["2023-11-01T04:20:01.234Z"],
+      "stopTime": ["2023-11-01T05:13:27.890Z"],
       "isActive": false
     },
     {
       "id": 11,
       "name": "attend programming lecture",
-      "tags": [
-        "coding",
-        "education"
-      ],
-      "startTime": [
-        "2023-11-01T06:13:27.890Z"
-      ],
-      "stopTime": [
-        "2023-11-01T06:40:14.567Z"
-      ],
+      "tags": ["coding", "education"],
+      "startTime": ["2023-11-01T06:13:27.890Z"],
+      "stopTime": ["2023-11-01T06:40:14.567Z"],
       "isActive": false
     },
     {
       "id": 12,
       "name": "participate in coding workshop",
-      "tags": [
-        "coding",
-        "learning",
-        "Customx"
-      ],
-      "startTime": [
-        "2023-11-01T08:13:21.234Z"
-      ],
-      "stopTime": [
-        "2023-11-01T08:40:07.890Z"
-      ],
+      "tags": ["coding", "learning"],
+      "startTime": ["2023-11-01T08:13:21.234Z"],
+      "stopTime": ["2023-11-01T08:40:07.890Z"],
       "isActive": false
     }
   ]

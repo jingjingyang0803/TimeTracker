@@ -129,13 +129,6 @@ select {
   cursor: pointer; /* Change cursor style to pointer on hover */
 }
 
-/* Style the select element when it's focused */
-select:focus {
-  outline: none; /* Remove the default focus outline */
-  border-color: #007bff; /* Change border color when focused */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a shadow when focused */
-}
-
 /* Settings.css */
 .theme-button,
 .mode-button {
