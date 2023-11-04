@@ -140,10 +140,11 @@ const TaskElement = ({
         </select>
 
         {customTagInput && (
-          <div>
+          <div className="custom-tag-div">
             <input
               type="text"
               value={customTag}
+              placeholder="Enter a new Tag"
               onChange={(e) => {
                 setCustomTag(e.target.value);
                 setAddTagError(""); // Clear the error message when the user starts typing
@@ -199,10 +200,11 @@ const TaskElement = ({
 
       {/*" =========================== Buttons =============================================================== */}
       {editingTask ? (
-        <div>
+        <div className="edit-task-div">
           <input
             type="text"
             value={newTaskName}
+            placeholder="Enter new Task name"
             onChange={(e) => {
               setNewTaskName(e.target.value);
               setNameError(""); // Clear the error message when the user starts typing
