@@ -51,30 +51,36 @@ header {
   padding: 1em;
   text-align: center;
 }
+
 nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 nav li {
   display: inline-block;
   margin-right: 3em;
 }
+
 nav a {
   color: #fff;
   text-decoration: none;
   font-size: large;
 }
+
 main {
   max-width: 800px;
   margin: 0 auto;
   padding: 1em;
 }
+
 hr {
   border-color: #ccc;
   border-width: 1px;
   border-style: solid;
 }
+
 ul li {
   margin-bottom: 0.5em;
   margin-top: 0.5em;
@@ -114,5 +120,41 @@ select {
   nav li {
     display: block;
     margin: 0.5em 0;
+  }
+}
+/* Media queries for very small screens with width 500px and below */
+@media only screen and (max-width: 500px) {
+  header {
+    padding: 0.3em; /* Further reduce padding */
+  }
+
+  nav ul {
+    padding: 0.3em; /* Further reduce padding */
+  }
+
+  /* Hide nonessential elements to save space */
+  .nonessential {
+    display: none;
+  }
+
+  /* Adjust font size for smaller screens */
+  body {
+    font-size: 0.8em;
+  }
+}
+
+/* Media queries for large screens with width more than 1200px */
+@media only screen and (min-width: 1200px) {
+  header {
+    padding-right: 3em; /* Increase padding more */
+  }
+
+  main {
+    max-width: 1200px; /* Increase max-width more */
+  }
+
+  /* Adjust font size for larger screens */
+  body {
+    font-size: 1.2em;
   }
 }

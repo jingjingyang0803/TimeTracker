@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import About from "./components/About";
 import Tasks from "./components/Tasks";
-import TimeUsage from "./components/TimeUsage";
 import TotalActiveTime from "./components/TotalActiveTime";
 import ActiveIntervals from "./components/ActiveIntervals";
 import Timeline from "./components/Timeline";
@@ -15,7 +14,7 @@ import "./App.css";
 
 const NavigationBar = () => {
   return (
-    <nav>
+    <nav className="nav">
       <ul>
         <li>
           <Link to="/">About</Link> {/* Link to the About page */}
@@ -23,10 +22,6 @@ const NavigationBar = () => {
         <li>
           <Link to="/tasks">Task Management</Link>{" "}
           {/* Link to the Tasks page */}
-        </li>
-        <li>
-          <Link to="/time-usage">Time Usage</Link>{" "}
-          {/* Link to the Time Usage page */}
         </li>
         <li>
           <Link to="/total-active-time">TotalActiveTime</Link>{" "}
@@ -73,8 +68,6 @@ const App = () => {
               element={<Tasks singleTaskMode={singleTaskMode} />}
             />{" "}
             {/* Route for the Tasks page */}
-            <Route path="/time-usage" element={<TimeUsage />} />{" "}
-            {/* Route for the Time Usage page */}
             <Route
               path="/total-active-time"
               element={<TotalActiveTime />}
