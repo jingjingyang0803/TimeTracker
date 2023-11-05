@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import Filter from "./Filter";
 import TaskElement from "./TaskElement";
 import "../styles/Tasks.css";
 const TaskViewInstructions = () => {
@@ -60,9 +59,13 @@ const TaskViewInstructions = () => {
 const Tasks = ({ singleTaskMode }) => {
   // ================================= useState and useEffect======================================================
   const [tasks, setTasks] = useState([]); // State for storing tasks
+
   const [newName, setNewName] = useState(""); // State for new task name
   const [newTags, setNewTags] = useState([]); // State for new task tags
+
+  const [selectedTags, setSelectedTags] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]); // State for filtered tasks
+
   const [message, setMessage] = useState("");
 
   // Fetch tasks from the server on component mount
@@ -82,10 +85,12 @@ const Tasks = ({ singleTaskMode }) => {
       .then((response) => response.json())
       .then((data) => {
         setTasks(data); // Update tasks state
+
         setFilteredTasks(data);
+        handleFilter();
       })
       .catch((error) => console.log(error));
-  }, [tasks, filteredTasks]); // Only trigger this effect when tasks change
+  }, [tasks, filteredTasks]);
 
   // ================================= Save Changes To Server ====================================================
   // Send changes made to a task to the server
@@ -106,7 +111,33 @@ const Tasks = ({ singleTaskMode }) => {
       });
   };
 
+  // ================================= Existing tags ==============================================================
+  const existingTags = [];
+
+  // Loop through each task
+  tasks.forEach((task) => {
+    // For each task, loop through its tags
+    task.tags.forEach((tag) => {
+      // If the tag doesn't already exist in our array of existing tags, add it
+      if (!existingTags.includes(tag)) {
+        existingTags.push(tag);
+      }
+    });
+  });
+
   // ================================= Filter Tasks ==============================================================
+  const handleSelectTag = (tag) => {
+    // If the selected tag is already in the array, remove it
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
+    } else {
+      // Otherwise, add the selected tag to the array
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
   const handleFilter = () => {
     // Filter tasks to only include those that have every selected tag
     const filteredTasks = tasks.filter((task) => {
@@ -115,6 +146,14 @@ const Tasks = ({ singleTaskMode }) => {
 
     // Update the state to display the filtered tasks
     setFilteredTasks(filteredTasks);
+  };
+
+  // ================================= Show All Tasks ===========================================================
+  const handleShowAllTasks = () => {
+    // Reset the selected tags to an empty array
+    setSelectedTags([]);
+    // Show all tasks
+    setFilteredTasks(tasks);
   };
 
   // =================================  Add/Remove tag ===========================================================
@@ -197,6 +236,8 @@ const Tasks = ({ singleTaskMode }) => {
   const handleAddTask = () => {
     // Checks if the new task name is not empty and there is at least one tag
     if (newName.trim() !== "" && newTags.length > 0) {
+      setMessage(""); // Clear error message
+
       // Get the last task in the list
       const lastTask = tasks[tasks.length - 1];
       // If there is a last task, the new task ID will be the last task's ID + 1, otherwise it will be 1
@@ -403,14 +444,38 @@ const Tasks = ({ singleTaskMode }) => {
   return (
     <div>
       <TaskViewInstructions /> {/* This component displays the instructions */}
-      <hr />
-      <Filter tasks={tasks} setFilteredTasks={setFilteredTasks} />{" "}
+      <hr /> {/* Filter*/}
+      <div>
+        <div className="filter-tasks-container">
+          <br />
+          {/* Map through all existing tags */}
+          {existingTags.map((tag, index) => (
+            <label key={index}>
+              {/* Checkbox for each tag */}
+              <input
+                type="checkbox"
+                // Check if the tag is included in the selected tags
+                checked={selectedTags.includes(tag)}
+                // On change, handle the selection of the tag
+                onChange={() => handleSelectTag(tag)}
+              />
+              {/* Display the tag name */}
+              {tag}
+            </label>
+          ))}
+        </div>
+
+        {/* Button that triggers the show all tasks function */}
+        <button className="show-all-button" onClick={handleShowAllTasks}>
+          Show All Tasks
+        </button>
+      </div>
       {/* This component filters tasks */}
       <hr />
       <div className="add-task-container">
         <h3>
           {filteredTasks.length} tasks displayed. Enter task details to create a
-          new task:
+          new task.
         </h3>
         <div>
           {/* This updates the task name */}

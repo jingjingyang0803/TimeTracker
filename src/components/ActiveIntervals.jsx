@@ -151,22 +151,20 @@ const ActiveIntervals = () => {
     <div className="interval">
       <ul>
         <li>
-          This view is designed to display tasks within a specified time
-          interval. At the top, you'll find options to{" "}
-          <u>manually set the start and end times for this interval</u>. Once
-          you adjust these times, the view will update to show only the tasks
-          that were active during this period.
+          <u>Select a task</u>: The dropdown menu presents a list of tasks
+          fetched from the server. Select one to view its details.
+        </li>{" "}
+        <li>
+          <u>View task details</u>: Once a task is selected, its task details
+          interval is displayed.The view also automatically displays the active
+          intervals of a task within the task details interval. If a task is
+          currently active, the end of the interval is either the current time
+          or the end of the observation interval, whichever is smaller.
         </li>
         <li>
-          Each listed task includes its active intervals within the chosen time
-          frame. An <u>active interval</u> is a period when the task was
-          ongoing. The start and end times of these active intervals are
-          adjusted according to the overall interval you set.
-        </li>
-        <li>
-          This view is dynamic. It fetches tasks from the server when it loads
-          and updates the end time of the interval every second, keeping your
-          task list current and precise.
+          <u>Reset task details interval</u>: Use the provided input fields to
+          reset the task details interval as desired.These changes are updated
+          in the system and sent back to the server for synchronization.
         </li>
       </ul>
 
