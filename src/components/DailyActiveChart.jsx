@@ -60,6 +60,54 @@ const DailyActiveChart = () => {
     return `${hours}h ${minutes}m ${seconds}s`;
   };
 
+  function calculateDailyDurations(task) {
+    const { startTime, stopTime } = task;
+    const dailyDurations = {};
+
+    for (let i = 0; i < startTime.length; i++) {
+      const start = new Date(startTime[i]);
+      const stop = new Date(stopTime[i]);
+
+      // Calculate the date of the start and stop times
+      const startDate = new Date(
+        start.getFullYear(),
+        start.getMonth(),
+        start.getDate()
+      );
+      const stopDate = new Date(
+        stop.getFullYear(),
+        stop.getMonth(),
+        stop.getDate()
+      );
+
+      let currentDate = new Date(startDate);
+
+      while (currentDate <= stopDate) {
+        const currentDateString = currentDate.toISOString().split("T")[0];
+
+        // Calculate the duration for the current day
+        const startOfDay = new Date(Math.max(currentDate, start));
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(Math.min(new Date(currentDate), stop));
+        endOfDay.setHours(23, 59, 59, 999);
+
+        const duration = endOfDay - startOfDay;
+
+        // Initialize the daily duration for the current day
+        if (!dailyDurations[currentDateString]) {
+          dailyDurations[currentDateString] = 0;
+        }
+
+        // Add the interval duration to the daily duration
+        dailyDurations[currentDateString] += duration;
+
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    }
+
+    return dailyDurations;
+  }
+
   const calculateDailyActiveTime = (task, startDate, endDate) => {
     const dailyDurations = {};
 
@@ -121,7 +169,6 @@ const DailyActiveChart = () => {
     for (const dayKey in dailyDurations) {
       if (dailyDurations.hasOwnProperty(dayKey)) {
         const day = dailyDurations[dayKey];
-        console.log(`Day: ${day.day}, Duration: ${day.duration} ms`);
       }
     }
 
@@ -226,6 +273,14 @@ const DailyActiveChart = () => {
           <h3>{`${index + 1}. ${task.name}`}</h3>
           {/* For each task in tasksOfInterest, display its name and daily active time */}
           {Object.values(calculateDailyActiveTime(task, start, end)).map(
+            ({ day, duration }, index) => (
+              <p key={index}>
+                <i>{day}:</i> {formatTime(duration)}
+              </p>
+            )
+          )}
+
+          {Object.values(calculateDailyDurations(task)).map(
             ({ day, duration }, index) => (
               <p key={index}>
                 <i>{day}:</i> {formatTime(duration)}
