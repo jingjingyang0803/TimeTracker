@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Interval = () => {
+const ActiveIntervals = () => {
   // ================================= useState and useEffect ====================================================
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState();
@@ -230,4 +230,4 @@ const Interval = () => {
   );
 };
 
-export default Interval;
+export default ActiveIntervals;

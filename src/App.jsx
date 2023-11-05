@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 
 import About from "./components/About";
 import Tasks from "./components/Tasks";
-import Summary from "./components/Summary";
-import Interval from "./components/Interval";
-import Intervals from "./components/Intervals";
-import Charts from "./components/Charts";
+import TimeUsage from "./components/TimeUsage";
+import Summary from "./components/TotalActiveTime";
+import Interval from "./components/ActiveIntervals";
+import Intervals from "./components/Timeline";
+import Charts from "./components/DailyActiveChart";
 import Settings from "./components/Settings";
 
 import "./App.css";
@@ -22,6 +23,10 @@ const NavigationBar = () => {
         <li>
           <Link to="/tasks">Task Management</Link>{" "}
           {/* Link to the Tasks page */}
+        </li>
+        <li>
+          <Link to="/time-usage">Time Usage</Link>{" "}
+          {/* Link to the Time Usage page */}
         </li>
         <li>
           <Link to="/summary">Summary</Link> {/* Link to the Summary page */}
@@ -66,6 +71,8 @@ const App = () => {
               element={<Tasks singleTaskMode={singleTaskMode} />}
             />{" "}
             {/* Route for the Tasks page */}
+            <Route path="/time-usage" element={<TimeUsage />} />{" "}
+            {/* Route for the Time Usage page */}
             <Route path="/summary" element={<Summary />} />{" "}
             {/* Route for the Summary page */}
             <Route path="/interval" element={<Interval />} />{" "}

@@ -4,7 +4,7 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js/auto";
 Chart.register(CategoryScale);
 
-const Charts = () => {
+const DailyActiveChart = () => {
   // ================================= useState and useEffect ======================================================
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -253,4 +253,4 @@ const Charts = () => {
   );
 };
 
-export default Charts;
+export default DailyActiveChart;

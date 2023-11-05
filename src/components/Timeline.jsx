@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Intervals = () => {
+const Timeline = () => {
   // ================================= useState and useEffect ====================================================
   const [tasks, setTasks] = useState([]);
 
@@ -150,4 +150,4 @@ const Intervals = () => {
   );
 };
 
-export default Intervals;
+export default Timeline;

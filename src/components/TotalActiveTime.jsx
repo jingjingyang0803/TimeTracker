@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Summary = () => {
+const TotalActiveTime = () => {
   // ================================= useState and useEffect =====================================================
   const [tasks, setTasks] = useState([]);
 
@@ -196,4 +196,4 @@ const Summary = () => {
   );
 };
 
-export default Summary;
+export default TotalActiveTime;
