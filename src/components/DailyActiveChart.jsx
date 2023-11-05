@@ -280,14 +280,6 @@ const DailyActiveChart = () => {
             )
           )}
 
-          {Object.values(calculateDailyDurations(task)).map(
-            ({ day, duration }, index) => (
-              <p key={index}>
-                <i>{day}:</i> {formatTime(duration)}
-              </p>
-            )
-          )}
-
           <button onClick={() => handleButtonClick(task)}>
             Show in Bar Chart
           </button>

@@ -1,28 +1,15 @@
 {
   "settings": {
     "theme": "default",
-    "singleMode": true
+    "singleMode": false
   },
   "tasks": [
     {
       "id": 1,
       "name": "prepare dinner",
-      "tags": [
-        "cooking",
-        "meal preparation"
-      ],
-      "startTime": [
-        "2023-11-01T10:33:23.289Z",
-        "2023-11-04T10:48:46.869Z",
-        "2023-11-05T03:37:55.231Z",
-        "2023-11-05T03:38:03.677Z"
-      ],
-      "stopTime": [
-        "2023-11-01T11:26:47.896Z",
-        "2023-11-04T11:19:20.881Z",
-        "2023-11-05T03:37:56.358Z",
-        "2023-11-05T03:38:11.582Z"
-      ],
+      "tags": ["cooking", "meal preparation"],
+      "startTime": ["2023-11-01T10:33:23.289Z", "2023-11-04T10:48:46.869Z"],
+      "stopTime": ["2023-11-01T11:26:47.896Z", "2023-11-04T11:19:20.881Z"],
       "isActive": false,
       "startInterval": "2023-11-01T10:33:23.289Z",
       "endInterval": "2023-11-04T11:19:20.881Z"
@@ -30,21 +17,9 @@
     {
       "id": 2,
       "name": "go for a run",
-      "tags": [
-        "exercise",
-        "fitness",
-        "health"
-      ],
-      "startTime": [
-        "2023-11-01T22:53:21.234Z",
-        "2023-11-03T00:56:17.613Z",
-        "2023-11-05T03:37:56.358Z"
-      ],
-      "stopTime": [
-        "2023-11-01T23:13:24.321Z",
-        "2023-11-03T01:16:17.613Z",
-        "2023-11-05T03:38:11.582Z"
-      ],
+      "tags": ["exercise", "fitness", "health"],
+      "startTime": ["2023-11-01T22:53:21.234Z", "2023-11-03T00:56:17.613Z"],
+      "stopTime": ["2023-11-01T23:13:24.321Z", "2023-11-03T01:16:17.613Z"],
       "isActive": false,
       "startInterval": "2023-11-01T22:53:21.234Z",
       "endInterval": "2023-11-05T23:59:59.999Z"
@@ -52,56 +27,33 @@
     {
       "id": 3,
       "name": "clean the house",
-      "tags": [
-        "chores"
-      ],
+      "tags": ["chores"],
       "startTime": [
         "2023-11-01T06:00:05.936Z",
         "2023-11-01T08:13:22.534Z",
-        "2023-11-02T09:23:22.534Z",
-        "2023-11-05T03:38:04.748Z"
+        "2023-11-02T09:23:22.534Z"
       ],
-      "stopTime": [
-        "2023-11-01T06:20:02.534Z",
-        "2023-11-01T08:23:22.534Z",
-        "2023-11-05T03:37:55.231Z",
-        "2023-11-05T03:38:11.583Z"
-      ],
-      "isActive": false,
+      "stopTime": ["2023-11-01T06:20:02.534Z", "2023-11-01T08:23:22.534Z"],
+      "isActive": true,
       "startInterval": "2023-11-01T08:23:22.534Z",
       "endInterval": "2023-11-04T08:23:22.534Z"
     },
     {
       "id": 4,
       "name": "do the laundry",
-      "tags": [
-        "chores"
-      ],
-      "startTime": [
-        "2023-11-03T02:53:24.567Z",
-        "2023-11-05T03:38:11.582Z"
-      ],
-      "stopTime": [
-        "2023-11-03T04:00:07.890Z"
-      ],
-      "isActive": true,
+      "tags": ["chores"],
+      "startTime": ["2023-11-03T02:53:24.567Z"],
+      "stopTime": ["2023-11-03T04:00:07.890Z"],
+      "isActive": false,
       "startInterval": "2023-11-03T02:53:24.567Z",
       "endInterval": "2023-11-03T04:00:07.890Z"
     },
     {
       "id": 5,
       "name": "do the dishes",
-      "tags": [
-        "chores"
-      ],
-      "startTime": [
-        "2023-11-03T05:13:21.234Z",
-        "2023-11-03T06:16:47.613Z"
-      ],
-      "stopTime": [
-        "2023-11-03T05:33:24.567Z",
-        "2023-11-03T06:26:47.613Z"
-      ],
+      "tags": ["chores"],
+      "startTime": ["2023-11-03T05:13:21.234Z", "2023-11-03T06:16:47.613Z"],
+      "stopTime": ["2023-11-03T05:33:24.567Z", "2023-11-03T06:26:47.613Z"],
       "isActive": false,
       "startInterval": "2023-11-03T05:13:21.234Z",
       "endInterval": "2023-11-03T06:26:47.613Z"
@@ -109,15 +61,9 @@
     {
       "id": 6,
       "name": "go grocery shopping",
-      "tags": [
-        "errands"
-      ],
-      "startTime": [
-        "2023-11-03T07:33:27.890Z"
-      ],
-      "stopTime": [
-        "2023-11-03T08:20:11.234Z"
-      ],
+      "tags": ["errands"],
+      "startTime": ["2023-11-03T07:33:27.890Z"],
+      "stopTime": ["2023-11-03T08:20:11.234Z"],
       "isActive": false,
       "startInterval": "2023-11-03T07:33:27.890Z",
       "endInterval": "2023-11-03T08:20:11.234Z"
@@ -125,17 +71,9 @@
     {
       "id": 7,
       "name": "study algorithms",
-      "tags": [
-        "coding"
-      ],
-      "startTime": [
-        "2023-11-03T20:53:24.567Z",
-        "2023-11-03T21:53:27.890Z"
-      ],
-      "stopTime": [
-        "2023-11-03T21:13:27.890Z",
-        "2023-11-03T22:13:27.890Z"
-      ],
+      "tags": ["coding"],
+      "startTime": ["2023-11-03T20:53:24.567Z", "2023-11-03T21:53:27.890Z"],
+      "stopTime": ["2023-11-03T21:13:27.890Z", "2023-11-03T22:13:27.890Z"],
       "isActive": false,
       "startInterval": "2023-11-03T20:53:24.567Z",
       "endInterval": "2023-11-03T22:13:27.890Z"
@@ -143,15 +81,9 @@
     {
       "id": 8,
       "name": "solve coding problems",
-      "tags": [
-        "coding"
-      ],
-      "startTime": [
-        "2023-11-01T23:26:41.234Z"
-      ],
-      "stopTime": [
-        "2023-11-02T00:26:47.890Z"
-      ],
+      "tags": ["coding"],
+      "startTime": ["2023-11-01T23:26:41.234Z"],
+      "stopTime": ["2023-11-02T00:26:47.890Z"],
       "isActive": false,
       "startInterval": "2023-11-01T23:26:41.234Z",
       "endInterval": "2023-11-02T00:26:47.890Z"
@@ -159,16 +91,9 @@
     {
       "id": 9,
       "name": "attend coding bootcamp",
-      "tags": [
-        "coding",
-        "education"
-      ],
-      "startTime": [
-        "2023-11-01T02:00:07.890Z"
-      ],
-      "stopTime": [
-        "2023-11-01T02:46:54.567Z"
-      ],
+      "tags": ["coding", "education"],
+      "startTime": ["2023-11-01T02:00:07.890Z"],
+      "stopTime": ["2023-11-01T02:46:54.567Z"],
       "isActive": false,
       "startInterval": "2023-11-01T02:00:07.890Z",
       "endInterval": "2023-11-01T02:46:54.567Z"
@@ -176,17 +101,9 @@
     {
       "id": 10,
       "name": "complete coding assignment",
-      "tags": [
-        "coding",
-        "homework",
-        "deadline"
-      ],
-      "startTime": [
-        "2023-11-01T04:20:01.234Z"
-      ],
-      "stopTime": [
-        "2023-11-02T05:13:27.890Z"
-      ],
+      "tags": ["coding", "homework", "deadline"],
+      "startTime": ["2023-11-01T04:20:01.234Z"],
+      "stopTime": ["2023-11-02T05:13:27.890Z"],
       "isActive": false,
       "startInterval": "2023-11-01T04:20:01.234Z",
       "endInterval": "2023-11-02T05:13:27.890Z"
@@ -194,16 +111,9 @@
     {
       "id": 11,
       "name": "attend programming lecture",
-      "tags": [
-        "coding",
-        "education"
-      ],
-      "startTime": [
-        "2023-11-01T06:13:27.890Z"
-      ],
-      "stopTime": [
-        "2023-11-01T06:40:14.567Z"
-      ],
+      "tags": ["coding", "education"],
+      "startTime": ["2023-11-01T06:13:27.890Z"],
+      "stopTime": ["2023-11-01T06:40:14.567Z"],
       "isActive": false,
       "startInterval": "2023-11-01T06:13:27.890Z",
       "endInterval": "2023-11-01T06:40:14.567Z"
@@ -211,16 +121,9 @@
     {
       "id": 12,
       "name": "participate in coding workshop",
-      "tags": [
-        "coding",
-        "learning"
-      ],
-      "startTime": [
-        "2023-11-01T08:13:21.234Z"
-      ],
-      "stopTime": [
-        "2023-11-03T08:40:07.890Z"
-      ],
+      "tags": ["coding", "learning"],
+      "startTime": ["2023-11-01T08:13:21.234Z"],
+      "stopTime": ["2023-11-03T08:40:07.890Z"],
       "isActive": false,
       "startInterval": "2023-11-01T08:13:21.234Z",
       "endInterval": "2023-11-03T08:40:07.890Z"

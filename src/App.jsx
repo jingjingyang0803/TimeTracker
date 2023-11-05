@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -47,10 +47,23 @@ const NavigationBar = () => {
 };
 
 const App = () => {
-  const [theme, setTheme] = useState("default");
-  const themeClass = theme === "default" ? "defaultTheme" : "darkTheme";
+  const [theme, setTheme] = useState("default"); // Initialize to null
+  const [singleTaskMode, setSingleTaskMode] = useState(null); // Initialize to null
 
-  const [singleTaskMode, setSingleTaskMode] = useState(false);
+  useEffect(() => {
+    // Fetch theme and mode settings from the JSON server
+    fetch("http://localhost:3010/settings")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.settings) {
+          // Check if the data and settings object exist
+          setSingleTaskMode(data.settings.singleMode);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []); // The empty dependency array ensures this effect runs only once
+
+  const themeClass = theme === "default" ? "defaultTheme" : "darkTheme";
 
   return (
     <BrowserRouter>
