@@ -31,12 +31,16 @@ const DailyActiveChart = () => {
 
   // Handle change of start date
   const handleStartChange = (event) => {
-    setStart(new Date(event.target.value).getTime());
+    const selectedDate = new Date(event.target.value);
+    selectedDate.setHours(0, 0, 0, 0); // Set the time to 00:00:00
+    setStart(selectedDate.getTime());
   };
 
   // Handle change of end date
   const handleEndChange = (event) => {
-    setEnd(new Date(event.target.value).getTime());
+    const selectedDate = new Date(event.target.value);
+    selectedDate.setHours(23, 59, 59, 999); // Set the time to 24:59:59
+    setEnd(selectedDate.getTime());
   };
 
   // ================================= Calculate Daily Active Time ===============================================
@@ -185,7 +189,7 @@ const DailyActiveChart = () => {
       <label>
         Start Date: {/* Input field for the start date of the interval */}
         <input
-          type="datetime-local"
+          type="date"
           onChange={handleStartChange} // When the date is changed, handleStartChange function is called
         />
       </label>
