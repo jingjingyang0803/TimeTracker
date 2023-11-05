@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import About from "./components/About";
 import Tasks from "./components/Tasks";
 import TimeUsage from "./components/TimeUsage";
-import Summary from "./components/TotalActiveTime";
-import Interval from "./components/ActiveIntervals";
-import Intervals from "./components/Timeline";
-import Charts from "./components/DailyActiveChart";
+import TotalActiveTime from "./components/TotalActiveTime";
+import ActiveIntervals from "./components/ActiveIntervals";
+import Timeline from "./components/Timeline";
+import DailyActiveChart from "./components/DailyActiveChart";
 import Settings from "./components/Settings";
 
 import "./App.css";
@@ -29,17 +29,19 @@ const NavigationBar = () => {
           {/* Link to the Time Usage page */}
         </li>
         <li>
-          <Link to="/summary">Summary</Link> {/* Link to the Summary page */}
+          <Link to="/total-active-time">TotalActiveTime</Link>{" "}
+          {/* Link to the TotalActiveTime page */}
         </li>
         <li>
-          <Link to="/interval">Interval</Link> {/* Link to the Interval page */}
+          <Link to="/active-intervals">ActiveIntervals</Link>{" "}
+          {/* Link to the ActiveIntervals page */}
         </li>
         <li>
-          <Link to="/intervals">Intervals</Link>{" "}
-          {/* Link to the Interval page */}
+          <Link to="/timeline">Timeline</Link> {/* Link to the Timeline page */}
         </li>
         <li>
-          <Link to="/charts">Charts</Link> {/* Link to the Charts page */}
+          <Link to="/daily-active-chart">DailyActiveChart</Link>{" "}
+          {/* Link to the DailyActiveChart page */}
         </li>
         <li>
           <Link to="/settings">Settings</Link> {/* Link to the Settings page */}
@@ -73,14 +75,23 @@ const App = () => {
             {/* Route for the Tasks page */}
             <Route path="/time-usage" element={<TimeUsage />} />{" "}
             {/* Route for the Time Usage page */}
-            <Route path="/summary" element={<Summary />} />{" "}
-            {/* Route for the Summary page */}
-            <Route path="/interval" element={<Interval />} />{" "}
-            {/* Route for the Interval page */}
-            <Route path="/intervals" element={<Intervals />} />{" "}
-            {/* Route for the Intervals page */}
-            <Route path="/charts" element={<Charts />} />{" "}
-            {/* Route for the Charts page */}
+            <Route
+              path="/total-active-time"
+              element={<TotalActiveTime />}
+            />{" "}
+            {/* Route for the TotalActiveTime page */}
+            <Route
+              path="/active-intervals"
+              element={<ActiveIntervals />}
+            />{" "}
+            {/* Route for the ActiveIntervals page */}
+            <Route path="/timeline" element={<Timeline />} />{" "}
+            {/* Route for the ActiveIntervalss page */}
+            <Route
+              path="/daily-active-chart"
+              element={<DailyActiveChart />}
+            />{" "}
+            {/* Route for the DailyActiveChart page */}
             <Route
               path="/settings"
               element={
