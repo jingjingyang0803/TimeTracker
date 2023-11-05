@@ -502,7 +502,7 @@ const Tasks = ({ singleTaskMode }) => {
         </div>
       </div>
       {/* Display the message to the user */}
-      {message && <div className="message">{message}</div>}
+      <i>{message && <div className="message">{message}</div>}</i>
       <ol>
         {filteredTasks.map((task) => (
           <TaskElement

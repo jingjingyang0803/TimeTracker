@@ -60,59 +60,11 @@ const DailyActiveChart = () => {
     return `${hours}h ${minutes}m ${seconds}s`;
   };
 
-  function calculateDailyDurations(task) {
-    const { startTime, stopTime } = task;
-    const dailyDurations = {};
-
-    for (let i = 0; i < startTime.length; i++) {
-      const start = new Date(startTime[i]);
-      const stop = new Date(stopTime[i]);
-
-      // Calculate the date of the start and stop times
-      const startDate = new Date(
-        start.getFullYear(),
-        start.getMonth(),
-        start.getDate()
-      );
-      const stopDate = new Date(
-        stop.getFullYear(),
-        stop.getMonth(),
-        stop.getDate()
-      );
-
-      let currentDate = new Date(startDate);
-
-      while (currentDate <= stopDate) {
-        const currentDateString = currentDate.toISOString().split("T")[0];
-
-        // Calculate the duration for the current day
-        const startOfDay = new Date(Math.max(currentDate, start));
-        startOfDay.setHours(0, 0, 0, 0);
-        const endOfDay = new Date(Math.min(new Date(currentDate), stop));
-        endOfDay.setHours(23, 59, 59, 999);
-
-        const duration = endOfDay - startOfDay;
-
-        // Initialize the daily duration for the current day
-        if (!dailyDurations[currentDateString]) {
-          dailyDurations[currentDateString] = 0;
-        }
-
-        // Add the interval duration to the daily duration
-        dailyDurations[currentDateString] += duration;
-
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-    }
-
-    return dailyDurations;
-  }
-
-  const calculateDailyActiveTime = (task, startDate, endDate) => {
+  const calculateDailyActiveTime = (task, activateDate, endDate) => {
     const dailyDurations = {};
 
     for (let i = 0; i < task.startTime.length; i++) {
-      const startTime = new Date(task.startTime[i]).getTime();
+      let startTime = new Date(task.startTime[i]).getTime();
       let stopTime = new Date(task.stopTime[i]).getTime();
 
       // If the task is currently active and it's the last activation, set stopTime to now
@@ -120,55 +72,38 @@ const DailyActiveChart = () => {
         stopTime = new Date();
       }
 
-      // Create start and end of the day for the startTime
-      const startOfDay = new Date(startTime);
-      startOfDay.setHours(0, 0, 0, 0);
+      let currentDate = new Date(startTime);
 
-      const endOfDay = new Date(startTime);
-      endOfDay.setHours(23, 59, 59, 999);
+      while (currentDate < stopTime) {
+        if (currentDate >= activateDate && currentDate <= endDate) {
+          const dayKey = currentDate.toDateString();
 
-      // Check if the startTime falls within the specified date range
-      if (startTime >= startDate && startTime <= endDate) {
-        const dayKey = startOfDay.toDateString();
-        const duration = stopTime - startTime;
+          if (!dailyDurations[dayKey]) {
+            dailyDurations[dayKey] = {
+              day: currentDate.toLocaleDateString(),
+              duration: 0, // Initialize duration to 0
+            };
+          }
 
-        if (!dailyDurations[dayKey]) {
-          dailyDurations[dayKey] = {
-            day: startOfDay.toLocaleDateString(),
-            duration: 0,
-          };
-        }
+          // Calculate the duration for the current day, but cap it at 24 hours
+          const startOfDay = new Date(currentDate);
+          startOfDay.setHours(0, 0, 0, 0);
 
-        if (stopTime >= endOfDay) {
-          dailyDurations[dayKey].duration += endOfDay - startTime;
+          const endOfDay = new Date(currentDate);
+          endOfDay.setHours(23, 59, 59, 999);
+
+          const duration =
+            Math.min(endOfDay, stopTime) - Math.max(startTime, startOfDay);
+
+          // Add the duration to the daily duration, capping it at 24 hours
+          dailyDurations[dayKey].duration += Math.min(duration, 86400000);
+
+          // Move to the next day
+          currentDate.setDate(currentDate.getDate() + 1);
         } else {
-          dailyDurations[dayKey].duration += duration;
+          // Move to the next day without adding duration
+          currentDate.setDate(currentDate.getDate() + 1);
         }
-      }
-    }
-
-    const today = new Date();
-    const todayKey = today.toDateString();
-
-    // Check if today is within the specified date range and if the task is currently active
-    if (task.isActive && today >= startDate && today <= endDate) {
-      if (!dailyDurations[todayKey]) {
-        // Create a new entry for today if it doesn't exist
-        dailyDurations[todayKey] = {
-          day: today.toLocaleDateString(),
-          duration: 0,
-        };
-      }
-
-      // Add the duration from the start of the day until now
-      dailyDurations[todayKey].duration +=
-        today - new Date(today.toDateString());
-    }
-
-    // Log the daily durations within the specified date range
-    for (const dayKey in dailyDurations) {
-      if (dailyDurations.hasOwnProperty(dayKey)) {
-        const day = dailyDurations[dayKey];
       }
     }
 
