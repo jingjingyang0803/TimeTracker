@@ -20,22 +20,22 @@ const NavigationBar = () => {
           <Link to="/">About</Link> {/* Link to the About page */}
         </li>
         <li>
-          <Link to="/tasks">Task Management</Link>{" "}
+          <Link to="/tasks">Task-Management</Link>{" "}
           {/* Link to the Tasks page */}
         </li>
         <li>
-          <Link to="/total-active-time">TotalActiveTime</Link>{" "}
+          <Link to="/total-active-time">Total-Active-Time</Link>{" "}
           {/* Link to the TotalActiveTime page */}
         </li>
         <li>
-          <Link to="/active-intervals">ActiveIntervals</Link>{" "}
+          <Link to="/active-intervals">Active-Intervals</Link>{" "}
           {/* Link to the ActiveIntervals page */}
         </li>
         <li>
           <Link to="/timeline">Timeline</Link> {/* Link to the Timeline page */}
         </li>
         <li>
-          <Link to="/daily-active-chart">DailyActiveChart</Link>{" "}
+          <Link to="/daily-active-chart">Daily-Active-Chart</Link>{" "}
           {/* Link to the DailyActiveChart page */}
         </li>
         <li>

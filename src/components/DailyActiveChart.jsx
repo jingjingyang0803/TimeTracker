@@ -94,10 +94,13 @@ const DailyActiveChart = () => {
           startOfDay.setHours(0, 0, 0, 0);
 
           const endOfDay = new Date(currentDate);
-          endOfDay.setHours(23, 59, 59, 999);
+          endOfDay.setHours(24, 0, 0, 0);
 
-          const duration =
+          let duration =
             Math.min(endOfDay, stopTime) - Math.max(startTime, startOfDay);
+
+          // Round the duration to the nearest millisecond
+          duration = Math.round(duration);
 
           // Add the duration to the daily duration, capping it at 24 hours
           dailyDurations[dayKey].duration += Math.min(duration, 86400000);
@@ -122,7 +125,7 @@ const DailyActiveChart = () => {
     const data = Object.values(calculateDailyActiveTime(task, start, end)).map(
       ({ day, duration }) => ({
         x: day,
-        y: duration / 60000, // Convert duration to minutes,
+        y: duration,
       })
     );
     setChartData({
@@ -130,7 +133,7 @@ const DailyActiveChart = () => {
       datasets: [
         {
           label: "Daily active time (in minutes)",
-          data: data.map((item) => item.y),
+          data: data.map((item) => item.y / 60000), // Convert duration to minutes
           backgroundColor: "rgba(75,192,192,0.6)",
           borderColor: "rgba(75,192,192,1)",
           borderWidth: 1,
@@ -200,7 +203,6 @@ const DailyActiveChart = () => {
         <input
           type="date"
           onChange={handleEndChange} // When the date is changed, handleEndChange function is called
-          value={new Date(end).toISOString().substring(0, 10)} // The value is the end date in ISO format
         />
       </label>
 
