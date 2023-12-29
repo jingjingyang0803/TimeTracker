@@ -41,10 +41,10 @@ const About = () => {
       </p>
       <hr />
       <h3>Author: </h3>Jingjing Yang
-      <h3> Log of Working Hours --- 93h in total</h3>
+      <h3> Log of Working Hours</h3>
       <ol>
         <li>
-          Module A: 6h
+          Module A
           <ul>
             <li>
               Created a page with some views that can be switched between using
@@ -61,7 +61,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module B: 3h
+          Module B
           <ul>
             <li>
               Updated the "About" view, including the author's name, working
@@ -74,7 +74,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module C: 5h
+          Module C
           <ul>
             <li>
               Added a file 'db.json' to the root directory to serve as the
@@ -95,7 +95,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module D: 20h
+          Module D
           <ul>
             <li>Added tag remove and tag add functionality. </li>
             <li>Implemented task remove and task add functionality.</li>
@@ -103,7 +103,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module E: 2h
+          Module E
           <ul>
             <li>
               Save edited task (adding/removing tags or editing task names) to
@@ -118,7 +118,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module F: 6h
+          Module F
           <ul>
             <li>Add an input field to collect selected tags from the user.</li>
             <li>
@@ -131,7 +131,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module G: 10h
+          Module G
           <ul>
             <li>
               Enabled the ability to add a tag from a dropdown list containing
@@ -152,14 +152,14 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module H: 6h
+          Module H
           <ul>
             <li>Implement task activation and inactivation functionality.</li>
             <li>Implement task activity tracking and time recording.</li>
           </ul>
         </li>
         <li>
-          Module I: 6h
+          Module I
           <ul>
             <li>
               Set up an observation interval that, by default, covers the
@@ -182,7 +182,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module J: 7h
+          Module J
           <ul>
             <li>
               Implement a feature that enables users to set the interval for
@@ -195,7 +195,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module K: 8h
+          Module K
           <ul>
             <li>
               Implement a feature that allows users to set the interval for the
@@ -211,7 +211,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module L: 13h
+          Module L
           <ul>
             <li>
               Implemented feature to change application theme affecting UI
@@ -221,7 +221,7 @@ const About = () => {
           </ul>
         </li>
         <li>
-          Module M: 1h
+          Module M
           <ul>
             <li>Header's layout changes from a row to a column below 720px.</li>
             <li>Adjust font size and padding for different screen sizes.</li>
