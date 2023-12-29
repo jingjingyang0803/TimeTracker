@@ -16,14 +16,14 @@ This project serves as the final assignment for the <5G00DM05-3004/3005 Full Sta
 1. Clone the repository to your local machine:
 2. Run the backend server: `npx json-server -H localhost -p 3010 -w ./db.json`
 3. Install dependencies and start the development server:
-
-```
-npm install
-npm run dev
-```
-
-1. Open the application in your web browser at [http://localhost:3000](http://localhost:3000/).
-2. Explore the application by clicking on tags in the navigation bar and following on-screen instructions.
+    
+    ```
+    npm install
+    npm run dev
+    ```
+    
+4. Open the application in your web browser at [http://localhost:3000](http://localhost:3000/).
+5. Explore the application by clicking on tags in the navigation bar and following on-screen instructions.
 
 ## Log of Working
 
