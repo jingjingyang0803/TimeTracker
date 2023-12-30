@@ -44,3 +44,6 @@ For a detailed log of the project's development and milestones, please refer to 
 11. **Data Visualization**: Integration of **`react-chartjs-2`** and **`chart.js`** for displaying bar charts, providing visual summaries of daily activities and task durations.
 12. **Adaptive UI Design**: Features to adapt the layout (e.g., header's layout change below certain screen width) and to change the application's theme, affecting UI colors.
 13. **CSS and Styling Adjustments**: Responsive styling with adjustments for different screen sizes, including font size and padding changes.
+
+## Link
+The live site is available at https://jingjingyang0803.github.io/TimeTracker/
